@@ -29,7 +29,7 @@ USP, in dieser Reihenfolge:
 
 Formate: Treffen alle zwei Monate, Masterminds, digitaler Community-Hub für KPI-Austausch, später FEMPIRE Academy und mehrtägige Retreats.
 
-Preise: Konkrete Beiträge sind intern und stehen nicht im Repo. Auf der Seite nur: „Die Investition besprechen wir im persönlichen Gespräch.“ (siehe Abschnitt 11)
+Preise: nur auf /mitgliedsbeitrag, siehe Abschnitt 11.
 
 ## 2. Die Gründerinnen
 
@@ -146,7 +146,7 @@ Der Club hat **zwei getrennte Kreise**. Sie teilen die Marke, aber nie den Raum,
 - **FEMPIRE FOUNDATIONS**: Frauen vor der Gründung. Eigenes Programm über 12 Monate mit Abschluss, danach Bewerbung in den Leader Circle oder Ende. Kein Dauerabo. Eigene monatliche Treffen, Coaching durch die Gründerinnen, eigener Kanal.
 
 Regeln für die Website:
-- Keine Preise, Beträge oder Zahlenbereiche. Einzige zulässige Formulierung: „Die Investition besprechen wir im persönlichen Gespräch.“ Konkrete Beiträge und Founding-Konditionen sind intern und gehören nicht ins Repo.
+- Beiträge stehen ausschließlich auf der Seite /mitgliedsbeitrag (Texte in content/membership.ts), die nur im Footer verlinkt ist. Dort netto und brutto, beide Kreise untereinander, keine Vergleichstabelle. Überall sonst (Startseite, FAQ, Bewerbung) keine Beträge, nur: „Die Investition besprechen wir im persönlichen Gespräch.“ Founding-Konditionen (Sonderpreise der ersten Runde) werden nirgends genannt.
 - Beide Kreise sichtbar getrennt: eigene Sektion, eigener CTA. Keine Preistabelle, keine Stufen-Optik, kein „Basic vs. Premium“.
 - FOUNDATIONS nie als günstigere Variante des Leader Circle, sondern als eigenes Programm mit eigenem Ziel. Nie „Einsteigerinnen“, „Anfängerinnen“ oder „kleine Selbstständige“.
 - Bewerberinnen wählen keinen Kreis. Schritt 2 der Bewerbung (Situation) entscheidet über den Pfad: Wer noch nicht gegründet hat, bekommt die FOUNDATIONS-Fragen, alle anderen die Leader-Fragen. Die Zuordnung trifft das Auswahlteam.

@@ -29,7 +29,9 @@ export const site = {
   },
 
   footer: {
-    note: "Ein Kreis aus Osnabrück. Münster, Hamburg und Frankfurt folgen.",
+    note: "Unternehmerinnentreff aus Osnabrück (weitere Städte folgen). Gemeinsam zu Millionen-Umsätzen.",
+    /** Nur im Footer verlinkt */
+    links: [{ label: "Mitgliedsbeitrag", href: "/mitgliedsbeitrag" }],
     legal: [
       { label: "Impressum", href: "/impressum" },
       { label: "Datenschutz", href: "/datenschutz" },

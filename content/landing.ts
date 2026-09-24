@@ -7,7 +7,8 @@
  *
  * Regeln für neue Texte: Du-Anrede, weibliche Formen, kurze Sätze,
  * keine Ausrufezeichen, keine Emojis, keine Superlative.
- * Keine Preise, Beträge oder Zahlenbereiche. Einzige zulässige Formulierung:
+ * Keine Beträge auf der Startseite (die stehen nur auf /mitgliedsbeitrag, content/membership.ts).
+ * Zur Investition hier nur die Formulierung:
  * „Die Investition besprechen wir im persönlichen Gespräch.“
  * FOUNDATIONS nie als günstigere Variante darstellen, nie „Einsteigerinnen“ oder „Anfängerinnen“.
  */

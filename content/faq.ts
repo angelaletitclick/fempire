@@ -1,6 +1,6 @@
 /**
  * FAQ der Startseite. Reihenfolge hier = Reihenfolge auf der Seite.
- * Keine Preise, Beträge oder Zahlenbereiche. Zur Investition nur:
+ * Keine Beträge in der FAQ (die stehen nur auf /mitgliedsbeitrag). Zur Investition nur:
  * „Die Investition besprechen wir im persönlichen Gespräch.“
  */
 export const faq = {

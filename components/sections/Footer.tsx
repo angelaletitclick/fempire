@@ -11,9 +11,9 @@ export function Footer() {
           <Logo />
           <p className="mt-4 max-w-sm text-base text-slate">{site.footer.note}</p>
         </div>
-        <nav aria-label="Rechtliches" className="md:col-span-6 md:justify-self-end">
+        <nav aria-label="Weitere Seiten" className="md:col-span-6 md:justify-self-end">
           <ul className="flex flex-wrap gap-x-8 gap-y-3">
-            {site.footer.legal.map((item) => (
+            {[...site.footer.links, ...site.footer.legal].map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="label hover:text-white">
                   {item.label}
