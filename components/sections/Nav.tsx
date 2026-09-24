@@ -84,7 +84,7 @@ export function Nav() {
               <Link
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="headline block py-5 text-xl"
+                className="headline block py-5 text-2xl"
               >
                 {item.label}
               </Link>

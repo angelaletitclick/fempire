@@ -35,7 +35,7 @@ export function Section({
           <div className="md:col-span-9">
             <h2
               id={headingId}
-              className="headline text-[clamp(1.5rem,6.4vw,4.5rem)] [hyphens:auto]"
+              className="headline text-[clamp(1.75rem,3.4vw,3.25rem)] [hyphens:auto]"
             >
               {headline}
             </h2>

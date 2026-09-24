@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Syne } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import { site } from "@/content/site";
 import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -12,8 +12,9 @@ const inter = Inter({
   display: "swap",
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+// Headline-Schrift. Zum Wechseln nur diesen Block ändern, alle Headlines nutzen --font-heading.
+const heading = Montserrat({
+  variable: "--font-heading",
   subsets: ["latin"],
   weight: ["800"],
   display: "swap",
@@ -50,7 +51,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={`${inter.variable} ${syne.variable} antialiased`}>
+    <html lang="de" className={`${inter.variable} ${heading.variable} antialiased`}>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

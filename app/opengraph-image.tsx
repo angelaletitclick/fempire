@@ -16,8 +16,8 @@ const SLATE = "#b4b4b8";
 const LINE = "#2a2a2a";
 
 export default async function OpengraphImage() {
-  const [syne, inter] = await Promise.all([
-    readFile(join(process.cwd(), "assets/fonts/Syne-ExtraBold.ttf")),
+  const [heading, inter] = await Promise.all([
+    readFile(join(process.cwd(), "assets/fonts/Montserrat-ExtraBold.ttf")),
     readFile(join(process.cwd(), "assets/fonts/Inter-Medium.ttf")),
   ]);
 
@@ -38,17 +38,17 @@ export default async function OpengraphImage() {
         <div style={{ display: "flex", color: SLATE, fontSize: 22, letterSpacing: "0.12em", textTransform: "uppercase" }}>
           {hero.eyebrow}
         </div>
-        <div style={{ display: "flex", flexDirection: "column", fontFamily: "Syne", color: WHITE, fontSize: 100, lineHeight: 0.92, letterSpacing: "-0.02em", textTransform: "uppercase" }}>
-          {hero.headline.map((line) => (
-            <span key={line}>{line}</span>
+        <div style={{ display: "flex", flexDirection: "column", fontFamily: "Montserrat", color: WHITE, fontSize: 96, lineHeight: 1, letterSpacing: "-0.01em", textTransform: "uppercase" }}>
+          {hero.headline.map((line, i) => (
+            <span key={line} style={{ color: i === 0 ? WHITE : PINK }}>
+              {line}
+            </span>
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", height: 2, background: LINE }}>
-            <div style={{ width: 300, height: 2, background: PINK }} />
-          </div>
+          <div style={{ display: "flex", height: 1, background: LINE }} />
           <div style={{ display: "flex", justifyContent: "space-between", marginTop: 22, color: SLATE, fontSize: 22, letterSpacing: "0.12em", textTransform: "uppercase" }}>
-            <span style={{ fontFamily: "Syne", color: WHITE }}>{site.name}</span>
+            <span style={{ fontFamily: "Montserrat", color: WHITE }}>{site.name}</span>
             <span>{site.claimSuffix}</span>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default async function OpengraphImage() {
     {
       ...size,
       fonts: [
-        { name: "Syne", data: syne, weight: 800, style: "normal" },
+        { name: "Montserrat", data: heading, weight: 800, style: "normal" },
         { name: "Inter", data: inter, weight: 500, style: "normal" },
       ],
     },

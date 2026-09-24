@@ -9,7 +9,7 @@ export default function NotFound() {
       <main id="inhalt">
         <section className="container-site flex min-h-[70svh] flex-col justify-center py-section">
           <p className="label">404</p>
-          <h1 className="headline mt-8 text-[clamp(2.5rem,9vw,7rem)]">Hier ist nichts.</h1>
+          <h1 className="headline mt-8 text-[clamp(2.5rem,6.2vw,5.75rem)]">Hier ist nichts.</h1>
           <p className="prose-width mt-8 text-lg text-slate">Die Seite gibt es nicht oder nicht mehr.</p>
           <div className="mt-10">
             <ButtonLink href="/">Zur Startseite</ButtonLink>

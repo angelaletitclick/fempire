@@ -16,7 +16,7 @@ export function Gruenderinnen() {
         {gruenderinnen.people.map((person, i) => (
           <Reveal as="article" key={person.name} delay={i * 120} className="flex flex-col">
             <ImagePlaceholder caption={person.imageCaption} />
-            <h3 className="headline mt-10 text-2xl sm:text-4xl lg:text-5xl [hyphens:none]">{person.name}</h3>
+            <h3 className="headline mt-10 text-3xl lg:text-4xl [hyphens:none]">{person.name}</h3>
             <p className="label mt-4">{person.role}</p>
             <p className="prose-width mt-6 text-base leading-relaxed text-slate">{person.bio}</p>
             <p className="prose-width mt-6 border-t border-line pt-6 text-base leading-relaxed text-white">

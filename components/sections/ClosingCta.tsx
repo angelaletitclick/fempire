@@ -13,7 +13,7 @@ export function ClosingCta({ waitlist }: { waitlist?: ReactNode }) {
           {closing.label}
         </p>
         <Reveal>
-          <h2 id="closing-heading" className="headline mt-10 text-[clamp(2.75rem,10vw,9rem)]">
+          <h2 id="closing-heading" className="headline mt-10 text-[clamp(2.5rem,6.2vw,5.75rem)]">
             {closing.headline}
           </h2>
           <div className="mt-10 grid gap-10 md:grid-cols-12 md:items-end">
