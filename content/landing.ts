@@ -10,7 +10,7 @@
  */
 
 export const hero = {
-  headline: ["Baue kein kleines Business.", "==Baue dein Fempire.=="],
+  headline: ["++Baue kein kleines Business.++", "==Baue dein Fempire.=="],
   subline:
     "Der vertrauliche Business-Circle für Frauen, die Unternehmen systematisieren, Umsätze pushen und Märkte prägen.",
   /** Datum wird automatisch aus der Terminregel unten berechnet */

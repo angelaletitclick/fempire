@@ -5,7 +5,7 @@ import { Logo } from "./Logo";
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="container-site pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-10">
+    <footer className="container-site pb-[calc(4.5rem+2.5rem+env(safe-area-inset-bottom))] pt-10 lg:pb-[max(2.5rem,env(safe-area-inset-bottom))]">
       <div className="grid gap-10 border-t border-line pt-10 md:grid-cols-12">
         <div className="md:col-span-6">
           <Logo />

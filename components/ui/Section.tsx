@@ -4,9 +4,12 @@ import { Marked } from "./Marked";
 import { Reveal } from "./Reveal";
 
 /**
- * Sektionsrahmen: Trennlinie, die sich beim Scrollen zeichnet, Label mit Nummer
- * und Headline, die von unten freigelegt wird. Alle Sektionen der Startseite
- * nutzen ihn, damit Abstände und Bewegung einheitlich bleiben.
+ * Sektionsrahmen mit klarer Hierarchie:
+ *   1. Nummer und Label (klein, Versalien)
+ *   2. Headline groß und über die volle Breite
+ *   3. optional ein Intro
+ *   4. Inhalt, meist in Karten
+ * Die Headline ist bewusst mehrere Stufen größer als jeder Text darunter.
  */
 export function Section({
   id,
@@ -15,7 +18,7 @@ export function Section({
   headline,
   intro,
   className,
-  bodyClassName = "mt-14 md:mt-20",
+  bodyClassName = "mt-10 md:mt-16",
   children,
 }: {
   id: string;
@@ -31,29 +34,35 @@ export function Section({
   return (
     <section id={id} aria-labelledby={headingId} className={cx("container-site py-section", className)}>
       <Reveal variant="line" className="h-px bg-line" />
-      <div className="grid gap-8 pt-8 md:grid-cols-12 md:gap-10 md:pt-10">
-        <Reveal as="p" className="label md:col-span-3">
-          <span aria-hidden="true">{index} — </span>
-          {label}
+      <div className="pt-6 md:pt-10">
+        <SectionLabel index={index} label={label} />
+        <Reveal
+          as="h2"
+          id={headingId}
+          variant="wipe"
+          delay={100}
+          className="headline mt-5 max-w-[20ch] text-[2.25rem] leading-[1.05] [hyphens:auto] sm:text-5xl md:mt-7 lg:text-[4.25rem]"
+        >
+          <Marked text={headline} />
         </Reveal>
-        <div className="md:col-span-9">
-          <Reveal
-            as="h2"
-            id={headingId}
-            variant="wipe"
-            delay={100}
-            className="headline text-[clamp(1.75rem,3.4vw,3.25rem)] [hyphens:auto]"
-          >
-            <Marked text={headline} />
+        {intro ? (
+          <Reveal as="p" delay={250} className="prose-width mt-5 text-base leading-relaxed text-slate-light md:mt-7 md:text-lg">
+            {intro}
           </Reveal>
-          {intro ? (
-            <Reveal as="p" delay={250} className="prose-width mt-8 text-lg leading-relaxed text-slate">
-              {intro}
-            </Reveal>
-          ) : null}
-        </div>
+        ) : null}
       </div>
       <div className={bodyClassName}>{children}</div>
     </section>
+  );
+}
+
+export function SectionLabel({ index, label }: { index: string; label: string }) {
+  return (
+    <Reveal as="p" className="label flex items-center gap-3">
+      <span className="inline-flex h-7 min-w-7 items-center justify-center border border-line px-1.5 text-white tabular-nums">
+        {index}
+      </span>
+      {label}
+    </Reveal>
   );
 }

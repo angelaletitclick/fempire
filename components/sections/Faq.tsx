@@ -5,17 +5,20 @@ import { Section } from "@/components/ui/Section";
 export function Faq() {
   return (
     <Section id={faq.id} index="07" label={faq.label} headline={faq.headline}>
-      <div className="border-t border-line md:ml-[25%]">
+      <div className="grid gap-2 lg:max-w-4xl">
         {faq.items.map((item) => (
-          <details key={item.question} className="group border-b border-line">
-            <summary className="flex cursor-pointer items-start justify-between gap-6 py-7 text-xl font-semibold leading-snug transition-colors hover:text-slate-light md:text-2xl">
-              <h3 className="font-semibold">{item.question}</h3>
-              <span aria-hidden="true" className="relative mt-2 block h-4 w-4 shrink-0">
-                <span className="absolute left-0 top-1/2 h-px w-4 bg-current" />
-                <span className="absolute left-1/2 top-0 h-4 w-px bg-current transition-transform duration-300 group-open:rotate-90" />
+          <details key={item.question} className="card group open:border-slate">
+            <summary className="flex cursor-pointer items-center justify-between gap-6 px-5 py-5 transition-colors hover:bg-white/[0.02] md:px-7 md:py-6">
+              <h3 className="text-base font-semibold leading-snug md:text-lg">{item.question}</h3>
+              <span
+                aria-hidden="true"
+                className="relative flex h-8 w-8 shrink-0 items-center justify-center border border-line transition-colors group-open:border-white group-open:bg-white group-open:text-onyx"
+              >
+                <span className="absolute h-px w-3 bg-current" />
+                <span className="absolute h-3 w-px bg-current transition-transform duration-300 group-open:rotate-90" />
               </span>
             </summary>
-            <div className="prose-width space-y-4 pb-8 text-base leading-relaxed text-slate">
+            <div className="prose-width space-y-4 px-5 pb-6 text-base leading-relaxed text-slate-light md:px-7">
               {item.answer.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}

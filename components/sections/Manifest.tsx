@@ -1,28 +1,25 @@
 import { manifest } from "@/content/landing";
 import { Marked } from "@/components/ui/Marked";
+import { Rail } from "@/components/ui/Rail";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 
 export function Manifest() {
   return (
     <Section id={manifest.id} index="01" label={manifest.label} headline={manifest.headline}>
-      <ol className="border-b border-line">
+      <Rail label={manifest.label} as="ol">
         {manifest.statements.map((statement, i) => (
-          <Reveal as="li" key={statement.title} delay={i * 60} className="grid gap-4 border-t border-line py-8 md:grid-cols-12 md:gap-10 md:py-12">
-            <span aria-hidden="true" className="label md:col-span-3">
+          <Reveal as="li" key={statement.title} delay={i * 70} className="card flex flex-col p-6 md:p-8">
+            <span aria-hidden="true" className="headline text-4xl text-slate/50 md:text-5xl">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <div className="md:col-span-9 md:grid md:grid-cols-9 md:gap-10">
-              <h3 className="text-[clamp(1.5rem,3.2vw,2.5rem)] font-semibold leading-tight tracking-tight text-balance md:col-span-5">
-                <Marked text={statement.title} />
-              </h3>
-              <p className="prose-width mt-4 text-base leading-relaxed text-slate md:col-span-4 md:mt-2">
-                {statement.body}
-              </p>
-            </div>
+            <h3 className="mt-8 text-xl font-semibold leading-snug text-balance md:text-2xl">
+              <Marked text={statement.title} />
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-slate-light">{statement.body}</p>
           </Reveal>
         ))}
-      </ol>
+      </Rail>
     </Section>
   );
 }

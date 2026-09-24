@@ -14,8 +14,10 @@
   --line: #2a2a2a;
   /* Kaum sichtbare Linie für Hintergrund-Strukturen (Säulen im Hero) */
   --line-soft: #1a1a1a;
+  /* Leicht abgesetzte Fläche für Karten */
+  --surface: #141414;
 
-  --section-gap: clamp(8rem, 12vw, 11rem);
+  --section-gap: clamp(5rem, 12vw, 11rem);
   --gutter: clamp(1.25rem, 4vw, 3rem);
 
   color-scheme: dark;
@@ -30,6 +32,7 @@
   --color-slate-light: var(--slate-light);
   --color-line: var(--line);
   --color-line-soft: var(--line-soft);
+  --color-surface: var(--surface);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-heading), var(--font-inter), ui-sans-serif, sans-serif;
@@ -249,5 +252,49 @@
   /* Beim Freilegen einer Headline darf die Fläche seitlich über den Text ragen */
   [data-reveal="shown"][data-variant="wipe"] {
     clip-path: inset(-0.2em -0.5em -0.2em -0.5em);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Karten und wischbare Reihen (mobil App-Gefühl)                      */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .card {
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  /* Mobil: horizontale Reihe mit Snap, randlos bis an den Bildschirmrand.
+     Ab md: normales Raster (Spalten setzt die Komponente). */
+  .rail {
+    /* Bezugsrahmen für absolut positionierte Kinder (z. B. sr-only), sonst verbreitern sie die Seite */
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 84%;
+    gap: 0.75rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail > * {
+    scroll-snap-align: start;
+  }
+  @media (width >= 48rem) {
+    .rail {
+      grid-auto-flow: row;
+      grid-auto-columns: auto;
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+      gap: 1rem;
+    }
   }
 }

@@ -5,36 +5,31 @@ import { Arrow, ButtonLink } from "@/components/ui/Button";
 import { Crown } from "@/components/ui/Emblem";
 import { Marked } from "@/components/ui/Marked";
 import { Reveal } from "@/components/ui/Reveal";
+import { SectionLabel } from "@/components/ui/Section";
 
 export function ClosingCta({ waitlist }: { waitlist?: ReactNode }) {
   return (
     <section id={closing.id} aria-labelledby="closing-heading" className="container-site py-section">
-      <Reveal variant="line" className="h-px bg-line" />
-      <div className="flex items-center justify-between pt-8 md:pt-10">
-        <p className="label">
-          <span aria-hidden="true">08 — </span>
-          {closing.label}
-        </p>
-        <Reveal delay={200}>
-          <Crown className="w-10 text-white md:w-12" />
+      <Reveal className="card relative overflow-hidden p-6 sm:p-10 lg:p-16">
+        <Crown className="absolute right-6 top-6 w-10 text-white sm:right-10 sm:top-10 md:w-14" />
+        <SectionLabel index="08" label={closing.label} />
+        <Reveal
+          as="h2"
+          id="closing-heading"
+          variant="wipe"
+          delay={100}
+          className="headline mt-8 text-[2.75rem] leading-[1.1] sm:text-6xl lg:text-[5.5rem]"
+        >
+          <Marked text={closing.headline} />
         </Reveal>
-      </div>
-      <Reveal
-        as="h2"
-        id="closing-heading"
-        variant="wipe"
-        delay={100}
-        className="headline mt-10 text-[clamp(2.5rem,6.2vw,5.75rem)]"
-      >
-        <Marked text={closing.headline} />
-      </Reveal>
-      <Reveal delay={300} className="mt-10 grid gap-10 md:grid-cols-12 md:items-end">
-        <p className="prose-width text-lg leading-relaxed text-slate md:col-span-6 md:text-xl">{closing.body}</p>
-        <div className="md:col-span-6 md:justify-self-end">
-          <ButtonLink href={site.cta.href} variant="accent">
-            {site.cta.label}
-            <Arrow />
-          </ButtonLink>
+        <div className="mt-8 grid gap-8 md:mt-10 md:grid-cols-12 md:items-end">
+          <p className="prose-width text-lg leading-relaxed text-slate-light md:col-span-7 md:text-xl">{closing.body}</p>
+          <div className="md:col-span-5 md:justify-self-end">
+            <ButtonLink href={site.cta.href} variant="accent" className="w-full sm:w-auto">
+              {site.cta.label}
+              <Arrow />
+            </ButtonLink>
+          </div>
         </div>
       </Reveal>
       {waitlist}

@@ -17,7 +17,8 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[min(calc(100svh-4rem),56rem)] flex-col overflow-hidden"
+      // Mobil: volle Bildschirmhöhe abzüglich Kopfzeile und unterer Aktionsleiste
+      className="relative flex min-h-[calc(100svh-4rem-4.5rem)] flex-col overflow-hidden lg:min-h-[min(calc(100svh-4rem),56rem)]"
     >
       <div aria-hidden="true" className="container-site pointer-events-none absolute inset-0">
         <div className="relative h-full">
@@ -31,18 +32,18 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="container-site relative my-auto py-16 md:py-20">
+      <div className="container-site relative my-auto py-10 md:py-20">
         <div className="grid items-start gap-12 lg:grid-cols-12">
           <div className="lg:col-span-9">
             <h1
               id="hero-heading"
-              className="headline text-[clamp(2.25rem,4.8vw,4.75rem)] [hyphens:none]"
+              // Große Sprünge: mobil ~11vw, damit der Titel den Screen füllt
+              className="headline text-[11vw] leading-[1.22] [hyphens:none] sm:text-[8vw] lg:text-[clamp(3rem,4.6vw,4.5rem)]"
             >
               {hero.headline.map((line, i) => (
-                // overflow-hidden maskiert die aufsteigende Zeile. Der seitliche Überstand
-                // (-mx/px) sorgt dafür, dass eine Markierungsfläche nicht abgeschnitten wird.
-                <span key={line} className="-mx-[0.2em] block overflow-hidden px-[0.2em] py-[0.06em]">
-                  <span className="anim-rise anim-mark block [&_.mark]:-ml-[0.14em]" style={delay(200 + i * 160)}>
+                // overflow-hidden maskiert die aufsteigende Zeile; -mx/px lässt Platz für die Fläche
+                <span key={line} className="-mx-[0.2em] block overflow-hidden px-[0.2em]">
+                  <span className="anim-rise anim-mark block" style={delay(200 + i * 180)}>
                     <Marked text={line} />
                   </span>
                 </span>
@@ -56,22 +57,23 @@ export function Hero() {
           />
         </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="anim-fade-up lg:col-span-7" style={delay(600)}>
+        <div className="mt-8 grid gap-8 md:mt-12 lg:grid-cols-12 lg:items-end">
+          <div className="anim-fade-up lg:col-span-7" style={delay(700)}>
             <p className="prose-width text-lg leading-relaxed text-white md:text-xl">{hero.subline}</p>
             {next ? (
-              <p className="label mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-white">
+              <p className="card mt-6 inline-flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-3 text-sm">
                 <span aria-hidden="true" className="anim-pulse h-1.5 w-1.5 bg-white" />
-                <span>{hero.nextMeetingLabel}:</span>
+                <span className="label text-white">{hero.nextMeetingLabel}</span>
                 <span className="text-slate-light">
                   {termine.rule.place}, {formatLong(next.date)}
                 </span>
               </p>
             ) : null}
           </div>
+          {/* Mobil übernimmt die fixierte Aktionsleiste unten den CTA */}
           <div
-            className="anim-fade-up flex flex-col gap-5 sm:flex-row sm:items-center lg:col-span-5 lg:justify-end"
-            style={delay(750)}
+            className="anim-fade-up hidden flex-col gap-5 sm:flex sm:flex-row sm:items-center lg:col-span-5 lg:justify-end"
+            style={delay(850)}
           >
             <ButtonLink href={site.cta.href}>
               {site.cta.label}
@@ -85,9 +87,9 @@ export function Hero() {
       </div>
 
       <div className="container-site relative">
-        <div className="anim-fade-in flex items-center justify-between gap-6 border-t border-line pb-8 pt-5" style={delay(900)}>
+        <div className="anim-fade-in flex items-center justify-between gap-6 border-t border-line pb-6 pt-5" style={delay(1000)}>
           <p className="label">{hero.scarcity}</p>
-          <Seal id="seal-hero-mobile" text={hero.seal} className="w-20 shrink-0 lg:hidden" />
+          <Seal id="seal-hero-mobile" text={hero.seal} className="w-16 shrink-0 lg:hidden" />
         </div>
       </div>
     </section>

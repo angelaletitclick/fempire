@@ -5,28 +5,32 @@ import { Section } from "@/components/ui/Section";
 export function Filter() {
   return (
     <Section id={filter.id} index="02" label={filter.label} headline={filter.headline}>
-      <div className="grid border-y border-line md:grid-cols-2">
-        <Reveal className="py-10 md:border-r md:border-line md:py-14 md:pr-12">
-          <h3 className="label text-white">{filter.yes.title}</h3>
-          <ul className="mt-8 space-y-6">
+      <div className="grid gap-3 md:grid-cols-2 md:gap-4">
+        <Reveal className="card p-6 md:p-10">
+          <h3 className="label flex items-center gap-3 text-white">
+            <span aria-hidden="true" className="flex h-6 w-6 items-center justify-center bg-white text-onyx">
+              +
+            </span>
+            {filter.yes.title}
+          </h3>
+          <ul className="mt-6 divide-y divide-line">
             {filter.yes.items.map((item) => (
-              <li key={item} className="flex gap-5 text-xl leading-snug md:text-2xl">
-                <span aria-hidden="true" className="mt-[0.2em] font-light text-white">
-                  +
-                </span>
+              <li key={item} className="py-4 text-lg leading-snug first:pt-0 last:pb-0 md:text-xl">
                 {item}
               </li>
             ))}
           </ul>
         </Reveal>
-        <Reveal delay={120} className="border-t border-line py-10 md:border-t-0 md:py-14 md:pl-12">
-          <h3 className="label text-white">{filter.no.title}</h3>
-          <ul className="mt-8 space-y-6">
+        <Reveal delay={120} className="border border-line p-6 md:p-10">
+          <h3 className="label flex items-center gap-3 text-white">
+            <span aria-hidden="true" className="flex h-6 w-6 items-center justify-center border border-slate text-slate-light">
+              –
+            </span>
+            {filter.no.title}
+          </h3>
+          <ul className="mt-6 divide-y divide-line">
             {filter.no.items.map((item) => (
-              <li key={item} className="flex gap-5 text-xl leading-snug text-slate md:text-2xl">
-                <span aria-hidden="true" className="mt-[0.2em] font-light">
-                  —
-                </span>
+              <li key={item} className="py-4 text-lg leading-snug text-slate-light line-through decoration-slate/50 decoration-1 first:pt-0 last:pb-0 md:text-xl">
                 {item}
               </li>
             ))}
