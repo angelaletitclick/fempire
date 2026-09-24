@@ -2,6 +2,14 @@ import "server-only";
 import { z } from "zod";
 
 /**
+ * Supabase-URL: bevorzugt NEXT_PUBLIC_SUPABASE_URL, sonst SUPABASE_URL (legt die
+ * Supabase-Integration in Vercel automatisch an). Leere Werte zählen als nicht gesetzt.
+ */
+export function resolveSupabaseUrl(env: NodeJS.ProcessEnv = process.env): string | undefined {
+  return env.NEXT_PUBLIC_SUPABASE_URL?.trim() || env.SUPABASE_URL?.trim() || undefined;
+}
+
+/**
  * Umgebungsvariablen, nach Dienst gruppiert. Jede Gruppe wird erst beim ersten
  * Zugriff geprüft, nicht beim Import. So läuft `next build` ohne .env.local,
  * und Supabase funktioniert auch, solange Resend noch nicht eingerichtet ist.
@@ -10,7 +18,7 @@ function lazy<T extends z.ZodType>(schema: T) {
   let cached: z.infer<T> | undefined;
   return (): z.infer<T> => {
     if (cached) return cached;
-    const parsed = schema.safeParse(process.env);
+    const parsed = schema.safeParse({ ...process.env, NEXT_PUBLIC_SUPABASE_URL: resolveSupabaseUrl() });
     if (!parsed.success) {
       const missing = parsed.error.issues.map((issue) => issue.path.join(".")).join(", ");
       throw new Error(`Umgebungsvariablen fehlen oder sind ungültig: ${missing}. Siehe .env.example.`);
