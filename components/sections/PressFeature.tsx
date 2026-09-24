@@ -1,17 +1,18 @@
+import Image from "next/image";
 import { gruenderinnen } from "@/content/landing";
 import { Arrow } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 
 /**
- * Presseartikel über eine der Gründerinnen. Groß gesetzt, damit er als Beleg wirkt:
- * Quelle und Datum links, der Originaltitel als Zitat rechts.
+ * Presseartikel über eine der Gründerinnen. Der Screenshot wirkt wie ein Zeitungsausschnitt:
+ * in Graustufen passend zur CI, beim Überfahren in Farbe. Daneben Quelle und Originaltitel.
  */
 export function PressFeature() {
   const press = gruenderinnen.press;
   return (
     <Reveal
       as="figure"
-      className="relative mt-3 grid gap-8 overflow-hidden border border-white p-6 sm:p-10 lg:mt-4 lg:grid-cols-12 lg:gap-10 lg:p-14"
+      className="relative mt-3 grid gap-8 overflow-hidden border border-white p-5 sm:p-8 lg:mt-4 lg:grid-cols-12 lg:items-center lg:gap-12 lg:p-12"
     >
       {/* Großes Anführungszeichen als stiller Hintergrund */}
       <span
@@ -21,20 +22,35 @@ export function PressFeature() {
         „
       </span>
 
-      <figcaption className="relative lg:col-span-4">
-        <p className="label text-white">{press.label}</p>
-        <p className="headline mt-5 text-2xl leading-tight md:text-3xl">{press.outlet}</p>
-        <p className="mt-2 text-sm text-slate-light">
-          {press.date} · über {press.about}
-        </p>
-      </figcaption>
+      <a
+        href={press.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative block lg:col-span-5"
+      >
+        <span className="sr-only">Artikel auf noz.de öffnen (neuer Tab)</span>
+        <Image
+          src={press.image.src}
+          width={press.image.width}
+          height={press.image.height}
+          alt={press.image.alt}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          className="h-auto w-full border border-line grayscale transition-[filter] duration-700 ease-out group-hover:grayscale-0"
+        />
+        <span className="label mt-3 block text-[0.625rem]">{press.image.credit}</span>
+      </a>
 
-      <div className="relative lg:col-span-8">
-        <blockquote cite={press.url}>
-          <p className="headline text-[1.625rem] leading-[1.15] md:text-4xl lg:text-[2.75rem]">
-            „{press.title}“
+      <div className="relative lg:col-span-7">
+        <figcaption>
+          <p className="label text-white">{press.label}</p>
+          <p className="headline mt-4 text-2xl leading-tight md:text-3xl">{press.outlet}</p>
+          <p className="mt-2 text-sm text-slate-light">
+            {press.date} · von {press.author} · über {press.about}
           </p>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-light md:text-lg">{press.teaser}</p>
+        </figcaption>
+        <blockquote cite={press.url} className="mt-8">
+          <p className="headline text-[1.5rem] leading-[1.15] md:text-3xl lg:text-[2.25rem]">„{press.title}“</p>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-light md:text-lg">{press.teaser}</p>
         </blockquote>
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
           <a
