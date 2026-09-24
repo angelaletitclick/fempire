@@ -26,14 +26,13 @@ export const impressum: LegalDocument = {
     {
       heading: "Angaben gemäß § 5 DDG",
       paragraphs: [
-        "MejWay GmbH\n[[Straße und Hausnummer]]\n[[PLZ]] Osnabrück\nDeutschland",
+        "MejWay GmbH\nStockumer Straße 31\n49086 Osnabrück\nDeutschland",
         "Der FEMPIRE CLUB wird von der MejWay GmbH betrieben.",
       ],
     },
     {
       heading: "Vertreten durch",
-      // ANNAHME: Maria Elisabeth Doerk ist vertretungsberechtigte Geschäftsführerin der MejWay GmbH
-      paragraphs: ["Maria Elisabeth Doerk, Geschäftsführerin [[bitte prüfen]]"],
+      paragraphs: ["Maria Elisabeth Doerk, Geschäftsführerin"],
     },
     {
       heading: "Kontakt",
@@ -41,7 +40,7 @@ export const impressum: LegalDocument = {
     },
     {
       heading: "Registereintrag",
-      paragraphs: ["Registergericht: [[Amtsgericht Osnabrück]]\nRegisternummer: [[HRB …]]"],
+      paragraphs: ["Registergericht: Amtsgericht Osnabrück\nRegisternummer: HRB 220801"],
     },
     {
       heading: "Umsatzsteuer-ID",
@@ -49,7 +48,8 @@ export const impressum: LegalDocument = {
     },
     {
       heading: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
-      paragraphs: ["[[Name]]\n[[Anschrift wie oben]]"],
+      // ANNAHME: Die Geschäftsführerin ist auch inhaltlich verantwortlich
+      paragraphs: ["Maria Elisabeth Doerk\nStockumer Straße 31, 49086 Osnabrück"],
     },
     {
       heading: "Verbraucherstreitbeilegung",
@@ -69,7 +69,7 @@ export const datenschutz: LegalDocument = {
     {
       heading: "1. Verantwortliche",
       paragraphs: [
-        "Verantwortlich für die Datenverarbeitung auf dieser Website ist die MejWay GmbH, [[Straße und Hausnummer]], [[PLZ]] Osnabrück, E-Mail: [[datenschutz@fempireclub.de]]. Weitere Angaben findest du im Impressum.",
+        "Verantwortlich für die Datenverarbeitung auf dieser Website ist die MejWay GmbH, Stockumer Straße 31, 49086 Osnabrück, vertreten durch die Geschäftsführerin Maria Elisabeth Doerk, E-Mail: [[datenschutz@fempireclub.de]]. Weitere Angaben findest du im Impressum.",
       ],
     },
     {
@@ -83,7 +83,7 @@ export const datenschutz: LegalDocument = {
       heading: "3. Hosting und Server-Logfiles",
       paragraphs: [
         "Die Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA gehostet. Beim Aufruf der Seite verarbeitet Vercel technisch notwendige Daten wie IP-Adresse, Zeitpunkt, aufgerufene Seite und Browserinformationen, um die Website auszuliefern und vor Angriffen zu schützen.",
-        "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in einer sicheren und stabilen Bereitstellung der Website. Vercel ist unter dem EU-US Data Privacy Framework zertifiziert [[Zertifizierung prüfen]]. Mit Vercel besteht ein Vertrag zur Auftragsverarbeitung [[abschließen]]. Die Serverfunktionen laufen in der Region Frankfurt [[in Vercel einstellen]].",
+        "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in einer sicheren und stabilen Bereitstellung der Website. Vercel ist unter dem EU-US Data Privacy Framework zertifiziert [[Zertifizierung prüfen]]. Mit Vercel besteht ein Vertrag zur Auftragsverarbeitung [[abschließen]]. Die Serverfunktionen laufen in der Region Frankfurt am Main.",
       ],
     },
     {
