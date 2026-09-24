@@ -4,6 +4,7 @@ import { hero, termine } from "@/content/landing";
 import { site } from "@/content/site";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
 import { Seal } from "@/components/ui/Emblem";
+import { Marked } from "@/components/ui/Marked";
 import { formatLong, upcomingMeetings } from "@/lib/meetings";
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
@@ -38,13 +39,11 @@ export function Hero() {
               className="headline text-[clamp(2.25rem,4.8vw,4.75rem)] [hyphens:none]"
             >
               {hero.headline.map((line, i) => (
-                // overflow-hidden maskiert die aufsteigende Zeile
-                <span key={line} className="block overflow-hidden pb-[0.06em]">
-                  <span
-                    className={i === 0 ? "anim-rise block" : "anim-rise block text-pink"}
-                    style={delay(200 + i * 160)}
-                  >
-                    {line}
+                // overflow-hidden maskiert die aufsteigende Zeile. Der seitliche Überstand
+                // (-mx/px) sorgt dafür, dass eine Markierungsfläche nicht abgeschnitten wird.
+                <span key={line} className="-mx-[0.2em] block overflow-hidden px-[0.2em] py-[0.06em]">
+                  <span className="anim-rise anim-mark block [&_.mark]:-ml-[0.14em]" style={delay(200 + i * 160)}>
+                    <Marked text={line} />
                   </span>
                 </span>
               ))}

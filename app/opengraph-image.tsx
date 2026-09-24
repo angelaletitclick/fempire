@@ -3,8 +3,9 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { hero } from "@/content/landing";
 import { site } from "@/content/site";
+import { markSegments, plain } from "@/components/ui/Marked";
 
-export const alt = `${site.name}: ${hero.headline.join(" ")}`;
+export const alt = `${site.name}: ${plain(hero.headline.join(" "))}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -45,10 +46,26 @@ export default async function OpengraphImage() {
           </svg>
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontFamily: "Montserrat", color: WHITE, fontSize: 76, lineHeight: 1.02, letterSpacing: "-0.01em", textTransform: "uppercase" }}>
-          {hero.headline.map((line, i) => (
-            <span key={line} style={{ color: i === 0 ? WHITE : PINK }}>
-              {line}
-            </span>
+          {hero.headline.map((line) => (
+            <div key={line} style={{ display: "flex", marginBottom: 8 }}>
+              {markSegments(line).map((segment) => (
+                <span
+                  key={segment.text}
+                  style={
+                    segment.mark
+                      ? {
+                          background: segment.mark === "pink" ? PINK : WHITE,
+                          color: segment.mark === "pink" ? WHITE : ONYX,
+                          padding: "0 12px",
+                          marginLeft: -12,
+                        }
+                      : {}
+                  }
+                >
+                  {segment.text}
+                </span>
+              ))}
+            </div>
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>

@@ -20,7 +20,7 @@ export function Filter() {
           </ul>
         </Reveal>
         <Reveal delay={120} className="border-t border-line py-10 md:border-t-0 md:py-14 md:pl-12">
-          <h3 className="label text-pink">{filter.no.title}</h3>
+          <h3 className="label text-white">{filter.no.title}</h3>
           <ul className="mt-8 space-y-6">
             {filter.no.items.map((item) => (
               <li key={item} className="flex gap-5 text-xl leading-snug text-slate md:text-2xl">

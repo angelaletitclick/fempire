@@ -1,13 +1,16 @@
 /**
  * Alle Texte der Startseite, in der Reihenfolge der Sektionen.
  *
+ * Hervorheben: ==Text== ergibt eine pinke Fläche mit weißer Schrift, ++Text++ eine weiße
+ * Fläche mit schwarzer Schrift. Pink nur in großen Headlines und höchstens einmal pro
+ * Bildschirmhöhe.
+ *
  * Regeln für neue Texte: Du-Anrede, weibliche Formen, kurze Sätze,
  * keine Ausrufezeichen, keine Emojis, keine Superlative, keine Preise.
  */
 
 export const hero = {
-  /** Erste Zeile weiß, jede weitere pink */
-  headline: ["Baue kein kleines Business.", "Baue dein Fempire."],
+  headline: ["Baue kein kleines Business.", "==Baue dein Fempire.=="],
   subline:
     "Der vertrauliche Business-Circle für Frauen, die Unternehmen systematisieren, Umsätze pushen und Märkte prägen.",
   /** Datum wird automatisch aus der Terminregel unten berechnet */
@@ -35,10 +38,10 @@ export const ticker = [
 export const manifest = {
   id: "manifest",
   label: "Manifest",
-  headline: "Was hier anders läuft.",
+  headline: "Was hier ++anders++ läuft.",
   statements: [
     {
-      title: "Wir reden über Umsatz, nicht über Reichweite.",
+      title: "Wir reden über ++Umsatz++, nicht über Reichweite.",
       body: "Umsatz, Marge, Gewinn, Liquidität. Wer echtes Feedback will, legt echte Zahlen auf den Tisch. Was im Raum gesagt wird, bleibt im Raum.",
     },
     {
@@ -63,7 +66,7 @@ export const manifest = {
 export const filter = {
   id: "fuer-wen",
   label: "Für wen",
-  headline: "Für wen. Und für wen nicht.",
+  headline: "Für wen. Und für wen ==nicht.==",
   yes: {
     title: "Für dich, wenn",
     items: [
@@ -163,7 +166,7 @@ export const termine = {
 export const gruenderinnen = {
   id: "gruenderinnen",
   label: "Gründerinnen",
-  headline: "Markenwelt trifft auf skalierbare Struktur.",
+  headline: "Markenwelt trifft auf ++skalierbare Struktur.++",
   intro:
     "Zwei Unternehmerinnen aus Osnabrück, die selbst liefern, was sie im Kreis einfordern. Beide führen eigene GmbHs, beide sind Mütter. Beide sind neurodivergent, deshalb läuft der Club direkt, schnell und ohne Umwege.",
   people: [
@@ -215,7 +218,7 @@ export const ablauf = {
 export const closing = {
   id: "bewerbung",
   label: "Bewerbung",
-  headline: "Dein Platz am Tisch.",
+  headline: "Dein Platz ++am Tisch.++",
   body: "Wenn du bis hierhin gelesen hast, weißt du, ob du hierher gehörst. Die Bewerbung dauert rund zehn Minuten.",
   waitlist: {
     title: "Nicht aus Osnabrück?",

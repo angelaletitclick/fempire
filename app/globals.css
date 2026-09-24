@@ -185,9 +185,6 @@
     clip-path: inset(0 0 100% 0);
     transform: translateY(0.4em);
   }
-  [data-reveal="shown"][data-variant="wipe"] {
-    clip-path: inset(0 0 -10% 0);
-  }
   /* Trennlinie zeichnet sich von links nach rechts */
   [data-variant="line"] {
     transform-origin: left;
@@ -195,5 +192,62 @@
   }
   [data-reveal="pending"][data-variant="line"] {
     transform: scaleX(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Hervorhebungen (==pink== / ++weiß++ in content/, siehe Marked.tsx)  */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .mark {
+    padding: 0 0.14em;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 100% 100%;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .mark-pink {
+    background-image: linear-gradient(var(--pink), var(--pink));
+    color: var(--white);
+  }
+  .mark-white {
+    background-image: linear-gradient(var(--white), var(--white));
+    color: var(--onyx);
+  }
+}
+
+@keyframes mark-in {
+  from { background-size: 0% 100%; }
+}
+@keyframes mark-ink {
+  from { color: var(--white); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Fläche wischt von links ein, sobald der umgebende Reveal sichtbar wird */
+  [data-reveal] .mark {
+    transition:
+      background-size 900ms var(--ease-out) 450ms,
+      color 300ms linear 650ms;
+  }
+  [data-reveal="pending"] .mark {
+    background-size: 0% 100%;
+  }
+  [data-reveal="pending"] .mark-white {
+    color: var(--white);
+  }
+  /* Hero: beim Laden, Verzögerung über --d */
+  .anim-mark .mark {
+    animation: mark-in 900ms var(--ease-out) var(--d, 0ms) both;
+  }
+  .anim-mark .mark-white {
+    animation:
+      mark-in 900ms var(--ease-out) var(--d, 0ms) both,
+      mark-ink 500ms steps(1, end) var(--d, 0ms) both;
+  }
+  /* Beim Freilegen einer Headline darf die Fläche seitlich über den Text ragen */
+  [data-reveal="shown"][data-variant="wipe"] {
+    clip-path: inset(-0.2em -0.5em -0.2em -0.5em);
   }
 }

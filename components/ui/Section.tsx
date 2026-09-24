@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cx } from "@/lib/cx";
+import { Marked } from "./Marked";
 import { Reveal } from "./Reveal";
 
 /**
@@ -43,7 +44,7 @@ export function Section({
             delay={100}
             className="headline text-[clamp(1.75rem,3.4vw,3.25rem)] [hyphens:auto]"
           >
-            {headline}
+            <Marked text={headline} />
           </Reveal>
           {intro ? (
             <Reveal as="p" delay={250} className="prose-width mt-8 text-lg leading-relaxed text-slate">
