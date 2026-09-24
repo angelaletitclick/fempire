@@ -187,6 +187,19 @@ export const gruenderinnen = {
       imageCaption: "Porträt Maria Elisabeth Doerk. Foto folgt.",
     },
   ],
+  /** Presse. Titel und Teaser wörtlich aus dem Artikel übernehmen, nichts umformulieren. */
+  press: {
+    label: "In der Presse",
+    outlet: "Neue Osnabrücker Zeitung",
+    date: "10. Dezember 2022",
+    title: "Firmengründung als Mutter: Osnabrückerin über Vereinbarkeit, Burnout und Konsequenzen",
+    teaser:
+      "In der Osnabrücker Start-up-Szene gibt es wenige Frauen und noch weniger Mütter. „Eskapadia“-Gründerin Elisabeth Doerk über die Schwierigkeiten.",
+    about: "Maria Elisabeth Doerk",
+    url: "https://www.noz.de/lokales/osnabrueck/artikel/gruenden-mit-kind-osnabrueckerin-ueber-die-huerden-und-ihr-burnout-43718809",
+    linkLabel: "Artikel lesen",
+    paywallNote: "NOZ+, für Abonnentinnen",
+  },
 };
 
 export const ablauf = {

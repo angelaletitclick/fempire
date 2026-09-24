@@ -1,5 +1,6 @@
 import { Ablauf } from "@/components/sections/Ablauf";
 import { ClosingCta } from "@/components/sections/ClosingCta";
+import { WaitlistForm } from "@/components/sections/WaitlistForm";
 import { Faq } from "@/components/sections/Faq";
 import { Filter } from "@/components/sections/Filter";
 import { Formate } from "@/components/sections/Formate";
@@ -27,7 +28,7 @@ export default function Home() {
       <Gruenderinnen />
       <Ablauf />
       <Faq />
-      <ClosingCta />
+      <ClosingCta waitlist={<WaitlistForm />} />
     </>
   );
 }

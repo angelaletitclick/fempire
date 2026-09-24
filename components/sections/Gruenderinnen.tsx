@@ -2,6 +2,7 @@ import { gruenderinnen } from "@/content/landing";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
+import { PressFeature } from "./PressFeature";
 
 /**
  * Kompakt, damit beide Porträts auf dem Desktop ohne Scrollen in eine Bildschirmhöhe passen:
@@ -37,6 +38,7 @@ export function Gruenderinnen() {
           </Reveal>
         ))}
       </div>
+      <PressFeature />
     </Section>
   );
 }
