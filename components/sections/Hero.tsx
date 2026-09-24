@@ -33,29 +33,21 @@ export function Hero() {
       </div>
 
       <div className="container-site relative my-auto py-10 md:py-20">
-        <div className="grid items-start gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-9">
-            <h1
-              id="hero-heading"
-              // Große Sprünge: mobil ~11vw, damit der Titel den Screen füllt
-              className="headline text-[11vw] leading-[1.22] [hyphens:none] sm:text-[8vw] lg:text-[clamp(3rem,4.6vw,4.5rem)]"
-            >
-              {hero.headline.map((line, i) => (
-                // overflow-hidden maskiert die aufsteigende Zeile; -mx/px lässt Platz für die Fläche
-                <span key={line} className="-mx-[0.2em] block overflow-hidden px-[0.2em]">
-                  <span className="anim-rise anim-mark block" style={delay(200 + i * 180)}>
-                    <Marked text={line} />
-                  </span>
-                </span>
-              ))}
-            </h1>
-          </div>
-          <Seal
-            id="seal-hero"
-            text={hero.seal}
-            className="anim-fade-in hidden w-40 justify-self-end lg:col-span-3 lg:block xl:w-48"
-          />
-        </div>
+        <h1
+          id="hero-heading"
+          // Mobil ~11vw, damit der Titel den Screen füllt. Ab lg ein Satz pro Zeile (nowrap),
+          // Schriftgröße so bemessen, dass der längere Satz in die Containerbreite passt.
+          className="headline text-[11vw] leading-[1.22] [hyphens:none] sm:text-[7.5vw] lg:whitespace-nowrap lg:text-[clamp(2.5rem,4.8vw,4.75rem)]"
+        >
+          {hero.headline.map((line, i) => (
+            // overflow-hidden maskiert die aufsteigende Zeile; -mx/px lässt Platz für die Fläche
+            <span key={line} className="-mx-[0.2em] block overflow-hidden px-[0.2em]">
+              <span className="anim-rise anim-mark block" style={delay(200 + i * 180)}>
+                <Marked text={line} />
+              </span>
+            </span>
+          ))}
+        </h1>
 
         <div className="mt-8 grid gap-8 md:mt-12 lg:grid-cols-12 lg:items-end">
           <div className="anim-fade-up lg:col-span-7" style={delay(700)}>
@@ -89,7 +81,7 @@ export function Hero() {
       <div className="container-site relative">
         <div className="anim-fade-in flex items-center justify-between gap-6 border-t border-line pb-6 pt-5" style={delay(1000)}>
           <p className="label">{hero.scarcity}</p>
-          <Seal id="seal-hero-mobile" text={hero.seal} className="w-16 shrink-0 lg:hidden" />
+          <Seal id="seal-hero" text={hero.seal} className="w-16 shrink-0 lg:w-24" />
         </div>
       </div>
     </section>
