@@ -3,8 +3,9 @@ import { cx } from "@/lib/cx";
 import { Reveal } from "./Reveal";
 
 /**
- * Sektionsrahmen mit Trennlinie oben, Label mit Nummer und Headline.
- * Alle Sektionen der Startseite nutzen ihn, damit Abstände einheitlich bleiben.
+ * Sektionsrahmen: Trennlinie, die sich beim Scrollen zeichnet, Label mit Nummer
+ * und Headline, die von unten freigelegt wird. Alle Sektionen der Startseite
+ * nutzen ihn, damit Abstände und Bewegung einheitlich bleiben.
  */
 export function Section({
   id,
@@ -13,6 +14,7 @@ export function Section({
   headline,
   intro,
   className,
+  bodyClassName = "mt-14 md:mt-20",
   children,
 }: {
   id: string;
@@ -21,29 +23,36 @@ export function Section({
   headline: string;
   intro?: string;
   className?: string;
+  bodyClassName?: string;
   children: ReactNode;
 }) {
   const headingId = `${id}-heading`;
   return (
     <section id={id} aria-labelledby={headingId} className={cx("container-site py-section", className)}>
-      <div className="border-t border-line pt-8 md:pt-10">
-        <Reveal className="grid gap-8 md:grid-cols-12 md:gap-10">
-          <p className="label md:col-span-3">
-            <span aria-hidden="true">{index} — </span>
-            {label}
-          </p>
-          <div className="md:col-span-9">
-            <h2
-              id={headingId}
-              className="headline text-[clamp(1.75rem,3.4vw,3.25rem)] [hyphens:auto]"
-            >
-              {headline}
-            </h2>
-            {intro ? <p className="prose-width mt-8 text-lg leading-relaxed text-slate">{intro}</p> : null}
-          </div>
+      <Reveal variant="line" className="h-px bg-line" />
+      <div className="grid gap-8 pt-8 md:grid-cols-12 md:gap-10 md:pt-10">
+        <Reveal as="p" className="label md:col-span-3">
+          <span aria-hidden="true">{index} — </span>
+          {label}
         </Reveal>
-        <div className="mt-14 md:mt-20">{children}</div>
+        <div className="md:col-span-9">
+          <Reveal
+            as="h2"
+            id={headingId}
+            variant="wipe"
+            delay={100}
+            className="headline text-[clamp(1.75rem,3.4vw,3.25rem)] [hyphens:auto]"
+          >
+            {headline}
+          </Reveal>
+          {intro ? (
+            <Reveal as="p" delay={250} className="prose-width mt-8 text-lg leading-relaxed text-slate">
+              {intro}
+            </Reveal>
+          ) : null}
+        </div>
       </div>
+      <div className={bodyClassName}>{children}</div>
     </section>
   );
 }

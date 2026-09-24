@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 import { hero } from "@/content/landing";
 import { site } from "@/content/site";
 
-export const alt = `${site.name} — ${hero.headline.join(" ")}`;
+export const alt = `${site.name}: ${hero.headline.join(" ")}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -35,10 +35,16 @@ export default async function OpengraphImage() {
           fontFamily: "Inter",
         }}
       >
-        <div style={{ display: "flex", color: SLATE, fontSize: 22, letterSpacing: "0.12em", textTransform: "uppercase" }}>
-          {hero.eyebrow}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", color: SLATE, fontSize: 22, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+          <span>
+            {`${site.city} // ${site.claimSuffix}`}
+          </span>
+          <svg width="64" height="45" viewBox="0 0 40 28" fill="none" stroke={WHITE} strokeWidth="1.5">
+            <path d="M3 22 L3 7 L11.5 14 L20 2 L28.5 14 L37 7 L37 22 Z" />
+            <path d="M3 26 H37" />
+          </svg>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", fontFamily: "Montserrat", color: WHITE, fontSize: 96, lineHeight: 1, letterSpacing: "-0.01em", textTransform: "uppercase" }}>
+        <div style={{ display: "flex", flexDirection: "column", fontFamily: "Montserrat", color: WHITE, fontSize: 76, lineHeight: 1.02, letterSpacing: "-0.01em", textTransform: "uppercase" }}>
           {hero.headline.map((line, i) => (
             <span key={line} style={{ color: i === 0 ? WHITE : PINK }}>
               {line}

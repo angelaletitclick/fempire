@@ -6,14 +6,20 @@ import { Formate } from "@/components/sections/Formate";
 import { Gruenderinnen } from "@/components/sections/Gruenderinnen";
 import { Hero } from "@/components/sections/Hero";
 import { Manifest } from "@/components/sections/Manifest";
-import { Termine } from "@/components/sections/Termine";
 import { OrganizationJsonLd } from "@/components/sections/OrganizationJsonLd";
+import { Termine } from "@/components/sections/Termine";
+import { Ticker } from "@/components/sections/Ticker";
+
+// Die Termine werden aus einer Regel berechnet. Einmal täglich neu erzeugen,
+// damit "Nächstes Treffen" und die Terminliste nie veraltet sind.
+export const revalidate = 86400;
 
 export default function Home() {
   return (
     <>
       <OrganizationJsonLd />
       <Hero />
+      <Ticker />
       <Manifest />
       <Filter />
       <Formate />

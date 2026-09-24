@@ -12,6 +12,8 @@
   /* Aufgehellter Slate für Text unter 16px, Kontrast auf Onyx > 7:1 */
   --slate-light: #b4b4b8;
   --line: #2a2a2a;
+  /* Kaum sichtbare Linie für Hintergrund-Strukturen (Säulen im Hero) */
+  --line-soft: #1a1a1a;
 
   --section-gap: clamp(8rem, 12vw, 11rem);
   --gutter: clamp(1.25rem, 4vw, 3rem);
@@ -27,6 +29,7 @@
   --color-slate: var(--slate);
   --color-slate-light: var(--slate-light);
   --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-heading), var(--font-inter), ui-sans-serif, sans-serif;
@@ -122,17 +125,75 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Scroll-Reveal. Inhalte sind ohne JS immer sichtbar; erst Reveal.tsx */
+/* Motion. Alles hier greift nur ohne prefers-reduced-motion.          */
+/* Scroll-Reveal: Inhalte sind ohne JS immer sichtbar; erst Reveal.tsx */
 /* setzt data-reveal="pending" für Elemente unterhalb des Viewports.   */
 /* ------------------------------------------------------------------ */
+@keyframes rise {
+  from { transform: translateY(105%); }
+  to { transform: none; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes grow-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  /* Einmalige Animationen beim Laden (Hero). Verzögerung über --d. */
+  .anim-rise { animation: rise 900ms var(--ease-out) var(--d, 0ms) both; }
+  .anim-fade-up { animation: fade-up 700ms var(--ease-out) var(--d, 0ms) both; }
+  .anim-fade-in { animation: fade-in 1200ms var(--ease-out) var(--d, 0ms) both; }
+  .anim-grow-y { transform-origin: top; animation: grow-y 1400ms var(--ease-out) var(--d, 0ms) both; }
+
+  /* Dauerhafte, ruhige Bewegung */
+  .anim-spin { animation: spin 60s linear infinite; }
+  .anim-marquee { animation: marquee 50s linear infinite; }
+  .anim-marquee:hover { animation-play-state: paused; }
+  .anim-pulse { animation: pulse-dot 2.4s ease-in-out infinite; }
+
+  /* Scroll-Reveal-Varianten */
   [data-reveal] {
     transition:
-      opacity 450ms var(--ease-out),
-      transform 450ms var(--ease-out);
+      opacity 600ms var(--ease-out),
+      transform 700ms var(--ease-out),
+      clip-path 900ms var(--ease-out);
   }
-  [data-reveal="pending"] {
+  [data-reveal="pending"][data-variant="fade"] {
     opacity: 0;
-    transform: translateY(1.25rem);
+    transform: translateY(1.5rem);
+  }
+  /* Headline wird von unten nach oben freigelegt */
+  [data-reveal="pending"][data-variant="wipe"] {
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(0.4em);
+  }
+  [data-reveal="shown"][data-variant="wipe"] {
+    clip-path: inset(0 0 -10% 0);
+  }
+  /* Trennlinie zeichnet sich von links nach rechts */
+  [data-variant="line"] {
+    transform-origin: left;
+    transition: transform 1100ms var(--ease-out);
+  }
+  [data-reveal="pending"][data-variant="line"] {
+    transform: scaleX(0);
   }
 }

@@ -8,10 +8,12 @@ export function ImagePlaceholder({
   caption,
   ratio = "aspect-[4/5]",
   className,
+  captionClassName,
 }: {
   caption: string;
   ratio?: string;
   className?: string;
+  captionClassName?: string;
 }) {
   return (
     <figure className={cx("m-0", className)}>
@@ -20,12 +22,12 @@ export function ImagePlaceholder({
         aria-label={caption}
         className={cx("relative w-full border border-line bg-onyx", ratio)}
       >
-        <span aria-hidden="true" className="absolute left-4 top-4 h-px w-8 bg-line" />
-        <span aria-hidden="true" className="absolute left-4 top-4 h-8 w-px bg-line" />
-        <span aria-hidden="true" className="absolute bottom-4 right-4 h-px w-8 bg-line" />
-        <span aria-hidden="true" className="absolute bottom-4 right-4 h-8 w-px bg-line" />
+        <span aria-hidden="true" className="absolute left-3 top-3 h-px w-6 bg-line" />
+        <span aria-hidden="true" className="absolute left-3 top-3 h-6 w-px bg-line" />
+        <span aria-hidden="true" className="absolute bottom-3 right-3 h-px w-6 bg-line" />
+        <span aria-hidden="true" className="absolute bottom-3 right-3 h-6 w-px bg-line" />
       </div>
-      <figcaption className="label mt-3">{caption}</figcaption>
+      <figcaption className={cx("label mt-3 text-[0.625rem]", captionClassName)}>{caption}</figcaption>
     </figure>
   );
 }

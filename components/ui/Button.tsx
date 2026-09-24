@@ -12,7 +12,7 @@ type Variant = "primary" | "accent" | "outline";
 type Size = "sm" | "md";
 
 const base =
-  "inline-flex items-center justify-center gap-3 whitespace-nowrap font-sans font-semibold uppercase tracking-[0.12em] transition-colors duration-300 ease-out disabled:cursor-not-allowed disabled:opacity-50";
+  "group inline-flex items-center justify-center gap-3 whitespace-nowrap font-sans font-semibold uppercase tracking-[0.12em] transition-colors duration-300 ease-out disabled:cursor-not-allowed disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
   primary: "bg-white text-onyx hover:bg-pink hover:text-onyx",
@@ -55,7 +55,7 @@ export function Arrow({ className }: { className?: string }) {
     <svg
       aria-hidden="true"
       viewBox="0 0 20 12"
-      className={cx("h-3 w-5 shrink-0", className)}
+      className={cx("h-3 w-5 shrink-0 transition-transform duration-300 ease-out group-hover:translate-x-1", className)}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"

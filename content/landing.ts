@@ -6,13 +6,31 @@
  */
 
 export const hero = {
-  eyebrow: "Osnabrück // Application Only",
-  headline: ["Kein Netzwerk.", "Ein Kreis."],
+  /** Erste Zeile weiß, jede weitere pink */
+  headline: ["Baue kein kleines Business.", "Baue dein Fempire."],
   subline:
-    "Für Unternehmerinnen, die über Zahlen sprechen statt über Sichtbarkeit. Osnabrück. Application Only.",
-  scarcity: "Start 2027. Begrenzte Plätze im Osnabrücker Kern-Kreis.",
+    "Der vertrauliche Business-Circle für Frauen, die Unternehmen systematisieren, Umsätze pushen und Märkte prägen.",
+  /** Datum wird automatisch aus der Terminregel unten berechnet */
+  nextMeetingLabel: "Nächstes Treffen",
+  scarcity: "Start Januar 2027. Begrenzte Plätze im Osnabrücker Kern-Kreis.",
   secondaryCta: { label: "Was hier anders läuft", href: "#manifest" },
+  /** Umlaufender Text im Siegel */
+  seal: "Fempire Club · Application Only · Osnabrück · ",
 };
+
+/** Laufband unter dem Hero. Begriffe, um die es im Kreis geht. */
+export const ticker = [
+  "Umsatz",
+  "Marge",
+  "Gewinn",
+  "Liquidität",
+  "Struktur",
+  "Holding",
+  "Skalierung",
+  "Führung",
+  "Autonomie",
+  "Familie",
+];
 
 export const manifest = {
   id: "manifest",
@@ -66,33 +84,34 @@ export const filter = {
   },
 };
 
-export type FormatStatus = "start" | "vorbereitung";
+export type FormatStatus = "aktiv" | "start" | "vorbereitung";
 
 export const formate = {
   id: "formate",
   label: "Formate",
   headline: "Formate.",
   intro:
-    "Ein fester Rhythmus vor Ort, dazu Formate für die Zeit dazwischen. Wir starten mit dem Kern und bauen erst aus, wenn er trägt.",
+    "Ein fester Rhythmus vor Ort, dazu ein Raum für die Zeit dazwischen. Wir bauen erst weiter aus, wenn der Kern trägt.",
   statusLabels: {
-    start: "Start 2027",
+    aktiv: "Läuft bereits",
+    start: "Ab Januar 2027",
     vorbereitung: "In Vorbereitung",
   } satisfies Record<FormatStatus, string>,
   items: [
     {
-      title: "Treffen alle zwei Monate",
+      title: "Monatliches Treffen",
       status: "start" as FormatStatus,
-      body: "In Osnabrück, persönlich. Ein Thema, echte Zahlen, konkrete Entscheidungen. Kein Vortragsabend.",
+      body: "Jeden ersten Mittwoch im Monat in Osnabrück, persönlich. Ein Thema, echte Zahlen, konkrete Entscheidungen. Kein Vortragsabend.",
+    },
+    {
+      title: "Community-Hub",
+      status: "aktiv" as FormatStatus,
+      body: "Der geschlossene digitale Raum der Mitglieder. Hier teilt ihr Wissen, Kennzahlen und Kontakte, auch zwischen den Treffen. Ohne Algorithmus, ohne Öffentlichkeit.",
     },
     {
       title: "Masterminds",
       status: "vorbereitung" as FormatStatus,
       body: "Kleine Gruppen, fester Rhythmus. Jede legt ihre Kennzahlen offen, die anderen stellen die unbequemen Fragen.",
-    },
-    {
-      title: "Community-Hub",
-      status: "vorbereitung" as FormatStatus,
-      body: "Digitaler, geschlossener Raum für den laufenden KPI-Austausch zwischen den Treffen. Ohne Algorithmus, ohne Öffentlichkeit.",
     },
     {
       title: "FEMPIRE Academy",
@@ -111,15 +130,28 @@ export const termine = {
   id: "termine",
   label: "Termine",
   headline: "Termine.",
-  intro: "Der Osnabrücker Kern-Kreis trifft sich ab 2027 alle zwei Monate. Konkrete Daten und Ort erhalten aufgenommene Mitglieder rechtzeitig vorab.",
+  intro:
+    "Der Osnabrücker Kern-Kreis trifft sich jeden ersten Mittwoch im Monat. Den genauen Ort erhalten aufgenommene Mitglieder vorab.",
   /**
-   * Einträge oben neu hinzufügen. `date` ist freier Text, z. B. "14. Januar 2027" oder "Frühjahr 2027".
+   * Regel für die Termine. Die Liste auf der Seite wird daraus automatisch berechnet,
+   * vergangene Termine verschwinden von selbst.
    */
-  items: [
-    // ANNAHME: Auftakt Anfang 2027, genaues Datum steht noch nicht fest.
-    { date: "Anfang 2027", title: "Auftakt Kern-Kreis", place: "Osnabrück", note: "Datum folgt" },
-    { date: "Danach", title: "Treffen alle zwei Monate", place: "Osnabrück", note: "Feste Termine für das ganze Jahr" },
-  ],
+  rule: {
+    /** Erster Termin-Monat im Format JJJJ-MM */
+    startMonth: "2027-01",
+    /** Wochentag: 0 = Sonntag, 1 = Montag, ... 3 = Mittwoch */
+    weekday: 3,
+    /** Der wievielte dieser Wochentage im Monat (1 = erster) */
+    nth: 1,
+    place: "Osnabrück",
+    /** Einzelne Termine absagen, Format JJJJ-MM-TT, z. B. "2027-08-04" */
+    cancelled: [] as string[],
+  },
+  /** So viele kommende Termine werden angezeigt */
+  show: 4,
+  firstTitle: "Auftakt Kern-Kreis",
+  regularTitle: "Kern-Kreis",
+  note: "Ort für Mitglieder",
   /** Hinweis zur Gründungsphase */
   // ANNAHME: Stichtag ist der 1. April 2027. Höhe der Aufwandsentschädigung wird bewusst nicht genannt.
   foundingNote: {
@@ -137,8 +169,8 @@ export const gruenderinnen = {
   people: [
     {
       name: "Angela Pister",
-      role: "Co-Geschäftsführerin, LET IT CLICK GmbH",
-      bio: "Marketing- und Medienagentur in der Region Osnabrück. Social-Media-Strategie, High-End-Content, Short-Form-Video, Branding, Webentwicklung und visuelle B2B-Positionierung. Mutter einer Tochter.",
+      role: "Geschäftsführerin, LET IT CLICK GmbH",
+      bio: "M.Sc. Informatik. Gründerin und Geschäftsführerin von Deutschlands größter Plattform für Fotografen. Außerdem Inhaberin der Marketing- und Medienagentur LIC Media in der Region Osnabrück: Social-Media-Strategie, High-End-Content, Short-Form-Video, Branding, Webentwicklung und visuelle B2B-Positionierung. Mutter einer Tochter.",
       club: "Im Club verantwortlich für Marke, Content, Ästhetik und das Erlebnis rund um jedes Treffen.",
       imageAlt: "Porträt Angela Pister",
       imageCaption: "Porträt Angela Pister. Foto folgt.",

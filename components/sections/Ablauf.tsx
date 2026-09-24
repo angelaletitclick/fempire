@@ -6,12 +6,13 @@ import { cx } from "@/lib/cx";
 export function Ablauf() {
   return (
     <Section id={ablauf.id} index="06" label={ablauf.label} headline={ablauf.headline}>
-      <ol className="grid border-t border-line sm:grid-cols-2 lg:grid-cols-4">
+      <Reveal variant="line" className="h-px bg-line" />
+      <ol className="grid sm:grid-cols-2 lg:grid-cols-4">
         {ablauf.steps.map((step, i) => (
           <Reveal
             as="li"
             key={step.title}
-            delay={i * 80}
+            delay={200 + i * 120}
             className={cx(
               "border-b border-line py-10 lg:border-b-0",
               // Trennlinien links: im 2er-Raster jede zweite Spalte, im 4er-Raster alle außer der ersten

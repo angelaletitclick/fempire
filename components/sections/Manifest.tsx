@@ -7,7 +7,7 @@ export function Manifest() {
     <Section id={manifest.id} index="01" label={manifest.label} headline={manifest.headline}>
       <ol className="border-b border-line">
         {manifest.statements.map((statement, i) => (
-          <Reveal as="li" key={statement.title} className="grid gap-4 border-t border-line py-8 md:grid-cols-12 md:gap-10 md:py-12">
+          <Reveal as="li" key={statement.title} delay={i * 60} className="grid gap-4 border-t border-line py-8 md:grid-cols-12 md:gap-10 md:py-12">
             <span aria-hidden="true" className="label md:col-span-3">
               {String(i + 1).padStart(2, "0")}
             </span>

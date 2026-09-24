@@ -31,13 +31,13 @@ export const faq = {
     {
       question: "Wo und wann finden die Treffen statt?",
       answer: [
-        "In Osnabrück, ab 2027 alle zwei Monate. Daten und Ort erhalten aufgenommene Mitglieder rechtzeitig vorab.",
+        "In Osnabrück, ab Januar 2027 jeden ersten Mittwoch im Monat. Die nächsten Termine stehen oben unter Termine, den genauen Ort erhalten aufgenommene Mitglieder.",
       ],
     },
     {
       question: "Wie viel Zeit muss ich investieren?",
       answer: [
-        "Ein Treffen alle zwei Monate. Masterminds und Hub kommen dazu, sobald sie starten. Wir erwarten Verbindlichkeit bei den Treffen, nicht ständige Präsenz online.",
+        "Ein Treffen im Monat, jeden ersten Mittwoch. Dazwischen läuft der Austausch im Community-Hub, so viel oder wenig, wie du einbringen willst. Wir erwarten Verbindlichkeit bei den Treffen, nicht ständige Präsenz online.",
       ],
     },
     {
