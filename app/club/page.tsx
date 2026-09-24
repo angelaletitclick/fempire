@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { cityBySlug } from "@/content/cities";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/Section";
 import { supabaseServer } from "@/lib/supabase/server";
@@ -17,7 +18,7 @@ export default async function ClubPage() {
 
   const { data: member } = await supabase
     .from("members")
-    .select("full_name, city")
+    .select("full_name, circle, city_slug")
     .eq("user_id", user.id)
     .maybeSingle();
 
@@ -41,7 +42,10 @@ export default async function ClubPage() {
 
   return (
     <section className="container-site py-section">
-      <SectionLabel index="·" label={`Kern-Kreis ${member.city}`} />
+      <SectionLabel
+        index="·"
+        label={`${member.circle === "foundations" ? "FEMPIRE FOUNDATIONS" : "Leader Circle"} · ${cityBySlug(member.city_slug)?.name ?? ""}`}
+      />
       <h1 className="headline mt-6 text-[2.25rem] leading-[1.1] sm:text-5xl">Willkommen, {member.full_name}.</h1>
       <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-light">
         Hier entstehen Termine, Unterlagen und der Zugang zum Community-Hub.

@@ -6,19 +6,24 @@
  * Bildschirmhöhe.
  *
  * Regeln für neue Texte: Du-Anrede, weibliche Formen, kurze Sätze,
- * keine Ausrufezeichen, keine Emojis, keine Superlative, keine Preise.
+ * keine Ausrufezeichen, keine Emojis, keine Superlative.
+ * Keine Preise, Beträge oder Zahlenbereiche. Einzige zulässige Formulierung:
+ * „Die Investition besprechen wir im persönlichen Gespräch.“
+ * FOUNDATIONS nie als günstigere Variante darstellen, nie „Einsteigerinnen“ oder „Anfängerinnen“.
  */
 
+import { plannedCities } from "./cities";
+
 export const hero = {
-  headline: ["==Baue kein kleines Business.==", "==Baue dein Fempire.=="],
+  headline: ["Baue kein kleines Business.", "==Baue dein Fempire.=="],
   subline:
     "Der vertrauliche Business-Circle für Frauen, die Unternehmen systematisieren, Umsätze pushen und Märkte prägen.",
-  /** Datum wird automatisch aus der Terminregel unten berechnet */
+  /** Datum wird automatisch aus der Terminregel in content/cities.ts berechnet */
   nextMeetingLabel: "Nächstes Treffen",
-  scarcity: "Start Januar 2027. Begrenzte Plätze im Osnabrücker Kern-Kreis.",
+  scarcity: "Start Januar 2027 in Osnabrück. Begrenzte Plätze.",
   secondaryCta: { label: "Was hier anders läuft", href: "#manifest" },
-  /** Umlaufender Text im Siegel */
-  seal: "Fempire Club · Application Only · Osnabrück · ",
+  /** Umlaufender Text im Siegel. Ohne Stadt, der Club wächst deutschlandweit. */
+  seal: "Fempire Club · Application Only · ",
 };
 
 /** Laufband unter dem Hero. Begriffe, um die es im Kreis geht. */
@@ -54,7 +59,7 @@ export const manifest = {
     },
     {
       title: "Plätze sind begrenzt, weil Qualität es ist.",
-      body: "Der Kreis wächst nur so schnell, wie Vertrauen wachsen kann. Jede Aufnahme ist eine bewusste Entscheidung, auf beiden Seiten.",
+      body: "Jeder Kreis wächst nur so schnell, wie Vertrauen wachsen kann. Jede Aufnahme ist eine bewusste Entscheidung, auf beiden Seiten.",
     },
     {
       title: "Wir teilen Strukturen, nicht Motivationssprüche.",
@@ -70,7 +75,7 @@ export const filter = {
   yes: {
     title: "Für dich, wenn",
     items: [
-      "Du führst eine GmbH oder Holding.",
+      "Du führst eine GmbH oder Holding oder trägst hohe Führungsverantwortung.",
       "Du denkst in Systemen, nicht in Aufgaben.",
       "Du legst deine Zahlen offen, wenn du echtes Feedback willst.",
       "Du willst in den nächsten Jahren deutlich wachsen und weißt, dass du das nicht allein löst.",
@@ -81,20 +86,26 @@ export const filter = {
     items: [
       "Du suchst neue Kundinnen für dein Coaching.",
       "Du willst Austausch ohne Verbindlichkeit.",
-      "Du bist noch in der Ideenphase.",
+      "Du suchst Motivation statt Umsetzung.",
       "Du suchst vor allem eine Bühne für dich selbst.",
     ],
+  },
+  foundationsHint: {
+    text: "Du hast noch nicht gegründet, wirst es aber tun?",
+    link: "Dafür gibt es FEMPIRE FOUNDATIONS",
+    href: "#foundations",
   },
 };
 
 export type FormatStatus = "aktiv" | "start" | "vorbereitung";
 
-export const formate = {
-  id: "formate",
-  label: "Formate",
-  headline: "Formate.",
+/** Der Hauptkreis */
+export const leaderCircle = {
+  id: "leader-circle",
+  label: "Leader Circle",
+  headline: "Der ++Leader Circle.++",
   intro:
-    "Ein fester Rhythmus vor Ort, dazu ein Raum für die Zeit dazwischen. Wir bauen erst weiter aus, wenn der Kern trägt.",
+    "Der Kreis für Unternehmerinnen mit eigener GmbH oder Holding und für Frauen mit hoher Führungsverantwortung. Bestehendes Business, echte Zahlen, ein fester Rhythmus.",
   statusLabels: {
     aktiv: "Läuft bereits",
     start: "Ab Januar 2027",
@@ -102,9 +113,9 @@ export const formate = {
   } satisfies Record<FormatStatus, string>,
   items: [
     {
-      title: "Monatliches Treffen",
+      title: "12 Treffen im Jahr",
       status: "start" as FormatStatus,
-      body: "Jeden ersten Mittwoch im Monat in Osnabrück, persönlich. Ein Thema, echte Zahlen, konkrete Entscheidungen. Kein Vortragsabend.",
+      body: "Jeden ersten Mittwoch im Monat, persönlich. Ein Thema, echte Zahlen, konkrete Entscheidungen. Dazu Events über das Jahr.",
     },
     {
       title: "Community-Hub",
@@ -114,7 +125,7 @@ export const formate = {
     {
       title: "Masterminds",
       status: "vorbereitung" as FormatStatus,
-      body: "Kleine Gruppen, fester Rhythmus. Jede legt ihre Kennzahlen offen, die anderen stellen die unbequemen Fragen.",
+      body: "Feste Kleingruppen, fester Rhythmus. Jede legt ihre Kennzahlen offen, die anderen stellen die unbequemen Fragen.",
     },
     {
       title: "FEMPIRE Academy",
@@ -127,39 +138,58 @@ export const formate = {
       body: "Mehrere Tage raus aus dem Tagesgeschäft. Strategie für das nächste Jahr, mit Frauen, die vor denselben Entscheidungen stehen.",
     },
   ],
+  cta: { label: "Für den Leader Circle bewerben", href: "/bewerbung" },
 };
+
+/** Eigenständiges 12-Monats-Programm. Kein Vergleich mit dem Leader Circle, keine Stufen-Optik. */
+export const foundations = {
+  id: "foundations",
+  label: "Foundations",
+  headline: "FEMPIRE ==FOUNDATIONS.==",
+  intro:
+    "Ein eigenes Programm für Frauen, die gründen werden. Zwölf Monate mit einem klaren Ziel: dein Unternehmen steht. Mit starken Partnerinnen an deiner Seite, die dich fordern.",
+  duration: { value: "12", unit: "Monate", note: "Definiertes Programm mit Abschluss" },
+  items: [
+    {
+      title: "Eigene Treffen",
+      body: "Monatlich, in einem eigenen Kreis mit Frauen in derselben Phase. Eigene Termine, eigener Raum.",
+    },
+    {
+      title: "Begleitung durch die Gründerinnen",
+      body: "Coaching und Sparring mit Angela Pister und Maria Elisabeth Doerk. Direkt, konkret, an deinem Vorhaben.",
+    },
+    {
+      title: "Eigener Kanal",
+      body: "Ein geschlossener Kanal für Fragen, Entwürfe und Entscheidungen zwischen den Treffen.",
+    },
+    {
+      title: "Klarer Abschluss",
+      body: "Nach zwölf Monaten endet das Programm. Danach kannst du dich für den Leader Circle bewerben.",
+    },
+  ],
+  forWhom:
+    "Für dich, wenn du gründen wirst und dafür Verbindlichkeit, Struktur und ehrliches Feedback suchst.",
+  cta: { label: "Für FOUNDATIONS bewerben", href: "/bewerbung" },
+};
+
+/** Hinweis zur Trennung beider Kreise, steht unter FOUNDATIONS */
+export const circlesNote =
+  "Leader Circle und FEMPIRE FOUNDATIONS teilen die Marke, aber nie den Raum, nie den Chat, nie die Treffen. In welchen Kreis du gehörst, ordnen wir nach deiner Bewerbung zu.";
 
 export const termine = {
   id: "termine",
   label: "Termine",
   headline: "Termine.",
   intro:
-    "Der Osnabrücker Kern-Kreis trifft sich jeden ersten Mittwoch im Monat. Den genauen Ort erhalten aufgenommene Mitglieder vorab.",
-  /**
-   * Regel für die Termine. Die Liste auf der Seite wird daraus automatisch berechnet,
-   * vergangene Termine verschwinden von selbst.
-   */
-  rule: {
-    /** Erster Termin-Monat im Format JJJJ-MM */
-    startMonth: "2027-01",
-    /** Wochentag: 0 = Sonntag, 1 = Montag, ... 3 = Mittwoch */
-    weekday: 3,
-    /** Der wievielte dieser Wochentage im Monat (1 = erster) */
-    nth: 1,
-    place: "Osnabrück",
-    /** Einzelne Termine absagen, Format JJJJ-MM-TT, z. B. "2027-08-04" */
-    cancelled: [] as string[],
-  },
-  /** So viele kommende Termine werden angezeigt */
+    "Der Leader Circle trifft sich 12 Mal im Jahr, jeden ersten Mittwoch im Monat. Den genauen Ort erhalten aufgenommene Mitglieder vorab. FOUNDATIONS hat eigene Termine.",
+  /** So viele kommende Termine werden angezeigt. Die Terminregel steht in content/cities.ts. */
   show: 4,
-  firstTitle: "Auftakt Kern-Kreis",
-  regularTitle: "Kern-Kreis",
+  firstTitle: "Auftakt Leader Circle",
+  regularTitle: "Leader Circle",
   note: "Ort für Mitglieder",
-  /** Hinweis zur Gründungsphase */
-  // ANNAHME: Stichtag ist der 1. April 2027. Höhe der Aufwandsentschädigung wird bewusst nicht genannt.
-  foundingNote: {
-    title: "Gründungsphase",
-    body: "Bis zum 1. April 2027 erheben wir keinen Mitgliedsbeitrag. Pro Treffen fällt lediglich eine Aufwandsentschädigung an.",
+  events: {
+    title: "Plus Events",
+    body: "Zu den 12 festen Treffen kommen Events über das Jahr. Die Termine gehen rechtzeitig an alle Mitglieder.",
   },
 };
 
@@ -210,11 +240,11 @@ export const ablauf = {
     {
       title: "Bewerbung",
       // ANNAHME: Dauer der Bewerbung ca. 10 Minuten
-      body: "Fünf kurze Schritte, rund zehn Minuten. Du beschreibst dein Unternehmen, deine Zahlen und warum du in diesen Kreis willst.",
+      body: "Fünf kurze Schritte, rund zehn Minuten. Du beschreibst deine Situation, deine Zahlen oder dein Vorhaben und warum du in diesen Kreis willst.",
     },
     {
       title: "Prüfung",
-      body: "Wir lesen jede Bewerbung selbst. Innerhalb von 10 Werktagen hörst du von uns.",
+      body: "Wir lesen jede Bewerbung selbst und ordnen dich dem passenden Kreis zu. Innerhalb von 10 Werktagen hörst du von uns.",
     },
     {
       title: "Kennenlerngespräch",
@@ -232,11 +262,10 @@ export const closing = {
   id: "bewerbung",
   label: "Bewerbung",
   headline: "Dein Platz ++am Tisch.++",
-  body: "Wenn du bis hierhin gelesen hast, weißt du, ob du hierher gehörst. Die Bewerbung dauert rund zehn Minuten.",
+  body: "Wenn du bis hierhin gelesen hast, weißt du, ob du hierher gehörst. Die Bewerbung dauert rund zehn Minuten. Welcher Kreis passt, ordnen wir für dich zu.",
   waitlist: {
     title: "Nicht aus Osnabrück?",
-    body: "Münster, Hamburg und Frankfurt sind als nächste Städte geplant. Trag dich ein, wir melden uns, sobald dort ein Kreis startet.",
-    cities: ["Münster", "Hamburg", "Frankfurt", "Andere Stadt"],
+    body: `${plannedCities.map((city) => city.name).join(", ").replace(/, ([^,]*)$/, " und $1")} sind als nächste Städte geplant. Trag dich ein, wir melden uns, sobald dort ein Kreis startet.`,
     emailLabel: "E-Mail",
     cityLabel: "Stadt",
     submit: "Eintragen",

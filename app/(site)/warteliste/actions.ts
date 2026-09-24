@@ -8,7 +8,7 @@ import { allowRequest, clientIp, hashIp } from "@/lib/rate-limit";
 import { siteUrl } from "@/lib/site-url";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { HONEYPOT } from "@/lib/validation/application";
-import { waitlistSchema } from "@/lib/validation/waitlist";
+import { waitlistCityName, waitlistSchema } from "@/lib/validation/waitlist";
 
 export type WaitlistState =
   | { status: "idle" }
@@ -76,7 +76,7 @@ export async function joinWaitlist(_prev: WaitlistState, formData: FormData): Pr
     if (token) {
       const mail = waitlistConfirm({
         email,
-        city,
+        city: waitlistCityName(city),
         confirmUrl: `${siteUrl}/warteliste/bestaetigen?token=${token}`,
         unsubscribeUrl: `${siteUrl}/warteliste/abmelden?token=${token}`,
       });

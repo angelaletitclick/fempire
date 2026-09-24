@@ -3,7 +3,8 @@ import { ClosingCta } from "@/components/sections/ClosingCta";
 import { WaitlistForm } from "@/components/sections/WaitlistForm";
 import { Faq } from "@/components/sections/Faq";
 import { Filter } from "@/components/sections/Filter";
-import { Formate } from "@/components/sections/Formate";
+import { Foundations } from "@/components/sections/Foundations";
+import { LeaderCircle } from "@/components/sections/LeaderCircle";
 import { Gruenderinnen } from "@/components/sections/Gruenderinnen";
 import { Hero } from "@/components/sections/Hero";
 import { Manifest } from "@/components/sections/Manifest";
@@ -23,7 +24,8 @@ export default function Home() {
       <Ticker />
       <Manifest />
       <Filter />
-      <Formate />
+      <LeaderCircle />
+      <Foundations />
       <Termine />
       <Gruenderinnen />
       <Ablauf />

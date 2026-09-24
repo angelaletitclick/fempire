@@ -5,7 +5,7 @@ import { Section } from "@/components/ui/Section";
 
 export function Ablauf() {
   return (
-    <Section id={ablauf.id} index="06" label={ablauf.label} headline={ablauf.headline}>
+    <Section id={ablauf.id} index="07" label={ablauf.label} headline={ablauf.headline}>
       <Rail label={ablauf.label} as="ol" columns={4}>
         {ablauf.steps.map((step, i) => (
           <Reveal as="li" key={step.title} delay={150 + i * 100} className="card flex flex-col p-6 md:p-8">

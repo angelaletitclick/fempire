@@ -1,7 +1,7 @@
 import "server-only";
 import { funnel } from "@/content/funnel";
 import { mails } from "@/content/mails";
-import type { Application } from "@/lib/validation/application";
+import { isFoundations, type Application } from "@/lib/validation/application";
 import type { Mail } from "./index";
 
 // Mail-Clients kennen keine CSS-Variablen, daher die CI-Werte hier als Konstanten.
@@ -69,27 +69,42 @@ function optionLabel(list: ReadonlyArray<{ value: string; label: string }>, valu
 
 export function applicationNotification(
   application: Application,
-  meta: { id: string; score: number },
+  meta: { id: string; score: number; cityName: string },
   to: string[],
 ): Mail {
   const t = mails.applicationNotification;
   const { fields, options } = funnel;
+  const foundations = isFoundations(application);
+  const pathRows: Array<[string, string]> = foundations
+    ? [
+        [fields.industry.labelFoundations, application.industry],
+        [fields.currentActivity.label, application.currentActivity],
+        [fields.foundingTimeline.label, optionLabel(options.foundingTimeline, application.foundingTimeline)],
+        [fields.idea.label, application.idea],
+        [fields.goal12m.labelFoundations, application.goal12m],
+        [fields.bottleneck.labelFoundations, application.bottleneck],
+      ]
+    : [
+        [fields.company.label, application.company],
+        [fields.legalForm.label, optionLabel(options.legalForm, application.legalForm)],
+        [fields.role.label, optionLabel(options.role, application.role)],
+        [fields.foundedYear.label, String(application.foundedYear)],
+        [fields.employees.label, optionLabel(options.employees, application.employees)],
+        [fields.industry.label, application.industry],
+        [fields.revenueRange.label, optionLabel(options.revenueRange, application.revenueRange)],
+        [fields.goal12m.label, application.goal12m],
+        [fields.bottleneck.label, application.bottleneck],
+      ];
   const rows: Array<[string, string]> = [
+    [t.circleLabel, foundations ? t.circleFoundations : t.circleLeader],
     ["Score (intern)", String(meta.score)],
     [fields.name.label, application.name],
     [fields.email.label, application.email],
     [fields.phone.label, application.phone || "–"],
-    [fields.city.label, application.city],
+    [fields.city.label, meta.cityName],
     [fields.profileUrl.label, application.profileUrl],
-    [fields.company.label, application.company],
-    [fields.legalForm.label, optionLabel(options.legalForm, application.legalForm)],
-    [fields.role.label, optionLabel(options.role, application.role)],
-    [fields.foundedYear.label, String(application.foundedYear)],
-    [fields.employees.label, optionLabel(options.employees, application.employees)],
-    [fields.industry.label, application.industry],
-    [fields.revenueRange.label, optionLabel(options.revenueRange, application.revenueRange)],
-    [fields.goal12m.label, application.goal12m],
-    [fields.bottleneck.label, application.bottleneck],
+    [fields.stage.label, optionLabel(options.stage, application.stage)],
+    ...pathRows,
     [fields.motivation.label, application.motivation],
     [fields.contribution.label, application.contribution],
     [fields.hasChildren.label, optionLabel(options.hasChildren, application.hasChildren)],
@@ -109,7 +124,11 @@ export function applicationNotification(
   return {
     to,
     replyTo: application.email,
-    subject: fill(t.subject, { name: application.name, company: application.company, score: meta.score }),
+    subject: fill(t.subject, {
+      name: application.name,
+      circle: foundations ? t.circleFoundations : t.circleLeader,
+      score: meta.score,
+    }),
     html: layout(
       `<p style="margin:0 0 24px;font-size:14px;color:${SLATE};">${escapeHtml(t.intro)}</p><table role="presentation" width="100%" cellpadding="0" cellspacing="0">${htmlRows}</table>`,
     ),

@@ -16,23 +16,34 @@ create table public.applications (
   score            smallint not null check (score between 0 and 100),
   internal_note    text,
 
+  -- Kreis-Vorschlag aus Schritt 2 (Situation). Die Zuordnung trifft das Auswahlteam.
+  suggested_circle text not null check (suggested_circle in ('leader', 'foundations')),
+  assigned_circle  text check (assigned_circle in ('leader', 'foundations')),
+
   -- Schritt 1: Person
   name             text not null,
   email            text not null,
   phone            text,
-  city             text not null,
+  city             text not null,        -- Anzeigename, bei "Andere Stadt" der Freitext
+  city_slug        text not null,        -- Slug aus content/cities.ts oder "andere"
   profile_url      text,
 
-  -- Schritt 2: Unternehmen
-  company          text not null,
-  legal_form       text not null,
-  role             text not null,
-  founded_year     smallint not null,
-  employees        text not null,
+  -- Schritt 2: Situation
+  stage            text not null check (stage in ('unternehmen', 'fuehrung', 'vor_gruendung')),
   industry         text not null,
+  -- nur Leader-Pfad
+  company          text,
+  legal_form       text,
+  role             text,
+  founded_year     smallint,
+  employees        text,
+  -- nur FOUNDATIONS-Pfad
+  current_activity text,
+  founding_timeline text,
 
-  -- Schritt 3: Zahlen
-  revenue_range    text not null,
+  -- Schritt 3: Zahlen (Leader) bzw. Vorhaben (FOUNDATIONS)
+  revenue_range    text,
+  idea             text,
   goal_12m         text not null,
   bottleneck       text not null,
 
@@ -50,6 +61,7 @@ create table public.applications (
 
 create index applications_created_at_idx on public.applications (created_at desc);
 create index applications_email_idx on public.applications (lower(email));
+create index applications_circle_idx on public.applications (suggested_circle, status);
 
 alter table public.applications enable row level security;
 revoke all on public.applications from anon, authenticated;
@@ -61,7 +73,7 @@ create table public.waitlist (
   id            uuid primary key default gen_random_uuid(),
   created_at    timestamptz not null default now(),
   email         text not null,
-  city          text not null,
+  city          text not null,  -- Slug aus content/cities.ts oder "andere"
   confirm_token uuid not null unique default gen_random_uuid(),
   confirmed_at  timestamptz,
   ip_hash       text
@@ -131,7 +143,9 @@ create table public.members (
   user_id    uuid primary key references auth.users (id) on delete cascade,
   created_at timestamptz not null default now(),
   full_name  text not null,
-  city       text not null default 'Osnabrück'
+  -- Die Kreise teilen nie Raum, Chat oder Treffen: jede Ansicht im Club filtert danach
+  circle     text not null check (circle in ('leader', 'foundations')),
+  city_slug  text not null default 'osnabrueck'
 );
 
 alter table public.members enable row level security;

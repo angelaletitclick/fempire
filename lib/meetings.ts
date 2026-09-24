@@ -1,3 +1,4 @@
+import { homeCity, type MeetingRule } from "@/content/cities";
 import { termine } from "@/content/landing";
 
 export type Meeting = {
@@ -23,9 +24,14 @@ function nthWeekdayOfMonth(year: number, month: number, weekday: number, nth: nu
   return new Date(Date.UTC(year, month, 1 + offset + (nth - 1) * 7));
 }
 
-/** Die nächsten Termine laut Regel in content/landing.ts, ab heute. */
-export function upcomingMeetings(count = termine.show, now = new Date()): Meeting[] {
-  const { startMonth, weekday, nth, cancelled } = termine.rule;
+/** Die nächsten Termine laut Terminregel einer Stadt (content/cities.ts), ab heute. */
+export function upcomingMeetings(
+  count = termine.show,
+  rule: MeetingRule | undefined = homeCity.meetings,
+  now = new Date(),
+): Meeting[] {
+  if (!rule) return [];
+  const { startMonth, weekday, nth, cancelled } = rule;
   const [startYear, startMonthNumber] = startMonth.split("-").map(Number);
   const firstIso = toIso(nthWeekdayOfMonth(startYear, startMonthNumber - 1, weekday, nth));
   const today = todayInBerlin(now);

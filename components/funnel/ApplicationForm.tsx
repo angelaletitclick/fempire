@@ -3,23 +3,27 @@
 import Link from "next/link";
 import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { submitApplication, type ApplicationState } from "@/app/bewerbung/actions";
+import { OTHER_CITY } from "@/content/cities";
 import { funnel } from "@/content/funnel";
 import { Arrow } from "@/components/ui/Button";
 import { Checkbox, ChoiceGroup, Field, Select, TextArea, TextInput } from "@/components/ui/form";
 import { Marked } from "@/components/ui/Marked";
 import { cx } from "@/lib/cx";
 import {
+  cityOptions,
   emptyDraft,
   HONEYPOT,
+  pathForStage,
+  schemaForStep,
   stepIds,
-  stepSchemas,
   toFieldErrors,
   type ApplicationDraft,
   type FieldErrors,
   type StepId,
 } from "@/lib/validation/application";
 
-export const DRAFT_KEY = "fempire-bewerbung-v1";
+/** Version im Schlüssel erhöhen, wenn sich die Felder grundlegend ändern */
+export const DRAFT_KEY = "fempire-bewerbung-v2";
 
 const { fields, options, nav } = funnel;
 
@@ -47,6 +51,16 @@ function saveDraft(draft: ApplicationDraft, step: number) {
   } catch {
     // Privater Modus oder Speicher voll: Formular funktioniert trotzdem
   }
+}
+
+/** Titel eines Schritts, abhängig vom Pfad (Schritt 3 heißt bei FOUNDATIONS „Dein Vorhaben“) */
+function stepTitle(index: number, stage: string): string {
+  const step = funnel.steps[index];
+  if (!step) return "";
+  if (pathForStage(stage) === "foundations" && "titleFoundations" in step && step.titleFoundations) {
+    return step.titleFoundations;
+  }
+  return step.title;
 }
 
 export function ApplicationForm() {
@@ -92,6 +106,7 @@ export function ApplicationForm() {
 
   const stepId = stepIds[step] as StepId;
   const isLast = step === stepIds.length - 1;
+  const foundations = pathForStage(draft.stage) === "foundations";
 
   function update<K extends keyof ApplicationDraft>(key: K, value: ApplicationDraft[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
@@ -107,7 +122,7 @@ export function ApplicationForm() {
   }
 
   function validateStep(): boolean {
-    const result = stepSchemas[stepId].safeParse(draft);
+    const result = schemaForStep(stepId, draft.stage).safeParse(draft);
     if (result.success) return true;
     setErrors(toFieldErrors(result.error));
     requestAnimationFrame(() => {
@@ -146,6 +161,7 @@ export function ApplicationForm() {
   });
 
   const progress = ((step + 1) / stepIds.length) * 100;
+  const currentTitle = stepTitle(step, draft.stage);
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -154,7 +170,7 @@ export function ApplicationForm() {
         <div className="mx-auto flex h-14 w-full max-w-2xl items-center justify-between gap-4 px-[var(--gutter)]">
           <p className="label text-white" aria-live="polite">
             {nav.stepOf(step + 1, stepIds.length)}
-            <span className="text-slate-light"> · {funnel.steps[step]?.title}</span>
+            <span className="text-slate-light"> · {currentTitle}</span>
           </p>
           <Link
             href={funnel.exit.href}
@@ -205,9 +221,8 @@ export function ApplicationForm() {
             tabIndex={-1}
             className={cx("headline outline-none", step === 0 ? "text-xl" : "text-[2rem] leading-[1.1] md:text-4xl")}
           >
-            {funnel.steps[step]?.title}
+            {currentTitle}
           </h2>
-
 
           <div className="mt-8 grid gap-7">
             {stepId === "person" ? (
@@ -225,9 +240,18 @@ export function ApplicationForm() {
                     <TextInput {...input("phone")} type="tel" inputMode="tel" autoComplete="tel" aria-describedby={describedBy} />
                   )}
                 </Field>
-                <Field id="city" label={fields.city.label} error={errors.city}>
-                  {(describedBy) => <TextInput {...input("city")} autoComplete="address-level2" aria-describedby={describedBy} />}
+                <Field id="city" label={fields.city.label} hint={fields.city.hint} error={errors.city}>
+                  {(describedBy) => (
+                    <Select {...input("city")} options={cityOptions} placeholder="Bitte wählen" aria-describedby={describedBy} />
+                  )}
                 </Field>
+                {draft.city === OTHER_CITY ? (
+                  <Field id="cityOther" label={fields.cityOther.label} error={errors.cityOther}>
+                    {(describedBy) => (
+                      <TextInput {...input("cityOther")} autoComplete="address-level2" aria-describedby={describedBy} />
+                    )}
+                  </Field>
+                ) : null}
                 <Field id="profileUrl" label={fields.profileUrl.label} hint={fields.profileUrl.hint} error={errors.profileUrl}>
                   {(describedBy) => (
                     <TextInput {...input("profileUrl")} inputMode="url" autoComplete="url" placeholder="linkedin.com/in/…" aria-describedby={describedBy} />
@@ -236,40 +260,79 @@ export function ApplicationForm() {
               </>
             ) : null}
 
-            {stepId === "unternehmen" ? (
+            {stepId === "situation" ? (
               <>
-                <Field id="company" label={fields.company.label} error={errors.company}>
-                  {(describedBy) => <TextInput {...input("company")} autoComplete="organization" aria-describedby={describedBy} />}
-                </Field>
-                <Field id="legalForm" label={fields.legalForm.label} error={errors.legalForm}>
-                  {(describedBy) => (
-                    <Select {...input("legalForm")} options={options.legalForm} placeholder="Bitte wählen" aria-describedby={describedBy} />
-                  )}
-                </Field>
-                <Field id="role" label={fields.role.label} error={errors.role}>
-                  {(describedBy) => (
-                    <Select {...input("role")} options={options.role} placeholder="Bitte wählen" aria-describedby={describedBy} />
-                  )}
-                </Field>
-                <div className="grid gap-7 sm:grid-cols-2">
-                  <Field id="foundedYear" label={fields.foundedYear.label} error={errors.foundedYear}>
-                    {(describedBy) => (
-                      <TextInput {...input("foundedYear")} inputMode="numeric" maxLength={4} placeholder="2019" aria-describedby={describedBy} />
-                    )}
-                  </Field>
-                  <Field id="employees" label={fields.employees.label} error={errors.employees}>
-                    {(describedBy) => (
-                      <Select {...input("employees")} options={options.employees} placeholder="Bitte wählen" aria-describedby={describedBy} />
-                    )}
-                  </Field>
-                </div>
-                <Field id="industry" label={fields.industry.label} error={errors.industry}>
-                  {(describedBy) => <TextInput {...input("industry")} aria-describedby={describedBy} />}
-                </Field>
+                {/* Die Bewerberin beschreibt ihre Situation, sie wählt keinen Kreis */}
+                <ChoiceGroup
+                  name="stage"
+                  legend={fields.stage.label}
+                  error={errors.stage}
+                  options={options.stage}
+                  value={draft.stage}
+                  onChange={(value) => update("stage", value)}
+                />
+
+                {draft.stage && !foundations ? (
+                  <>
+                    <Field id="company" label={fields.company.label} error={errors.company}>
+                      {(describedBy) => <TextInput {...input("company")} autoComplete="organization" aria-describedby={describedBy} />}
+                    </Field>
+                    <Field id="legalForm" label={fields.legalForm.label} error={errors.legalForm}>
+                      {(describedBy) => (
+                        <Select {...input("legalForm")} options={options.legalForm} placeholder="Bitte wählen" aria-describedby={describedBy} />
+                      )}
+                    </Field>
+                    <Field id="role" label={fields.role.label} error={errors.role}>
+                      {(describedBy) => (
+                        <Select {...input("role")} options={options.role} placeholder="Bitte wählen" aria-describedby={describedBy} />
+                      )}
+                    </Field>
+                    <div className="grid gap-7 sm:grid-cols-2">
+                      <Field id="foundedYear" label={fields.foundedYear.label} error={errors.foundedYear}>
+                        {(describedBy) => (
+                          <TextInput {...input("foundedYear")} inputMode="numeric" maxLength={4} placeholder="2019" aria-describedby={describedBy} />
+                        )}
+                      </Field>
+                      <Field id="employees" label={fields.employees.label} error={errors.employees}>
+                        {(describedBy) => (
+                          <Select {...input("employees")} options={options.employees} placeholder="Bitte wählen" aria-describedby={describedBy} />
+                        )}
+                      </Field>
+                    </div>
+                    <Field id="industry" label={fields.industry.label} error={errors.industry}>
+                      {(describedBy) => <TextInput {...input("industry")} aria-describedby={describedBy} />}
+                    </Field>
+                  </>
+                ) : null}
+
+                {foundations ? (
+                  <>
+                    <Field id="industry" label={fields.industry.labelFoundations} error={errors.industry}>
+                      {(describedBy) => <TextInput {...input("industry")} aria-describedby={describedBy} />}
+                    </Field>
+                    <Field
+                      id="currentActivity"
+                      label={fields.currentActivity.label}
+                      hint={fields.currentActivity.hint}
+                      error={errors.currentActivity}
+                    >
+                      {(describedBy) => <TextInput {...input("currentActivity")} aria-describedby={describedBy} />}
+                    </Field>
+                    <ChoiceGroup
+                      name="foundingTimeline"
+                      legend={fields.foundingTimeline.label}
+                      error={errors.foundingTimeline}
+                      options={options.foundingTimeline}
+                      value={draft.foundingTimeline}
+                      onChange={(value) => update("foundingTimeline", value)}
+                      columns={2}
+                    />
+                  </>
+                ) : null}
               </>
             ) : null}
 
-            {stepId === "zahlen" ? (
+            {stepId === "plan" && !foundations ? (
               <>
                 <ChoiceGroup
                   name="revenueRange"
@@ -285,6 +348,25 @@ export function ApplicationForm() {
                   {(describedBy) => <TextArea {...input("goal12m")} aria-describedby={describedBy} />}
                 </Field>
                 <Field id="bottleneck" label={fields.bottleneck.label} hint={fields.bottleneck.hint} error={errors.bottleneck}>
+                  {(describedBy) => <TextArea {...input("bottleneck")} aria-describedby={describedBy} />}
+                </Field>
+              </>
+            ) : null}
+
+            {stepId === "plan" && foundations ? (
+              <>
+                <Field id="idea" label={fields.idea.label} hint={fields.idea.hint} error={errors.idea}>
+                  {(describedBy) => <TextArea {...input("idea")} aria-describedby={describedBy} />}
+                </Field>
+                <Field
+                  id="goal12m"
+                  label={fields.goal12m.labelFoundations}
+                  hint={fields.goal12m.hintFoundations}
+                  error={errors.goal12m}
+                >
+                  {(describedBy) => <TextArea {...input("goal12m")} aria-describedby={describedBy} />}
+                </Field>
+                <Field id="bottleneck" label={fields.bottleneck.labelFoundations} error={errors.bottleneck}>
                   {(describedBy) => <TextArea {...input("bottleneck")} aria-describedby={describedBy} />}
                 </Field>
               </>
@@ -370,9 +452,7 @@ export function ApplicationForm() {
               disabled={pending}
               className={cx(
                 "group ml-auto inline-flex h-14 flex-1 items-center justify-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] transition-colors sm:flex-none sm:px-10",
-                isLast
-                  ? "bg-pink text-onyx hover:bg-pink-deep hover:text-white"
-                  : "bg-white text-onyx hover:bg-pink",
+                isLast ? "bg-pink text-onyx hover:bg-pink-deep hover:text-white" : "bg-white text-onyx hover:bg-pink",
                 pending && "opacity-60",
               )}
             >
@@ -389,43 +469,55 @@ export function ApplicationForm() {
 function Summary({ draft, onEdit }: { draft: ApplicationDraft; onEdit: (step: number) => void }) {
   const label = (list: ReadonlyArray<{ value: string; label: string }>, value: string) =>
     list.find((option) => option.value === value)?.label ?? value;
+  const foundations = pathForStage(draft.stage) === "foundations";
+  const city = draft.city === OTHER_CITY ? draft.cityOther : label(cityOptions, draft.city);
 
-  const groups: Array<{ step: number; title: string; rows: Array<[string, string]> }> = [
+  const groups: Array<{ step: number; rows: Array<[string, string]> }> = [
     {
       step: 0,
-      title: funnel.steps[0]!.title,
       rows: [
         [fields.name.label, draft.name],
         [fields.email.label, draft.email],
         [fields.phone.label, draft.phone || "–"],
-        [fields.city.label, draft.city],
+        [fields.city.label, city],
         [fields.profileUrl.label, draft.profileUrl],
       ],
     },
     {
       step: 1,
-      title: funnel.steps[1]!.title,
-      rows: [
-        [fields.company.label, draft.company],
-        [fields.legalForm.label, label(options.legalForm, draft.legalForm)],
-        [fields.role.label, label(options.role, draft.role)],
-        [fields.foundedYear.label, draft.foundedYear],
-        [fields.employees.label, label(options.employees, draft.employees)],
-        [fields.industry.label, draft.industry],
-      ],
+      rows: foundations
+        ? [
+            [fields.stage.label, label(options.stage, draft.stage)],
+            [fields.industry.labelFoundations, draft.industry],
+            [fields.currentActivity.label, draft.currentActivity],
+            [fields.foundingTimeline.label, label(options.foundingTimeline, draft.foundingTimeline)],
+          ]
+        : [
+            [fields.stage.label, label(options.stage, draft.stage)],
+            [fields.company.label, draft.company],
+            [fields.legalForm.label, label(options.legalForm, draft.legalForm)],
+            [fields.role.label, label(options.role, draft.role)],
+            [fields.foundedYear.label, draft.foundedYear],
+            [fields.employees.label, label(options.employees, draft.employees)],
+            [fields.industry.label, draft.industry],
+          ],
     },
     {
       step: 2,
-      title: funnel.steps[2]!.title,
-      rows: [
-        [fields.revenueRange.label, label(options.revenueRange, draft.revenueRange)],
-        [fields.goal12m.label, draft.goal12m],
-        [fields.bottleneck.label, draft.bottleneck],
-      ],
+      rows: foundations
+        ? [
+            [fields.idea.label, draft.idea],
+            [fields.goal12m.labelFoundations, draft.goal12m],
+            [fields.bottleneck.labelFoundations, draft.bottleneck],
+          ]
+        : [
+            [fields.revenueRange.label, label(options.revenueRange, draft.revenueRange)],
+            [fields.goal12m.label, draft.goal12m],
+            [fields.bottleneck.label, draft.bottleneck],
+          ],
     },
     {
       step: 3,
-      title: funnel.steps[3]!.title,
       rows: [
         [fields.motivation.label, draft.motivation],
         [fields.contribution.label, draft.contribution],
@@ -439,9 +531,9 @@ function Summary({ draft, onEdit }: { draft: ApplicationDraft; onEdit: (step: nu
     <div className="grid gap-3">
       <p className="text-base leading-relaxed text-slate-light">{funnel.summary.body}</p>
       {groups.map((group) => (
-        <section key={group.title} className="card p-5">
+        <section key={group.step} className="card p-5">
           <div className="flex items-center justify-between gap-4">
-            <h3 className="label text-white">{group.title}</h3>
+            <h3 className="label text-white">{stepTitle(group.step, draft.stage)}</h3>
             <button
               type="button"
               onClick={() => onEdit(group.step)}

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Field, Select, TextInput } from "@/components/ui/form";
 import { Reveal } from "@/components/ui/Reveal";
 import { HONEYPOT } from "@/lib/validation/application";
+import { waitlistCityOptions } from "@/lib/validation/waitlist";
 
 const t = closing.waitlist;
 
@@ -51,7 +52,7 @@ export function WaitlistForm() {
                     id="waitlist-city"
                     name="city"
                     defaultValue=""
-                    options={t.cities.map((city) => ({ value: city, label: city }))}
+                    options={waitlistCityOptions}
                     placeholder="Wählen"
                     required
                     aria-invalid={fieldErrors?.city ? true : undefined}

@@ -38,7 +38,7 @@ export default async function OpengraphImage() {
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", color: SLATE, fontSize: 22, letterSpacing: "0.12em", textTransform: "uppercase" }}>
           <span>
-            {`${site.city} // ${site.claimSuffix}`}
+            {site.claim}
           </span>
           <svg width="64" height="45" viewBox="0 0 40 28" fill="none" stroke={WHITE} strokeWidth="1.5">
             <path d="M3 22 L3 7 L11.5 14 L20 2 L28.5 14 L37 7 L37 22 Z" />

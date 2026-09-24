@@ -13,7 +13,7 @@ export const funnel = {
   intro: {
     label: "Bewerbung",
     headline: "Fünf Schritte. ==Rund zehn Minuten.==",
-    body: "Wir lesen jede Bewerbung selbst. Je konkreter du antwortest, desto besser können wir einschätzen, ob der Kreis zu dir passt. Deine Eingaben werden auf diesem Gerät zwischengespeichert, du kannst also jederzeit pausieren.",
+    body: "Wir lesen jede Bewerbung selbst und ordnen dich dem passenden Kreis zu. Je konkreter du antwortest, desto besser gelingt das. Deine Eingaben werden auf diesem Gerät zwischengespeichert, du kannst also jederzeit pausieren.",
   },
   exit: { label: "Zurück zur Startseite", href: "/" },
   nav: {
@@ -25,10 +25,16 @@ export const funnel = {
   },
   optional: "optional",
   restored: "Dein letzter Zwischenstand wurde wiederhergestellt.",
+  /**
+   * Fünf Schritte. Schritt 2 („situation“) entscheidet über den weiteren Pfad:
+   * Wer noch nicht gegründet hat, bekommt in Schritt 3 die Fragen zum Vorhaben
+   * (FOUNDATIONS), alle anderen die Fragen zu den Zahlen (Leader Circle).
+   * Die Bewerberin wählt dabei nie einen Kreis, sie beschreibt nur ihre Situation.
+   */
   steps: [
     { id: "person", title: "Zu dir" },
-    { id: "unternehmen", title: "Dein Unternehmen" },
-    { id: "zahlen", title: "Deine Zahlen" },
+    { id: "situation", title: "Deine Situation" },
+    { id: "plan", title: "Deine Zahlen", titleFoundations: "Dein Vorhaben" },
     { id: "passung", title: "Passung" },
     { id: "bestaetigung", title: "Absenden" },
   ],
@@ -36,20 +42,34 @@ export const funnel = {
     name: { label: "Vor- und Nachname" },
     email: { label: "E-Mail" },
     phone: { label: "Telefon", hint: "Für eine schnelle Terminabstimmung zum Kennenlerngespräch." },
-    city: { label: "Stadt" },
-    profileUrl: { label: "Website, LinkedIn oder Instagram", hint: "Ein Link, über den wir dich und dein Unternehmen kennenlernen." },
+    city: { label: "Stadt", hint: "Wo würdest du an den Treffen teilnehmen?" },
+    cityOther: { label: "Welche Stadt?" },
+    profileUrl: { label: "Website, LinkedIn oder Instagram", hint: "Ein Link, über den wir dich besser kennenlernen." },
+    stage: { label: "Wo stehst du gerade?" },
     company: { label: "Firmenname" },
     legalForm: { label: "Rechtsform" },
     role: { label: "Deine Rolle" },
     foundedYear: { label: "Gründungsjahr" },
     employees: { label: "Mitarbeiterinnen und Mitarbeiter" },
-    industry: { label: "Branche" },
+    industry: { label: "Branche", labelFoundations: "Branche oder Bereich deines Vorhabens" },
+    currentActivity: { label: "Was machst du beruflich gerade?", hint: "Zum Beispiel angestellt, in Elternzeit, nebenberuflich selbstständig." },
+    foundingTimeline: { label: "Wann willst du gründen?" },
     revenueRange: {
       label: "Jahresumsatz im letzten Geschäftsjahr",
       hint: "Nur als Spanne. Die genauen Zahlen besprechen wir, wenn überhaupt, im Kreis.",
     },
-    goal12m: { label: "Dein Ziel für die nächsten 12 Monate", hint: "Gern mit Zahl: Umsatz, Marge, Team, Standorte." },
-    bottleneck: { label: "Dein größter Engpass gerade", hint: "Was hält dich konkret auf?" },
+    idea: { label: "Was willst du gründen?", hint: "Dein Vorhaben in ein paar Sätzen: Angebot, Zielgruppe, Geschäftsmodell." },
+    goal12m: {
+      label: "Dein Ziel für die nächsten 12 Monate",
+      hint: "Gern mit Zahl: Umsatz, Marge, Team, Standorte.",
+      labelFoundations: "Wo willst du in 12 Monaten stehen?",
+      hintFoundations: "Möglichst konkret: gegründet, erste Kundinnen, erster Umsatz, Team.",
+    },
+    bottleneck: {
+      label: "Dein größter Engpass gerade",
+      hint: "Was hält dich konkret auf?",
+      labelFoundations: "Was hat dich bisher vom Start abgehalten?",
+    },
     motivation: { label: "Warum dieser Kreis?" },
     contribution: { label: "Was bringst du ein?", hint: "Erfahrung, Netzwerk, Know-how, das anderen weiterhilft." },
     hasChildren: {
@@ -63,6 +83,12 @@ export const funnel = {
     },
   },
   options: {
+    /** Beschreibt die Situation, nicht den Kreis. vor_gruendung führt in den FOUNDATIONS-Pfad. */
+    stage: [
+      { value: "unternehmen", label: "Ich führe ein eigenes Unternehmen" },
+      { value: "fuehrung", label: "Ich trage Führungsverantwortung in einem Unternehmen" },
+      { value: "vor_gruendung", label: "Ich habe noch nicht gegründet, werde es aber tun" },
+    ],
     legalForm: [
       { value: "gmbh", label: "GmbH" },
       { value: "ug", label: "UG (haftungsbeschränkt)" },
@@ -91,6 +117,12 @@ export const funnel = {
       { value: "21-50", label: "21 bis 50" },
       { value: "51-200", label: "51 bis 200" },
       { value: "200+", label: "Mehr als 200" },
+    ],
+    foundingTimeline: [
+      { value: "3m", label: "In den nächsten 3 Monaten" },
+      { value: "6m", label: "In den nächsten 6 Monaten" },
+      { value: "12m", label: "In den nächsten 12 Monaten" },
+      { value: "offen", label: "Noch offen" },
     ],
     revenueRange: [
       { value: "lt250k", label: "Unter 250.000 €" },

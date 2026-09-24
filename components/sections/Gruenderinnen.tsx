@@ -12,7 +12,7 @@ export function Gruenderinnen() {
   return (
     <Section
       id={gruenderinnen.id}
-      index="05"
+      index="06"
       label={gruenderinnen.label}
       headline={gruenderinnen.headline}
       intro={gruenderinnen.intro}

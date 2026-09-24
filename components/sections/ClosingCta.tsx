@@ -12,7 +12,7 @@ export function ClosingCta({ waitlist }: { waitlist?: ReactNode }) {
     <section id={closing.id} aria-labelledby="closing-heading" className="container-site py-section">
       <Reveal className="card relative overflow-hidden p-6 sm:p-10 lg:p-16">
         <Crown className="absolute right-6 top-6 w-10 text-white sm:right-10 sm:top-10 md:w-14" />
-        <SectionLabel index="08" label={closing.label} />
+        <SectionLabel index="09" label={closing.label} />
         <Reveal
           as="h2"
           id="closing-heading"

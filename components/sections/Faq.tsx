@@ -4,7 +4,7 @@ import { Section } from "@/components/ui/Section";
 /** Accordion auf Basis von details/summary: tastaturbedienbar und ohne JavaScript funktionsfähig. */
 export function Faq() {
   return (
-    <Section id={faq.id} index="07" label={faq.label} headline={faq.headline}>
+    <Section id={faq.id} index="08" label={faq.label} headline={faq.headline}>
       <div className="grid gap-2 lg:max-w-4xl">
         {faq.items.map((item) => (
           <details key={item.question} className="card group open:border-slate">

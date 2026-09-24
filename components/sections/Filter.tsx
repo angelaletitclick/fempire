@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { filter } from "@/content/landing";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
@@ -37,6 +38,12 @@ export function Filter() {
           </ul>
         </Reveal>
       </div>
+      <Reveal className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-base">
+        <span className="text-slate-light">{filter.foundationsHint.text}</span>
+        <Link href={filter.foundationsHint.href} className="font-semibold text-white underline underline-offset-4 hover:text-slate-light">
+          {filter.foundationsHint.link}
+        </Link>
+      </Reveal>
     </Section>
   );
 }

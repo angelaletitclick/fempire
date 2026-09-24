@@ -1,6 +1,7 @@
+import { homeCity } from "@/content/cities";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { hero, termine } from "@/content/landing";
+import { hero } from "@/content/landing";
 import { site } from "@/content/site";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
 import { Seal } from "@/components/ui/Emblem";
@@ -57,7 +58,7 @@ export function Hero() {
                 <span aria-hidden="true" className="anim-pulse h-1.5 w-1.5 bg-white" />
                 <span className="label text-white">{hero.nextMeetingLabel}</span>
                 <span className="text-slate-light">
-                  {termine.rule.place}, {formatLong(next.date)}
+                  {homeCity.name}, {formatLong(next.date)}
                 </span>
               </p>
             ) : null}
@@ -81,7 +82,7 @@ export function Hero() {
       <div className="container-site relative">
         <div className="anim-fade-in flex items-center justify-between gap-6 border-t border-line pb-6 pt-5" style={delay(1000)}>
           <p className="label">{hero.scarcity}</p>
-          <Seal id="seal-hero" text={hero.seal} className="w-16 shrink-0 lg:w-24" />
+          <Seal id="seal-hero" text={hero.seal} className="w-28 shrink-0 lg:w-40" />
         </div>
       </div>
     </section>

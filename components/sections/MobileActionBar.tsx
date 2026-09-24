@@ -1,5 +1,6 @@
+import { homeCity } from "@/content/cities";
 import Link from "next/link";
-import { hero, termine } from "@/content/landing";
+import { hero } from "@/content/landing";
 import { site } from "@/content/site";
 import { Arrow } from "@/components/ui/Button";
 import { formatDay, upcomingMeetings } from "@/lib/meetings";
@@ -16,7 +17,7 @@ export function MobileActionBar() {
         {next ? (
           <p className="min-w-0 leading-tight">
             <span className="label block text-[0.625rem]">{hero.nextMeetingLabel}</span>
-            <span className="text-sm font-semibold text-white">{formatDay(next.date)} · {termine.rule.place}</span>
+            <span className="text-sm font-semibold text-white">{formatDay(next.date)} · {homeCity.name}</span>
           </p>
         ) : (
           <span />

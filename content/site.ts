@@ -16,8 +16,8 @@ export const site = {
 
   /** Maximal vier Punkte. `href` zeigt auf die id einer Sektion der Startseite. */
   nav: [
-    { label: "Manifest", href: "/#manifest" },
-    { label: "Formate", href: "/#formate" },
+    { label: "Leader Circle", href: "/#leader-circle" },
+    { label: "Foundations", href: "/#foundations" },
     { label: "Termine", href: "/#termine" },
     { label: "Gründerinnen", href: "/#gruenderinnen" },
   ],

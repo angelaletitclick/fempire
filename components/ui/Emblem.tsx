@@ -32,7 +32,7 @@ export function Seal({ id, text, className }: { id: string; text: string; classN
         </defs>
         <circle cx="100" cy="100" r="97" fill="none" style={{ stroke: "var(--line)" }} strokeWidth="1" />
         <circle cx="100" cy="100" r="62" fill="none" style={{ stroke: "var(--line)" }} strokeWidth="1" />
-        <text fill="currentColor" fontSize="11.5" letterSpacing="4.4" fontWeight="500" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+        <text fill="currentColor" fontSize="18" letterSpacing="4.9" fontWeight="600" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
           <textPath href={`#${id}`}>
             {ring}
           </textPath>

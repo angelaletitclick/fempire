@@ -15,8 +15,11 @@ export const mails = {
   },
 
   applicationNotification: {
-    subject: "Neue Bewerbung: {name}, {company} (Score {score})",
-    intro: "Neue Bewerbung über fempireclub.de. Der Score ist nur intern sichtbar.",
+    subject: "Neue Bewerbung: {name}, Vorschlag {circle} (Score {score})",
+    intro: "Neue Bewerbung über fempireclub.de. Kreis-Vorschlag und Score sind nur intern sichtbar. Die Zuordnung trefft ihr.",
+    circleLabel: "Kreis-Vorschlag (aus Schritt 2)",
+    circleLeader: "Leader Circle",
+    circleFoundations: "FEMPIRE FOUNDATIONS",
   },
 
   waitlistConfirm: {

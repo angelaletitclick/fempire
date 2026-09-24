@@ -89,10 +89,10 @@ export const datenschutz: LegalDocument = {
     {
       heading: "4. Bewerbung",
       paragraphs: [
-        "Wenn du dich über das Bewerbungsformular bewirbst, verarbeiten wir die Angaben, die du dort machst: Name, E-Mail, optional Telefon, Stadt, Profil-Link, Angaben zu deinem Unternehmen, Umsatzspanne, Ziele, Engpass, Motivation, deinen Beitrag und deine zeitliche Verfügbarkeit.",
+        "Wenn du dich über das Bewerbungsformular bewirbst, verarbeiten wir die Angaben, die du dort machst: Name, E-Mail, optional Telefon, Stadt, Profil-Link, deine berufliche Situation, Angaben zu deinem Unternehmen und deiner Umsatzspanne oder zu deinem Gründungsvorhaben, Ziele, Engpass, Motivation, deinen Beitrag und deine zeitliche Verfügbarkeit.",
         "Zweck ist die Prüfung deiner Bewerbung und die Kontaktaufnahme für ein Kennenlerngespräch. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen auf deine Anfrage).",
         "Die Angabe, ob du Kinder hast, ist freiwillig. Wenn du sie machst, verarbeiten wir sie auf Grundlage deiner Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO, um Formate und Termine familienfreundlich zu planen. Du kannst die Einwilligung jederzeit per E-Mail widerrufen.",
-        "Zur Sortierung vergeben wir intern eine Vorbewertung auf Basis von Umsatzspanne, Rolle und Vollständigkeit der Antworten. Über die Aufnahme entscheiden ausschließlich die Gründerinnen persönlich. Eine automatisierte Entscheidung im Sinne von Art. 22 DSGVO findet nicht statt.",
+        "Zur Sortierung vergeben wir intern eine Vorbewertung und einen Vorschlag, welcher Kreis passen könnte. Grundlage sind deine Angaben zur Situation, zu Umsatzspanne oder Gründungszeitpunkt und die Vollständigkeit der Antworten. Über Aufnahme und Zuordnung entscheiden ausschließlich die Gründerinnen persönlich. Eine automatisierte Entscheidung im Sinne von Art. 22 DSGVO findet nicht statt.",
         "Deine Bewerbung löschen wir [[sechs Monate]] nach einer Absage. Wirst du aufgenommen, speichern wir die Angaben für die Dauer der Mitgliedschaft.",
         "Während du das Formular ausfüllst, speichert dein Browser einen Zwischenstand lokal auf deinem Gerät (localStorage), damit du pausieren kannst. Diese Daten verlassen dein Gerät erst beim Absenden und werden danach aus dem Browser gelöscht. Die Speicherung ist für die von dir gewünschte Funktion unbedingt erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG).",
       ],

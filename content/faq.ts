@@ -1,6 +1,7 @@
 /**
  * FAQ der Startseite. Reihenfolge hier = Reihenfolge auf der Seite.
- * Keine konkreten Beträge nennen.
+ * Keine Preise, Beträge oder Zahlenbereiche. Zur Investition nur:
+ * „Die Investition besprechen wir im persönlichen Gespräch.“
  */
 export const faq = {
   id: "faq",
@@ -9,13 +10,22 @@ export const faq = {
   items: [
     {
       question: "Was kostet die Mitgliedschaft?",
+      answer: ["Die Investition besprechen wir im persönlichen Gespräch."],
+    },
+    {
+      question: "Welcher Kreis ist der richtige für mich?",
       answer: [
-        "Bis zum 1. April 2027 erheben wir keinen Mitgliedsbeitrag. Pro Treffen fällt lediglich eine Aufwandsentschädigung an.",
-        "Danach ist die Mitgliedschaft eine Jahresinvestition im vierstelligen Bereich. Die genaue Höhe hängt von der Stufe ab und besprechen wir im persönlichen Gespräch.",
+        "Das musst du nicht selbst entscheiden. Du beschreibst in der Bewerbung deine Situation, wir ordnen dich zu und sprechen im Kennenlerngespräch darüber.",
       ],
     },
     {
-      question: "Wer kann sich bewerben?",
+      question: "Wie hängen Leader Circle und FEMPIRE FOUNDATIONS zusammen?",
+      answer: [
+        "Beide Kreise teilen die Marke, aber nie den Raum, nie den Chat, nie die Treffen. Der Leader Circle ist für Frauen mit bestehendem Business. FOUNDATIONS ist ein eigenes Programm über zwölf Monate für Frauen, die gründen werden. Danach ist eine Bewerbung für den Leader Circle möglich.",
+      ],
+    },
+    {
+      question: "Wer kann sich für den Leader Circle bewerben?",
       answer: [
         "Gründerinnen, Holding-Inhaberinnen, Investorinnen und Frauen mit hoher Management-Verantwortung. Entscheidend ist nicht die Rechtsform allein, sondern ob du auf Augenhöhe beitragen kannst.",
       ],
@@ -31,25 +41,25 @@ export const faq = {
     {
       question: "Wo und wann finden die Treffen statt?",
       answer: [
-        "In Osnabrück, ab Januar 2027 jeden ersten Mittwoch im Monat. Die nächsten Termine stehen oben unter Termine, den genauen Ort erhalten aufgenommene Mitglieder.",
+        "Der Leader Circle trifft sich ab Januar 2027 in Osnabrück, 12 Mal im Jahr am ersten Mittwoch im Monat, dazu kommen Events. FOUNDATIONS hat eigene Termine. Den genauen Ort erhalten aufgenommene Mitglieder.",
       ],
     },
     {
       question: "Wie viel Zeit muss ich investieren?",
       answer: [
-        "Ein Treffen im Monat, jeden ersten Mittwoch. Dazwischen läuft der Austausch im Community-Hub, so viel oder wenig, wie du einbringen willst. Wir erwarten Verbindlichkeit bei den Treffen, nicht ständige Präsenz online.",
+        "Ein Treffen im Monat. Dazwischen läuft der Austausch im Community-Hub, so viel oder wenig, wie du einbringen willst. Wir erwarten Verbindlichkeit bei den Treffen, nicht ständige Präsenz online.",
       ],
     },
     {
       question: "Ich komme nicht aus Osnabrück.",
       answer: [
-        "Wenn du regelmäßig nach Osnabrück kommen kannst, bewirb dich direkt. Sonst trag dich in die Warteliste für deine Stadt ein. Münster, Hamburg und Frankfurt sind als nächste Standorte geplant.",
+        "Wenn du regelmäßig nach Osnabrück kommen kannst, bewirb dich direkt. Sonst trag dich in die Warteliste für deine Stadt ein. Der Club wächst über weitere Städte.",
       ],
     },
     {
       question: "Warum werden Bewerbungen abgelehnt?",
       answer: [
-        "Meist passt die Phase nicht. Wer noch in der Ideenphase ist oder vor allem Kundinnen sucht, findet hier nicht, was sie braucht. Eine Absage ist keine Bewertung deiner Person.",
+        "Meist passt die Phase nicht. Wer vor allem Kundinnen sucht oder Austausch ohne Verbindlichkeit, findet in keinem der beiden Kreise, was sie braucht. Eine Absage ist keine Bewertung deiner Person.",
       ],
     },
   ],

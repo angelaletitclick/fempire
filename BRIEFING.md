@@ -29,7 +29,7 @@ USP, in dieser Reihenfolge:
 
 Formate: Treffen alle zwei Monate, Masterminds, digitaler Community-Hub für KPI-Austausch, später FEMPIRE Academy und mehrtägige Retreats.
 
-Preise: 1.200–1.800 € netto/Jahr je nach Stufe. **Nicht öffentlich.** Auf der Seite nur: „Die Investition besprechen wir im persönlichen Gespräch.“
+Preise: Konkrete Beiträge sind intern und stehen nicht im Repo. Auf der Seite nur: „Die Investition besprechen wir im persönlichen Gespräch.“ (siehe Abschnitt 11)
 
 ## 2. Die Gründerinnen
 
@@ -137,3 +137,18 @@ Spam-Schutz: Honeypot plus Rate-Limit pro IP. Kein Captcha-Dienst mit US-Datentr
 ## 10. Definition of Done
 
 Landing und Funnel vollständig in CI, Bewerbungen kommen in Supabase an, beide Mails werden zuverlässig zugestellt, Impressum und Datenschutz stehen, Lighthouse mobil ≥ 90, geprüft auf iPhone SE, iPad, Desktop, README erklärt Textpflege in `content/` ohne Code.
+
+## 11. Nachtrag: Zwei Kreise, Preise, Städte (Stand September 2026)
+
+Der Club hat **zwei getrennte Kreise**. Sie teilen die Marke, aber nie den Raum, nie den Chat, nie die Treffen.
+
+- **Leader Circle** (Hauptkreis): Unternehmerinnen mit eigener GmbH/Holding oder hoher Führungsverantwortung. Bestehendes Business, echte Zahlen. 12 Treffen pro Jahr (monatlich, erster Mittwoch) plus Events, Masterminds in festen Kleingruppen, Community-Hub, Retreats, Academy.
+- **FEMPIRE FOUNDATIONS**: Frauen vor der Gründung. Eigenes Programm über 12 Monate mit Abschluss, danach Bewerbung in den Leader Circle oder Ende. Kein Dauerabo. Eigene monatliche Treffen, Coaching durch die Gründerinnen, eigener Kanal.
+
+Regeln für die Website:
+- Keine Preise, Beträge oder Zahlenbereiche. Einzige zulässige Formulierung: „Die Investition besprechen wir im persönlichen Gespräch.“ Konkrete Beiträge und Founding-Konditionen sind intern und gehören nicht ins Repo.
+- Beide Kreise sichtbar getrennt: eigene Sektion, eigener CTA. Keine Preistabelle, keine Stufen-Optik, kein „Basic vs. Premium“.
+- FOUNDATIONS nie als günstigere Variante des Leader Circle, sondern als eigenes Programm mit eigenem Ziel. Nie „Einsteigerinnen“, „Anfängerinnen“ oder „kleine Selbstständige“.
+- Bewerberinnen wählen keinen Kreis. Schritt 2 der Bewerbung (Situation) entscheidet über den Pfad: Wer noch nicht gegründet hat, bekommt die FOUNDATIONS-Fragen, alle anderen die Leader-Fragen. Die Zuordnung trifft das Auswahlteam.
+
+Skalierung: Start in Osnabrück, Wachstum über City-Leads in weitere Städte. Städte sind Daten (`content/cities.ts`): Stadt-Auswahl in der Bewerbung, Warteliste für Städte ohne Kreis, Terminregel pro Stadt. Markenelemente wie das Siegel nennen keine Stadt.

@@ -8,11 +8,13 @@ import { applicationConfirmation, applicationNotification } from "@/lib/mail/tem
 import { allowRequest, clientIp, hashIp } from "@/lib/rate-limit";
 import { scoreApplication } from "@/lib/scoring";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { cityBySlug, OTHER_CITY } from "@/content/cities";
 import {
-  applicationSchema,
   emptyDraft,
+  fieldStep,
   HONEYPOT,
-  stepSchemas,
+  isFoundations,
+  parseApplication,
   toFieldErrors,
   type FieldErrors,
   type StepId,
@@ -25,10 +27,6 @@ export type ApplicationState =
 /** Unter dieser Ausfülldauer gilt das Formular als automatisiert abgeschickt. */
 const MIN_FILL_MS = 4000;
 
-function stepOfField(field: string): StepId | undefined {
-  return (Object.keys(stepSchemas) as StepId[]).find((step) => field in stepSchemas[step].shape);
-}
-
 export async function submitApplication(_prev: ApplicationState, formData: FormData): Promise<ApplicationState> {
   // Spam: still so tun, als hätte alles geklappt, damit Bots nichts lernen
   const startedAt = Number(formData.get("startedAt"));
@@ -39,7 +37,7 @@ export async function submitApplication(_prev: ApplicationState, formData: FormD
   const raw = Object.fromEntries(
     Object.keys(emptyDraft).map((key) => [key, key === "privacy" ? formData.get(key) === "on" : String(formData.get(key) ?? "")]),
   );
-  const parsed = applicationSchema.safeParse(raw);
+  const parsed = parseApplication(raw);
   if (!parsed.success) {
     const fieldErrors = toFieldErrors(parsed.error);
     const firstField = Object.keys(fieldErrors)[0];
@@ -47,10 +45,13 @@ export async function submitApplication(_prev: ApplicationState, formData: FormD
       status: "error",
       message: funnel.errors.validation,
       fieldErrors,
-      step: firstField ? stepOfField(firstField) : undefined,
+      step: firstField ? fieldStep[firstField] : undefined,
     };
   }
   const application = parsed.data;
+  const foundations = isFoundations(application);
+  const cityName =
+    application.city === OTHER_CITY ? application.cityOther : (cityBySlug(application.city)?.name ?? application.city);
 
   let ipHash: string | null = null;
   try {
@@ -73,15 +74,23 @@ export async function submitApplication(_prev: ApplicationState, formData: FormD
         name: application.name,
         email: application.email.toLowerCase(),
         phone: application.phone || null,
-        city: application.city,
+        city: cityName,
+        city_slug: application.city,
         profile_url: application.profileUrl,
-        company: application.company,
-        legal_form: application.legalForm,
-        role: application.role,
-        founded_year: application.foundedYear,
-        employees: application.employees,
+        stage: application.stage,
+        suggested_circle: foundations ? "foundations" : "leader",
         industry: application.industry,
-        revenue_range: application.revenueRange,
+        // Leader-Pfad
+        company: foundations ? null : application.company,
+        legal_form: foundations ? null : application.legalForm,
+        role: foundations ? null : application.role,
+        founded_year: foundations ? null : application.foundedYear,
+        employees: foundations ? null : application.employees,
+        revenue_range: foundations ? null : application.revenueRange,
+        // FOUNDATIONS-Pfad
+        current_activity: foundations ? application.currentActivity : null,
+        founding_timeline: foundations ? application.foundingTimeline : null,
+        idea: foundations ? application.idea : null,
         goal_12m: application.goal12m,
         bottleneck: application.bottleneck,
         motivation: application.motivation,
@@ -107,7 +116,9 @@ export async function submitApplication(_prev: ApplicationState, formData: FormD
     const recipients = notifyRecipients();
     const results = await Promise.allSettled([
       sendMail(applicationConfirmation(application)),
-      recipients.length ? sendMail(applicationNotification(application, { id, score }, recipients)) : Promise.resolve(),
+      recipients.length
+        ? sendMail(applicationNotification(application, { id, score, cityName }, recipients))
+        : Promise.resolve(),
     ]);
     for (const result of results) {
       if (result.status === "rejected") console.error(`Bewerbung ${id}:`, result.reason);

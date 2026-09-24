@@ -1,3 +1,4 @@
+import { homeCity } from "@/content/cities";
 import { termine } from "@/content/landing";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
@@ -6,7 +7,7 @@ import { formatDay, formatLong, upcomingMeetings } from "@/lib/meetings";
 export function Termine() {
   const meetings = upcomingMeetings();
   return (
-    <Section id={termine.id} index="04" label={termine.label} headline={termine.headline} intro={termine.intro}>
+    <Section id={termine.id} index="05" label={termine.label} headline={termine.headline} intro={termine.intro}>
       <div className="grid gap-3 lg:grid-cols-12 lg:gap-4">
         <ol className="grid gap-3 lg:col-span-8">
           {meetings.map((meeting, i) => (
@@ -24,7 +25,7 @@ export function Termine() {
               <div className="min-w-0 flex-1">
                 <p className="text-lg font-semibold">{meeting.isFirst ? termine.firstTitle : termine.regularTitle}</p>
                 <p className="mt-1 text-sm text-slate-light md:text-base">
-                  {formatLong(meeting.date)} · {termine.rule.place}
+                  {formatLong(meeting.date)} · {homeCity.name}
                 </p>
               </div>
               <p className="label hidden sm:block">{termine.note}</p>
@@ -32,9 +33,9 @@ export function Termine() {
           ))}
         </ol>
 
-        <Reveal as="aside" delay={150} className="self-start border border-pink/60 p-6 md:p-8 lg:col-span-4">
-          <p className="label text-pink">{termine.foundingNote.title}</p>
-          <p className="mt-4 text-lg leading-relaxed">{termine.foundingNote.body}</p>
+        <Reveal as="aside" delay={150} className="self-start border border-white p-6 md:p-8 lg:col-span-4">
+          <p className="label text-white">{termine.events.title}</p>
+          <p className="mt-4 text-lg leading-relaxed">{termine.events.body}</p>
         </Reveal>
       </div>
     </Section>
