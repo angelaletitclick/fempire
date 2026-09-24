@@ -1,26 +1,138 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/* CI-Tokens. Einzige Stelle mit Hex-Werten.                           */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --onyx: #0d0d0d;
+  --pink: #ff1493;
+  --pink-deep: #e60067;
+  --white: #ffffff;
+  --slate: #8a8a8e;
+  /* Aufgehellter Slate für Text unter 16px, Kontrast auf Onyx > 7:1 */
+  --slate-light: #b4b4b8;
+  --line: #2a2a2a;
+
+  --section-gap: clamp(8rem, 12vw, 11rem);
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-onyx: var(--onyx);
+  --color-pink: var(--pink);
+  --color-pink-deep: var(--pink-deep);
+  --color-white: var(--white);
+  --color-slate: var(--slate);
+  --color-slate-light: var(--slate-light);
+  --color-line: var(--line);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-syne), var(--font-inter), ui-sans-serif, sans-serif;
+
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Halber Abstand oben und unten: zwei Sektionen ergeben zusammen --section-gap */
+  --spacing-section: calc(var(--section-gap) / 2);
+  --spacing-gutter: var(--gutter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------------ */
+/* Basis                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    background: var(--onyx);
+    color: var(--white);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--onyx);
+    color: var(--white);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--pink);
+    color: var(--onyx);
+  }
+
+  /* Sichtbarer Fokus in Pink, nur bei Tastaturbedienung */
+  :focus-visible {
+    outline: 2px solid var(--pink);
+    outline-offset: 3px;
+  }
+
+  /* Native Accordion-Marker entfernen */
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------------------ */
+/* Typografie-Utilities                                                */
+/* ------------------------------------------------------------------ */
+@utility headline {
+  font-family: var(--font-syne), var(--font-inter), sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+@utility label {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  color: var(--slate-light);
+}
+
+@utility prose-width {
+  max-width: 65ch;
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: max(var(--gutter), env(safe-area-inset-left), env(safe-area-inset-right));
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll-Reveal. Inhalte sind ohne JS immer sichtbar; erst Reveal.tsx */
+/* setzt data-reveal="pending" für Elemente unterhalb des Viewports.   */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition:
+      opacity 450ms var(--ease-out),
+      transform 450ms var(--ease-out);
+  }
+  [data-reveal="pending"] {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
 }
