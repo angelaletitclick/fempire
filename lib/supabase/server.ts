@@ -1,14 +1,14 @@
 import "server-only";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
-import { serverEnv } from "@/lib/env";
+import { supabaseEnv } from "@/lib/env";
 
 /** Client im Kontext der angemeldeten Nutzerin. Unterliegt RLS. */
 export async function supabaseServer() {
-  const env = serverEnv();
+  const env = supabaseEnv();
   const cookieStore = await cookies();
 
-  return createServerClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, {
+  return createServerClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
