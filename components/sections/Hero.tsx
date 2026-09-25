@@ -52,16 +52,7 @@ export function Hero() {
 
         <div className="mt-8 grid gap-8 md:mt-12 lg:grid-cols-12 lg:items-end">
           <div className="anim-fade-up lg:col-span-7" style={delay(700)}>
-            <p className="prose-width text-base leading-relaxed text-white sm:text-lg">{hero.subline}</p>
-            <p className="mt-4 text-base sm:text-lg">
-              <span className="text-slate-light">{hero.foundationsHint.question} </span>
-              <Link
-                href={hero.foundationsHint.href}
-                className="font-semibold text-white underline decoration-pink decoration-2 underline-offset-4 hover:decoration-white"
-              >
-                {hero.foundationsHint.link}
-              </Link>
-            </p>
+            <p className="prose-width text-base leading-relaxed text-white sm:text-lg md:text-xl">{hero.subline}</p>
             {next ? (
               <p className="card mt-6 inline-flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-3 text-sm">
                 <span aria-hidden="true" className="anim-pulse h-1.5 w-1.5 bg-white" />

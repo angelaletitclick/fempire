@@ -22,12 +22,7 @@ export const hero = {
    */
   headline: ["Der Club für Unter­nehmerinnen,", "==die ein Fempire bauen.=="],
   subline:
-    "Der FEMPIRE CLUB ist kein Netzwerk und keine Weiterbildung, sondern ein geschlossener Kreis für Unternehmerinnen, die ein laufendes Business führen, Verantwortung für ein Team tragen und ihr Geschäft in die nächste Größenordnung bringen wollen. Zwölfmal im Jahr treffen wir uns in fester Runde, legen Umsätze, Margen und offene Baustellen auf den Tisch und arbeiten konkret daran weiter. Wer aufgenommen wird, entscheidet die Bewerbung, weil der Wert dieses Kreises von jeder einzelnen Frau darin abhängt.",
-  foundationsHint: {
-    question: "Noch nicht gegründet?",
-    link: "FEMPIRE FOUNDATIONS ist der Weg dorthin.",
-    href: "#foundations",
-  },
+    "Der FEMPIRE CLUB ist kein Netzwerk und keine Weiterbildung, sondern ein geschlossener Kreis für Unternehmerinnen, die ein laufendes Business führen, Verantwortung für ein Team tragen und ihr Geschäft in die nächste Größenordnung bringen wollen. Bei regelmäßigen Treffen in fester Runde legen wir Umsätze und offene Painpoints auf den Tisch und arbeiten konkret daran weiter. Application only.",
   /** Datum wird automatisch aus der Terminregel in content/cities.ts berechnet */
   nextMeetingLabel: "Nächstes Treffen",
   secondaryCta: { label: "Was hier anders läuft", href: "#manifest" },
