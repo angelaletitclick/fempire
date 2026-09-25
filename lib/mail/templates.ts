@@ -5,11 +5,11 @@ import { isFoundations, type Application } from "@/lib/validation/application";
 import type { Mail } from "./index";
 
 // Mail-Clients kennen keine CSS-Variablen, daher die CI-Werte hier als Konstanten.
-const ONYX = "#0d0d0d";
-const PINK = "#ff1493";
+const PLUM = "#2a1430";
+const PINK = "#cb1570";
 const WHITE = "#ffffff";
-const SLATE = "#b4b4b8";
-const LINE = "#2a2a2a";
+const SLATE = "#e8c9d9";
+const LINE = "#e8c9d9";
 
 function escapeHtml(value: string): string {
   return value
@@ -33,8 +33,8 @@ function paragraphs(lines: string[]): string {
 function layout(content: string): string {
   const signature = escapeHtml(mails.signature).replace(/\n/g, "<br>");
   return `<!doctype html>
-<html lang="de"><body style="margin:0;padding:0;background:${ONYX};">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${ONYX};">
+<html lang="de"><body style="margin:0;padding:0;background:${PLUM};">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${PLUM};">
 <tr><td align="center" style="padding:40px 20px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;font-family:Helvetica,Arial,sans-serif;">
 <tr><td style="padding-bottom:24px;border-bottom:1px solid ${LINE};font-weight:800;letter-spacing:2px;font-size:13px;color:${WHITE};">
@@ -144,7 +144,7 @@ export function waitlistConfirm(input: {
 }): Mail {
   const t = mails.waitlistConfirm;
   const body = t.body.map((line) => fill(line, { city: input.city }));
-  const button = `<p style="margin:24px 0;"><a href="${escapeHtml(input.confirmUrl)}" style="display:inline-block;padding:16px 28px;background:${WHITE};color:${ONYX};font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;">${escapeHtml(t.button)}</a></p>`;
+  const button = `<p style="margin:24px 0;"><a href="${escapeHtml(input.confirmUrl)}" style="display:inline-block;padding:16px 28px;background:${WHITE};color:${PLUM};font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;">${escapeHtml(t.button)}</a></p>`;
   const unsubscribe = `<p style="margin:0;font-size:13px;"><a href="${escapeHtml(input.unsubscribeUrl)}" style="color:${SLATE};">${escapeHtml(t.unsubscribe)}</a></p>`;
   return {
     to: input.email,

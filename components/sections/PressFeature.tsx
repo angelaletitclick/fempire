@@ -57,7 +57,7 @@ export function PressFeature() {
             href={press.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex h-12 items-center gap-3 bg-white px-6 text-xs font-semibold uppercase tracking-[0.12em] text-onyx transition-colors hover:bg-pink"
+            className="group inline-flex h-12 items-center gap-3 bg-white px-6 text-xs font-semibold uppercase tracking-[0.12em] text-plum transition-colors hover:bg-pink hover:text-white"
           >
             {press.linkLabel}
             <span className="sr-only"> (öffnet noz.de in neuem Tab)</span>

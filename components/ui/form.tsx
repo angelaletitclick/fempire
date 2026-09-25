@@ -7,7 +7,7 @@ import { cx } from "@/lib/cx";
  */
 
 const control =
-  "w-full border border-line bg-onyx px-4 py-3.5 text-base text-white placeholder:text-slate transition-colors duration-200 hover:border-slate focus:border-white focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink aria-[invalid=true]:border-pink";
+  "w-full border border-line bg-plum px-4 py-3.5 text-base text-white placeholder:text-slate transition-colors duration-200 hover:border-slate focus:border-white focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink aria-[invalid=true]:border-pink";
 
 type FieldProps = {
   id: string;
@@ -138,7 +138,7 @@ export function ChoiceGroup({
               htmlFor={id}
               className={cx(
                 "flex min-h-14 cursor-pointer items-center gap-4 border px-4 py-3 text-base transition-colors duration-200 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-pink",
-                checked ? "border-white bg-white text-onyx" : "border-line text-white hover:border-slate",
+                checked ? "border-white bg-white text-plum" : "border-line text-white hover:border-slate",
               )}
             >
               <input
@@ -152,7 +152,7 @@ export function ChoiceGroup({
               />
               <span
                 aria-hidden="true"
-                className={cx("h-3 w-3 shrink-0 border", checked ? "border-onyx bg-onyx" : "border-slate")}
+                className={cx("h-3 w-3 shrink-0 border", checked ? "border-plum bg-plum" : "border-slate")}
               />
               {option.label}
             </label>
@@ -206,7 +206,7 @@ export function Checkbox({
           )}
         >
           {checked ? (
-            <svg viewBox="0 0 12 10" className="h-2.5 w-3 text-onyx" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg viewBox="0 0 12 10" className="h-2.5 w-3 text-plum" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M1 5l3.5 3.5L11 1" />
             </svg>
           ) : null}

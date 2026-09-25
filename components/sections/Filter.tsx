@@ -9,7 +9,7 @@ export function Filter() {
       <div className="grid gap-3 md:grid-cols-2 md:gap-4">
         <Reveal className="card p-6 md:p-10">
           <h3 className="label flex items-center gap-3 text-white">
-            <span aria-hidden="true" className="flex h-6 w-6 items-center justify-center bg-white text-onyx">
+            <span aria-hidden="true" className="flex h-6 w-6 items-center justify-center bg-white text-plum">
               +
             </span>
             {filter.yes.title}

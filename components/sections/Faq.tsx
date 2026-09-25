@@ -12,7 +12,7 @@ export function Faq() {
               <h3 className="text-base font-semibold leading-snug md:text-lg">{item.question}</h3>
               <span
                 aria-hidden="true"
-                className="relative flex h-8 w-8 shrink-0 items-center justify-center border border-line transition-colors group-open:border-white group-open:bg-white group-open:text-onyx"
+                className="relative flex h-8 w-8 shrink-0 items-center justify-center border border-line transition-colors group-open:border-white group-open:bg-white group-open:text-plum"
               >
                 <span className="absolute h-px w-3 bg-current" />
                 <span className="absolute h-3 w-px bg-current transition-transform duration-300 group-open:rotate-90" />

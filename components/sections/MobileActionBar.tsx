@@ -12,7 +12,7 @@ import { formatDay, upcomingMeetings } from "@/lib/meetings";
 export function MobileActionBar() {
   const next = upcomingMeetings(1)[0];
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-onyx/95 pb-[env(safe-area-inset-bottom)] lg:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-plum/95 pb-[env(safe-area-inset-bottom)] lg:hidden">
       <div className="container-site flex h-[4.5rem] items-center justify-between gap-4">
         {next ? (
           <p className="min-w-0 leading-tight">
@@ -24,7 +24,7 @@ export function MobileActionBar() {
         )}
         <Link
           href={site.cta.href}
-          className="group inline-flex h-12 shrink-0 items-center gap-3 bg-white px-5 text-xs font-semibold uppercase tracking-[0.12em] text-onyx active:bg-pink"
+          className="group inline-flex h-12 shrink-0 items-center gap-3 bg-white px-5 text-xs font-semibold uppercase tracking-[0.12em] text-plum active:bg-pink active:text-white"
         >
           {site.cta.shortLabel}
           <Arrow />

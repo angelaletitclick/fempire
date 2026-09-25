@@ -21,10 +21,7 @@ export const hero = {
     "Der vertrauliche Business-Circle für Frauen, die Unternehmen systematisieren, Umsätze pushen und Märkte prägen.",
   /** Datum wird automatisch aus der Terminregel in content/cities.ts berechnet */
   nextMeetingLabel: "Nächstes Treffen",
-  scarcity: "Start Januar 2027 in Osnabrück. Begrenzte Plätze.",
   secondaryCta: { label: "Was hier anders läuft", href: "#manifest" },
-  /** Umlaufender Text im Siegel. Ohne Stadt, der Club wächst deutschlandweit. */
-  seal: "Fempire Club · Application Only · ",
 };
 
 /** Laufband unter dem Hero. Begriffe, um die es im Kreis geht. */

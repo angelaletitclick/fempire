@@ -166,7 +166,7 @@ export function ApplicationForm() {
   return (
     <div className="flex min-h-dvh flex-col">
       {/* Kopf: Schließen, Schritt-Zähler, Fortschritt */}
-      <header className="sticky top-0 z-30 border-b border-line bg-onyx/95 pt-[env(safe-area-inset-top)]">
+      <header className="sticky top-0 z-30 border-b border-line bg-plum/95 pt-[env(safe-area-inset-top)]">
         <div className="mx-auto flex h-14 w-full max-w-2xl items-center justify-between gap-4 px-[var(--gutter)]">
           <p className="label text-white" aria-live="polite">
             {nav.stepOf(step + 1, stepIds.length)}
@@ -427,7 +427,7 @@ export function ApplicationForm() {
         </div>
 
         {/* Fixierte Aktionsleiste unten, wie in einer App */}
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-onyx/95 pb-[env(safe-area-inset-bottom)]">
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-plum/95 pb-[env(safe-area-inset-bottom)]">
           {/* Fehler beim Absenden direkt über den Buttons, wo der Blick gerade ist */}
           {state.status === "error" && !state.fieldErrors ? (
             <p role="alert" className="mx-auto w-full max-w-2xl px-[var(--gutter)] pt-3">
@@ -452,7 +452,7 @@ export function ApplicationForm() {
               disabled={pending}
               className={cx(
                 "group ml-auto inline-flex h-14 flex-1 items-center justify-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] transition-colors sm:flex-none sm:px-10",
-                isLast ? "bg-pink text-onyx hover:bg-pink-deep hover:text-white" : "bg-white text-onyx hover:bg-pink",
+                isLast ? "bg-pink text-white hover:bg-pink-deep" : "bg-white text-plum hover:bg-pink hover:text-white",
                 pending && "opacity-60",
               )}
             >

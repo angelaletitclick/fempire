@@ -27,10 +27,10 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-onyx/95 pt-[env(safe-area-inset-top)]">
+    <header className="sticky top-0 z-50 border-b border-line bg-plum/95 pt-[env(safe-area-inset-top)]">
       <a
         href="#inhalt"
-        className="label sr-only bg-onyx px-4 py-3 text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-2"
+        className="label sr-only bg-plum px-4 py-3 text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-2"
       >
         Zum Inhalt springen
       </a>
@@ -91,7 +91,7 @@ export function Nav() {
       <div
         id={menuId}
         className={cx(
-          "fixed inset-x-0 bottom-0 top-[calc(4rem+env(safe-area-inset-top))] z-50 flex-col overflow-y-auto bg-onyx lg:hidden",
+          "fixed inset-x-0 bottom-0 top-[calc(4rem+env(safe-area-inset-top))] z-50 flex-col overflow-y-auto bg-plum lg:hidden",
           open ? "flex" : "hidden",
         )}
       >

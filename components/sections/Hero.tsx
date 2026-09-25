@@ -4,7 +4,6 @@ import type { CSSProperties } from "react";
 import { hero } from "@/content/landing";
 import { site } from "@/content/site";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
-import { Seal } from "@/components/ui/Emblem";
 import { Marked } from "@/components/ui/Marked";
 import { formatLong, upcomingMeetings } from "@/lib/meetings";
 
@@ -76,13 +75,6 @@ export function Hero() {
               {hero.secondaryCta.label}
             </Link>
           </div>
-        </div>
-      </div>
-
-      <div className="container-site relative">
-        <div className="anim-fade-in flex items-center justify-between gap-6 border-t border-line pb-6 pt-5" style={delay(1000)}>
-          <p className="label">{hero.scarcity}</p>
-          <Seal id="seal-hero" text={hero.seal} className="w-28 shrink-0 lg:w-40" />
         </div>
       </div>
     </section>

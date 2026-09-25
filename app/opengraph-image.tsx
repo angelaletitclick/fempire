@@ -10,11 +10,11 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 // Satori kennt keine CSS-Variablen, deshalb hier die CI-Werte als Konstanten.
-const ONYX = "#0d0d0d";
-const PINK = "#ff1493";
+const PLUM = "#2a1430";
+const PINK = "#cb1570";
 const WHITE = "#ffffff";
-const SLATE = "#b4b4b8";
-const LINE = "#2a2a2a";
+const SLATE = "#e8c9d9";
+const LINE = "#e8c9d9";
 
 export default async function OpengraphImage() {
   const [heading, inter] = await Promise.all([
@@ -31,7 +31,7 @@ export default async function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: ONYX,
+          background: PLUM,
           padding: "64px 72px",
           fontFamily: "Inter",
         }}
@@ -55,7 +55,7 @@ export default async function OpengraphImage() {
                     segment.mark
                       ? {
                           background: segment.mark === "pink" ? PINK : WHITE,
-                          color: segment.mark === "pink" ? WHITE : ONYX,
+                          color: segment.mark === "pink" ? WHITE : PLUM,
                           padding: "0 12px",
                           marginLeft: -12,
                         }

@@ -56,11 +56,12 @@ Struktur: `app/`, `components/ui/`, `components/sections/`, `lib/` (supabase, va
 
 | Token | Hex | Einsatz |
 |---|---|---|
-| `--onyx` | #0D0D0D | Hauptfarbe, Hintergrund, Rahmen |
-| `--pink` | #FF1493 | Akzent, Signale, CTA |
-| `--pink-deep` | #E60067 | Hover, Verläufe, Tiefe |
+| `--plum` | #2A1430 | Hauptfarbe, Hintergrund (Aubergine, ersetzt Onyx seit 25.09.2026) |
+| `--pink` | #CB1570 | Akzent, Signale, CTA. Darauf immer weiße Schrift. |
+| `--pink-deep` | #A5105A | Hover, Tiefe |
 | `--white` | #FFFFFF | Typografie, Kontrast |
 | `--slate` | #8A8A8E | Sublines, Sekundärtext |
+| `--blush` | #E8C9D9 | Linien, Rahmen, Kapitel-Labels ("Für wen", "Termine" …) |
 
 - Dark by default, kein Light-Mode-Toggle. Pink ist Akzent, nie Fläche: max. ein Pink-Element pro Viewport-Höhe. Keine weiteren Farben, keine Verläufe außer Pink auf Onyx.
 - Headlines: fette geometrische Sans in Versalien (Syne 800 oder Inter Black), enges Tracking, große Größensprünge.

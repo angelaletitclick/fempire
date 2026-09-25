@@ -20,7 +20,7 @@ export function ImagePlaceholder({
       <div
         role="img"
         aria-label={caption}
-        className={cx("relative w-full border border-line bg-onyx", ratio)}
+        className={cx("relative w-full border border-line bg-plum", ratio)}
       >
         <span aria-hidden="true" className="absolute left-3 top-3 h-px w-6 bg-line" />
         <span aria-hidden="true" className="absolute left-3 top-3 h-6 w-px bg-line" />

@@ -4,18 +4,22 @@
 /* CI-Tokens. Einzige Stelle mit Hex-Werten.                           */
 /* ------------------------------------------------------------------ */
 :root {
-  --onyx: #0d0d0d;
-  --pink: #ff1493;
-  --pink-deep: #e60067;
+  /* Grundfarbe: dunkle Aubergine, Hintergrund der ganzen Seite */
+  --plum: #2a1430;
+  /* Akzent. Weiß auf Pink erreicht 5,5:1 (AA). Dunkle Schrift auf Pink nicht verwenden. */
+  --pink: #cb1570;
+  --pink-deep: #a5105a;
   --white: #ffffff;
+  /* Linien, Rahmen und Kapitel-Labels ("Für wen", "Termine" ...) */
+  --blush: #e8c9d9;
   --slate: #8a8a8e;
-  /* Aufgehellter Slate für Text unter 16px, Kontrast auf Onyx > 7:1 */
-  --slate-light: #b4b4b8;
-  --line: #2a2a2a;
-  /* Kaum sichtbare Linie für Hintergrund-Strukturen (Säulen im Hero) */
-  --line-soft: #1a1a1a;
-  /* Leicht abgesetzte Fläche für Karten */
-  --surface: #141414;
+  /* Heller Sekundärtext, auch unter 16px gut lesbar */
+  --slate-light: #c9bcc6;
+  --line: var(--blush);
+  /* Kaum sichtbare Linie für Hintergrund-Strukturen (Säulen im Hero): 12 % Blush auf Plum */
+  --line-soft: #412a44;
+  /* Leicht abgesetzte Fläche für Karten: 6 % Blush auf Plum */
+  --surface: #351f3a;
 
   --section-gap: clamp(5rem, 12vw, 11rem);
   --gutter: clamp(1.25rem, 4vw, 3rem);
@@ -24,13 +28,14 @@
 }
 
 @theme inline {
-  --color-onyx: var(--onyx);
+  --color-plum: var(--plum);
   --color-pink: var(--pink);
   --color-pink-deep: var(--pink-deep);
   --color-white: var(--white);
   --color-slate: var(--slate);
   --color-slate-light: var(--slate-light);
   --color-line: var(--line);
+  --color-blush: var(--blush);
   --color-line-soft: var(--line-soft);
   --color-surface: var(--surface);
 
@@ -53,7 +58,7 @@
 /* ------------------------------------------------------------------ */
 @layer base {
   html {
-    background: var(--onyx);
+    background: var(--plum);
     color: var(--white);
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: 5rem;
@@ -66,7 +71,7 @@
   }
 
   body {
-    background: var(--onyx);
+    background: var(--plum);
     color: var(--white);
     font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
     font-feature-settings: "ss01", "cv11";
@@ -75,7 +80,7 @@
 
   ::selection {
     background: var(--pink);
-    color: var(--onyx);
+    color: var(--white);
   }
 
   /* Sichtbarer Fokus in Pink, nur bei Tastaturbedienung */
@@ -113,7 +118,7 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   line-height: 1.4;
-  color: var(--slate-light);
+  color: var(--blush);
 }
 
 @utility prose-width {
@@ -148,9 +153,6 @@
   from { transform: scaleY(0); }
   to { transform: scaleY(1); }
 }
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
 @keyframes marquee {
   to { transform: translateX(-50%); }
 }
@@ -167,7 +169,6 @@
   .anim-grow-y { transform-origin: top; animation: grow-y 1400ms var(--ease-out) var(--d, 0ms) both; }
 
   /* Dauerhafte, ruhige Bewegung */
-  .anim-spin { animation: spin 60s linear infinite; }
   .anim-marquee { animation: marquee 50s linear infinite; }
   .anim-marquee:hover { animation-play-state: paused; }
   .anim-pulse { animation: pulse-dot 2.4s ease-in-out infinite; }
@@ -216,7 +217,7 @@
   }
   .mark-white {
     background-image: linear-gradient(var(--white), var(--white));
-    color: var(--onyx);
+    color: var(--plum);
   }
 }
 
