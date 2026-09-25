@@ -48,7 +48,7 @@ export default async function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column", fontFamily: "Montserrat", color: WHITE, fontSize: 76, lineHeight: 1.02, letterSpacing: "-0.01em", textTransform: "uppercase" }}>
           {hero.headline.map((line) => (
             <div key={line} style={{ display: "flex", marginBottom: 8 }}>
-              {markSegments(line).map((segment) => (
+              {markSegments(line.replace(/­/g, "")).map((segment) => (
                 <span
                   key={segment.text}
                   style={

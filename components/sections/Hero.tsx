@@ -35,9 +35,10 @@ export function Hero() {
       <div className="container-site relative my-auto py-10 md:py-20">
         <h1
           id="hero-heading"
-          // Mobil ~11vw, damit der Titel den Screen füllt. Ab lg ein Satz pro Zeile (nowrap),
-          // Schriftgröße so bemessen, dass der längere Satz in die Containerbreite passt.
-          className="headline text-[11vw] leading-[1.22] [hyphens:none] sm:text-[7.5vw] lg:whitespace-nowrap lg:text-[clamp(2.5rem,4.8vw,4.75rem)]"
+          // Mobil so groß wie möglich: das längste Teilstück („NEHMERINNEN,“) muss in die Zeile passen,
+          // deshalb hyphens:manual (nur die weiche Trennstelle aus content/ zählt). Ab sm passt
+          // „Unternehmerinnen“ ungetrennt, ab lg steht jeder Satz in genau einer Zeile (nowrap).
+          className="headline text-[9.2vw] leading-[1.22] [hyphens:manual] sm:text-[6vw] lg:whitespace-nowrap lg:text-[clamp(2.25rem,4.3vw,4rem)]"
         >
           {hero.headline.map((line, i) => (
             // overflow-hidden maskiert die aufsteigende Zeile; -mx/px lässt Platz für die Fläche
@@ -51,7 +52,16 @@ export function Hero() {
 
         <div className="mt-8 grid gap-8 md:mt-12 lg:grid-cols-12 lg:items-end">
           <div className="anim-fade-up lg:col-span-7" style={delay(700)}>
-            <p className="prose-width text-lg leading-relaxed text-white md:text-xl">{hero.subline}</p>
+            <p className="prose-width text-base leading-relaxed text-white sm:text-lg">{hero.subline}</p>
+            <p className="mt-4 text-base sm:text-lg">
+              <span className="text-slate-light">{hero.foundationsHint.question} </span>
+              <Link
+                href={hero.foundationsHint.href}
+                className="font-semibold text-white underline decoration-pink decoration-2 underline-offset-4 hover:decoration-white"
+              >
+                {hero.foundationsHint.link}
+              </Link>
+            </p>
             {next ? (
               <p className="card mt-6 inline-flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-3 text-sm">
                 <span aria-hidden="true" className="anim-pulse h-1.5 w-1.5 bg-white" />

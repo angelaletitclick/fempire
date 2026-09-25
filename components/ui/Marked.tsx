@@ -33,7 +33,7 @@ export function Marked({ text }: { text: string }): ReactNode {
 
 /** Text ohne Markierungszeichen, z. B. für Alt-Texte und Metadaten */
 export function plain(text: string): string {
-  return text.replace(/==|\+\+/g, "");
+  return text.replace(/==|\+\+|­/g, "");
 }
 
 /** Zerlegt Text in Abschnitte für Umgebungen ohne React-DOM (OG-Bild) */

@@ -16,9 +16,18 @@
 import { plannedCities } from "./cities";
 
 export const hero = {
-  headline: ["Baue kein kleines Business.", "==Baue dein Fempire.=="],
+  /**
+   * Zeile 1 weiß, Zeile 2 mit pinker Fläche. Das ­ in „Unternehmerinnen“ ist eine
+   * unsichtbare Trennstelle: Nur auf schmalen Screens wird dort umbrochen (UNTER-NEHMERINNEN).
+   */
+  headline: ["Der Club für Unter­nehmerinnen,", "==die ein Fempire bauen.=="],
   subline:
-    "Der vertrauliche Business-Circle für Frauen, die Unternehmen systematisieren, Umsätze pushen und Märkte prägen.",
+    "Der FEMPIRE CLUB ist kein Netzwerk und keine Weiterbildung, sondern ein geschlossener Kreis für Unternehmerinnen, die ein laufendes Business führen, Verantwortung für ein Team tragen und ihr Geschäft in die nächste Größenordnung bringen wollen. Zwölfmal im Jahr treffen wir uns in fester Runde, legen Umsätze, Margen und offene Baustellen auf den Tisch und arbeiten konkret daran weiter. Wer aufgenommen wird, entscheidet die Bewerbung, weil der Wert dieses Kreises von jeder einzelnen Frau darin abhängt.",
+  foundationsHint: {
+    question: "Noch nicht gegründet?",
+    link: "FEMPIRE FOUNDATIONS ist der Weg dorthin.",
+    href: "#foundations",
+  },
   /** Datum wird automatisch aus der Terminregel in content/cities.ts berechnet */
   nextMeetingLabel: "Nächstes Treffen",
   secondaryCta: { label: "Was hier anders läuft", href: "#manifest" },
