@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { filter } from "@/content/landing";
+import { Marked } from "@/components/ui/Marked";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 
@@ -17,7 +18,7 @@ export function Filter() {
           <ul className="mt-6 divide-y divide-line">
             {filter.yes.items.map((item) => (
               <li key={item} className="py-4 text-lg leading-snug first:pt-0 last:pb-0 md:text-xl">
-                {item}
+                <Marked text={item} />
               </li>
             ))}
           </ul>

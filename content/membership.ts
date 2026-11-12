@@ -35,7 +35,7 @@ export const membership = {
       period: "pro Jahr",
       term: "Jahresmitgliedschaft",
       included: [
-        "12 Treffen im Jahr, jeden ersten Mittwoch im Monat",
+        "12 Treffen im Jahr, jeden ersten Dienstag im Monat",
         "Events über das Jahr",
         "Masterminds in festen Kleingruppen",
         "Community-Hub für den Austausch zwischen den Treffen",

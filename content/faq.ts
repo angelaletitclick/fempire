@@ -41,7 +41,14 @@ export const faq = {
     {
       question: "Wo und wann finden die Treffen statt?",
       answer: [
-        "Der Leader Circle trifft sich ab Januar 2027 in Osnabrück, 12 Mal im Jahr am ersten Mittwoch im Monat, dazu kommen Events. FOUNDATIONS hat eigene Termine. Den genauen Ort erhalten aufgenommene Mitglieder.",
+        "Der Leader Circle trifft sich ab Januar 2027 in Osnabrück, 12 Mal im Jahr am ersten Dienstag im Monat, dazu kommen Business Talk & Walk und Events. FOUNDATIONS hat eigene Termine. Den genauen Ort erhalten aufgenommene Mitglieder.",
+      ],
+    },
+    {
+      question: "Wie läuft ein Treffen ab?",
+      answer: [
+        "Jedes Treffen ist ein Workshop mit einem Thema. Es gibt inhaltlichen Input in kompakten Input Snacks, danach arbeiten wir an euren konkreten Fällen. Die nächsten Themen: Website, KI, Mitarbeitende, Social Media.",
+        "Die Atmosphäre ist ungezwungen. Private Themen haben genauso Platz wie Zahlen, denn Erfolg, Familie und Frau sein lassen sich nicht sauber trennen. Genau daraus entsteht die Verbindung, die den Kreis trägt.",
       ],
     },
     {

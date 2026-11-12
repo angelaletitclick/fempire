@@ -31,15 +31,17 @@ export const hero = {
 /** Laufband unter dem Hero. Begriffe, um die es im Kreis geht. */
 export const ticker = [
   "Umsatz",
-  "Marge",
-  "Gewinn",
-  "Liquidität",
-  "Struktur",
-  "Holding",
-  "Skalierung",
+  "Wachstum",
+  "Verbindung",
   "Führung",
-  "Autonomie",
+  "Selbstbestimmung",
+  "Gemeinschaft",
+  "Support",
+  "Mental Health",
+  "Erfolg",
+  "Skalierung",
   "Familie",
+  "Grow",
 ];
 
 export const manifest = {
@@ -49,23 +51,27 @@ export const manifest = {
   statements: [
     {
       title: "Wir reden über ++Umsatz++, nicht über Reichweite.",
-      body: "Umsatz, Marge, Gewinn, Liquidität. Wer echtes Feedback will, legt echte Zahlen auf den Tisch. Was im Raum gesagt wird, bleibt im Raum.",
+      body: "Umsatz, Marge, Gewinn, Liquidität. Wer wachsen will und echtes Feedback sucht, legt echte Zahlen auf den Tisch. Was im Raum gesagt wird, bleibt im Raum.",
     },
     {
       title: "Kein Smalltalk. Keine Visitenkarten.",
-      body: "Jedes Treffen hat ein Thema und ein Ergebnis. Du gehst mit einer Entscheidung nach Hause, nicht mit einem Stapel Kontakte.",
+      body: "Jedes Treffen ist ein Workshop mit inhaltlichem Input und einem Ergebnis. Die Stimmung bleibt ungezwungen, auch private Themen haben ihren Platz. Du gehst mit einer Entscheidung nach Hause und mit echter Verbindung, nicht mit einem Stapel Kontakte.",
     },
     {
       title: "Mutter sein ist hier kein Nachteil, sondern Kontext.",
-      body: "Die meisten von uns führen ein Unternehmen und eine Familie. Wir reden offen darüber, wie beides funktioniert, und über die Strukturen, die es möglich machen.",
+      body: "Die meisten von uns führen ein Unternehmen und eine Familie. Wir reden offen darüber, wie beides funktioniert, über die Strukturen, die Selbstbestimmung möglich machen, und darüber, was es heißt, dabei Frau zu sein.",
     },
     {
-      title: "Plätze sind begrenzt, weil Qualität es ist.",
-      body: "Jeder Kreis wächst nur so schnell, wie Vertrauen wachsen kann. Jede Aufnahme ist eine bewusste Entscheidung, auf beiden Seiten.",
+      title: "Qualität statt Quantität. Hier wirst du gesehen.",
+      body: "Jeder Kreis bleibt bewusst klein und wächst nur so schnell, wie Vertrauen wachsen kann. So hat jede Platz für ihre Themen. Jede Aufnahme ist eine bewusste Entscheidung, auf beiden Seiten.",
     },
     {
       title: "Wir teilen Strukturen, nicht Motivationssprüche.",
-      body: "Holding-Aufbau, Prozesse, Personal, Pricing. Was bei einer funktioniert, wird für alle nutzbar.",
+      body: "Holding-Aufbau, Prozesse, Personal, Pricing, Führung. Was bei einer funktioniert, wird zum Mehrwert für alle. Der Erfolg der anderen ist hier kein Wettbewerb, sondern Ansporn.",
+    },
+    {
+      title: "Emotionen erlaubt. Wir nutzen sie für uns.",
+      body: "Druck, Zweifel und Ehrgeiz gehören zum Unternehmerinnen-Alltag. Mental Health ist hier kein Randthema, sondern Teil der Arbeit. Wir geben uns Support, ohne das Geschäft aus dem Blick zu verlieren.",
     },
   ],
 };
@@ -81,6 +87,7 @@ export const filter = {
       "Du denkst in Systemen, nicht in Aufgaben.",
       "Du legst deine Zahlen offen, wenn du echtes Feedback willst.",
       "Du willst in den nächsten Jahren deutlich wachsen und weißt, dass du das nicht allein löst.",
+      "Du willst mehr Emotionen zulassen. ++Live Work Romance.++",
     ],
   },
   no: {
@@ -107,7 +114,7 @@ export const leaderCircle = {
   label: "Leader Circle",
   headline: "Der ++Leader Circle.++",
   intro:
-    "Der Kreis für Unternehmerinnen mit eigener GmbH oder Holding und für Frauen mit hoher Führungsverantwortung. Bestehendes Business, echte Zahlen, ein fester Rhythmus.",
+    "Der Kreis für Unternehmerinnen mit eigener GmbH oder Holding und für Frauen mit hoher Führungsverantwortung. Bestehendes Business, echte Zahlen, ein fester Rhythmus. Eine Gemeinschaft, die Wachstum ernst nimmt und sich gegenseitig Support gibt.",
   statusLabels: {
     aktiv: "Läuft bereits",
     start: "Ab Januar 2027",
@@ -115,14 +122,19 @@ export const leaderCircle = {
   } satisfies Record<FormatStatus, string>,
   items: [
     {
-      title: "12 Treffen im Jahr",
+      title: "12 Workshop-Treffen im Jahr",
       status: "start" as FormatStatus,
-      body: "Jeden ersten Mittwoch im Monat, persönlich. Ein Thema, echte Zahlen, konkrete Entscheidungen. Dazu Events über das Jahr.",
+      body: "Jeden ersten Dienstag im Monat, persönlich. Jedes Treffen ist ein Workshop: inhaltlicher Input als kompakte Input Snacks, echte Zahlen, konkrete Entscheidungen. Danach ungezwungen Zeit füreinander, auch für Privates. Die nächsten Themen: Website, KI, Mitarbeitende, Social Media.",
+    },
+    {
+      title: "Business Talk & Walk",
+      status: "start" as FormatStatus,
+      body: "Zwischendurch treffen wir uns draußen, in Bewegung. Ungezwungene Gespräche über Business und Leben, die am Tisch so nicht entstehen würden.",
     },
     {
       title: "Community-Hub",
       status: "aktiv" as FormatStatus,
-      body: "Der geschlossene digitale Raum der Mitglieder. Hier teilt ihr Wissen, Kennzahlen und Kontakte, auch zwischen den Treffen. Ohne Algorithmus, ohne Öffentlichkeit.",
+      body: "Der geschlossene digitale Raum der Gemeinschaft. Hier teilt ihr Wissen, Kennzahlen und Kontakte und gebt euch Support, auch zwischen den Treffen. Ohne Algorithmus, ohne Öffentlichkeit.",
     },
     {
       title: "Masterminds",
@@ -148,6 +160,8 @@ export const foundations = {
   id: "foundations",
   label: "Foundations",
   headline: "FEMPIRE ==FOUNDATIONS.==",
+  /** Hinweis neben dem Programm. Leer lassen (""), sobald FOUNDATIONS startet. */
+  status: "Coming soon",
   intro:
     "Ein eigenes Programm für Frauen, die gründen werden. Zwölf Monate mit einem klaren Ziel: dein Unternehmen steht. Mit starken Partnerinnen an deiner Seite, die dich fordern.",
   duration: { value: "12", unit: "Monate", note: "Definiertes Programm mit Abschluss" },
@@ -158,7 +172,7 @@ export const foundations = {
     },
     {
       title: "Begleitung durch die Gründerinnen",
-      body: "Coaching und Sparring mit Angela Pister und Maria Elisabeth Doerk. Direkt, konkret, an deinem Vorhaben.",
+      body: "Coaching, Sparring und Support durch Angela Pister und Maria Elisabeth Doerk. Direkt, konkret, an deinem Vorhaben.",
     },
     {
       title: "Eigener Kanal",
@@ -183,15 +197,26 @@ export const termine = {
   label: "Termine",
   headline: "Termine.",
   intro:
-    "Der Leader Circle trifft sich 12 Mal im Jahr, jeden ersten Mittwoch im Monat. Den genauen Ort erhalten aufgenommene Mitglieder vorab. FOUNDATIONS hat eigene Termine.",
+    "Der Leader Circle trifft sich 12 Mal im Jahr, jeden ersten Dienstag im Monat. Jedes Treffen ist ein Workshop mit einem Thema. Den genauen Ort erhalten aufgenommene Mitglieder vorab. FOUNDATIONS hat eigene Termine.",
   /** So viele kommende Termine werden angezeigt. Die Terminregel steht in content/cities.ts. */
   show: 4,
   firstTitle: "Auftakt Leader Circle",
   regularTitle: "Leader Circle",
   note: "Ort für Mitglieder",
+  /**
+   * Workshop-Thema pro Termin. Datum im Format JJJJ-MM-TT, Termine ohne Eintrag
+   * erscheinen ohne Thema.
+   */
+  workshopLabel: "Workshop",
+  workshops: {
+    "2027-01-05": "Website",
+    "2027-02-02": "KI",
+    "2027-03-02": "Mitarbeitende",
+    "2027-04-06": "Social Media",
+  } as Record<string, string>,
   events: {
-    title: "Plus Events",
-    body: "Zu den 12 festen Treffen kommen Events über das Jahr. Die Termine gehen rechtzeitig an alle Mitglieder.",
+    title: "Plus Business Talk & Walk",
+    body: "Zwischen den festen Treffen gibt es Business Talk & Walk und Events über das Jahr. Die Termine gehen rechtzeitig an alle Mitglieder.",
   },
 };
 
@@ -273,7 +298,7 @@ export const closing = {
   id: "bewerbung",
   label: "Bewerbung",
   headline: "Dein Platz ++am Tisch.++",
-  body: "Wenn du bis hierhin gelesen hast, weißt du, ob du hierher gehörst. Die Bewerbung dauert rund zehn Minuten. Welcher Kreis passt, ordnen wir für dich zu.",
+  body: "Wenn du bis hierhin gelesen hast, weißt du, ob du hierher gehörst. Verbindung, Wachstum, ehrlicher Support. Die Bewerbung dauert rund zehn Minuten. Welcher Kreis passt, ordnen wir für dich zu.",
   waitlist: {
     title: "Nicht aus Osnabrück?",
     body: `${plannedCities.map((city) => city.name).join(", ").replace(/, ([^,]*)$/, " und $1")} sind als nächste Städte geplant. Trag dich ein, wir melden uns, sobald dort ein Kreis startet.`,

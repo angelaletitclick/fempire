@@ -143,7 +143,7 @@ Landing und Funnel vollständig in CI, Bewerbungen kommen in Supabase an, beide 
 
 Der Club hat **zwei getrennte Kreise**. Sie teilen die Marke, aber nie den Raum, nie den Chat, nie die Treffen.
 
-- **Leader Circle** (Hauptkreis): Unternehmerinnen mit eigener GmbH/Holding oder hoher Führungsverantwortung. Bestehendes Business, echte Zahlen. 12 Treffen pro Jahr (monatlich, erster Mittwoch) plus Events, Masterminds in festen Kleingruppen, Community-Hub, Retreats, Academy.
+- **Leader Circle** (Hauptkreis): Unternehmerinnen mit eigener GmbH/Holding oder hoher Führungsverantwortung. Bestehendes Business, echte Zahlen. 12 Treffen pro Jahr (monatlich, erster Dienstag) plus Events, Masterminds in festen Kleingruppen, Community-Hub, Retreats, Academy.
 - **FEMPIRE FOUNDATIONS**: Frauen vor der Gründung. Eigenes Programm über 12 Monate mit Abschluss, danach Bewerbung in den Leader Circle oder Ende. Kein Dauerabo. Eigene monatliche Treffen, Coaching durch die Gründerinnen, eigener Kanal.
 
 Regeln für die Website:

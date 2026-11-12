@@ -11,6 +11,12 @@ export function Foundations() {
   const t = foundations;
   return (
     <Section id={t.id} index="04" label={t.label} headline={t.headline} intro={t.intro}>
+      {t.status ? (
+        <Reveal as="p" className="label mb-6 inline-flex items-center gap-3 border border-white px-4 py-2 text-white">
+          <span aria-hidden="true" className="h-2 w-2 shrink-0 border border-white" />
+          {t.status}
+        </Reveal>
+      ) : null}
       <div className="grid gap-3 lg:grid-cols-12 lg:gap-4">
         {/* Programm-Anker: Dauer statt Stufe */}
         <Reveal className="flex flex-col justify-between border border-white p-6 sm:p-8 lg:col-span-4 lg:p-10">

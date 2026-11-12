@@ -14,12 +14,13 @@ export const site = {
       "Geschlossener Kreis für Unternehmerinnen, Holding-Inhaberinnen und Leaderinnen. Echte Zahlen statt Smalltalk. Osnabrück. Aufnahme nur über Bewerbung.",
   },
 
-  /** Maximal vier Punkte. `href` zeigt auf die id einer Sektion der Startseite. */
+  /** Punkte der Hauptnavigation. `href` zeigt auf eine Sektion der Startseite oder eine eigene Seite. */
   nav: [
     { label: "Leader Circle", href: "/#leader-circle" },
     { label: "Foundations", href: "/#foundations" },
     { label: "Termine", href: "/#termine" },
     { label: "Gründerinnen", href: "/#gruenderinnen" },
+    { label: "Magazin", href: "/magazin" },
   ],
 
   cta: {

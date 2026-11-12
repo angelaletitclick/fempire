@@ -10,11 +10,11 @@ export type CityStatus = "aktiv" | "geplant";
 export type MeetingRule = {
   /** Erster Termin-Monat im Format JJJJ-MM */
   startMonth: string;
-  /** Wochentag: 0 = Sonntag, 1 = Montag, ... 3 = Mittwoch */
+  /** Wochentag: 0 = Sonntag, 1 = Montag, 2 = Dienstag, 3 = Mittwoch */
   weekday: number;
   /** Der wievielte dieser Wochentage im Monat (1 = erster) */
   nth: number;
-  /** Einzelne Termine absagen, Format JJJJ-MM-TT, z. B. "2027-08-04" */
+  /** Einzelne Termine absagen, Format JJJJ-MM-TT, z. B. "2027-08-03" */
   cancelled: string[];
 };
 
@@ -31,7 +31,7 @@ export const cities: City[] = [
     slug: "osnabrueck",
     name: "Osnabrück",
     status: "aktiv",
-    meetings: { startMonth: "2027-01", weekday: 3, nth: 1, cancelled: [] },
+    meetings: { startMonth: "2027-01", weekday: 2, nth: 1, cancelled: [] },
   },
   { slug: "muenster", name: "Münster", status: "geplant" },
   { slug: "hamburg", name: "Hamburg", status: "geplant" },

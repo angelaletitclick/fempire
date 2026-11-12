@@ -24,6 +24,11 @@ export function Termine() {
               </p>
               <div className="min-w-0 flex-1">
                 <p className="text-lg font-semibold">{meeting.isFirst ? termine.firstTitle : termine.regularTitle}</p>
+                {termine.workshops[meeting.iso] ? (
+                  <p className="mt-1 text-base text-white">
+                    {termine.workshopLabel}: {termine.workshops[meeting.iso]}
+                  </p>
+                ) : null}
                 <p className="mt-1 text-sm text-slate-light md:text-base">
                   {formatLong(meeting.date)} · {homeCity.name}
                 </p>

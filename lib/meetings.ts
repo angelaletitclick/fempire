@@ -57,7 +57,7 @@ const longFormat = new Intl.DateTimeFormat("de-DE", {
 
 const dayMonth = new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "2-digit", timeZone: "UTC" });
 
-/** "Mittwoch, 6. Januar 2027" */
+/** "Dienstag, 5. Januar 2027" */
 export function formatLong(date: Date): string {
   return longFormat.format(date);
 }

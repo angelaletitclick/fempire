@@ -7,6 +7,7 @@ import { Foundations } from "@/components/sections/Foundations";
 import { LeaderCircle } from "@/components/sections/LeaderCircle";
 import { Gruenderinnen } from "@/components/sections/Gruenderinnen";
 import { Hero } from "@/components/sections/Hero";
+import { Magazin } from "@/components/sections/Magazin";
 import { Manifest } from "@/components/sections/Manifest";
 import { OrganizationJsonLd } from "@/components/sections/OrganizationJsonLd";
 import { Termine } from "@/components/sections/Termine";
@@ -30,6 +31,7 @@ export default function Home() {
       <Gruenderinnen />
       <Ablauf />
       <Faq />
+      <Magazin />
       <ClosingCta waitlist={<WaitlistForm />} />
     </>
   );
