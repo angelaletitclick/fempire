@@ -47,7 +47,7 @@ export const faq = {
     {
       question: "Wie läuft ein Treffen ab?",
       answer: [
-        "Jedes Treffen ist ein Workshop mit einem Thema. Es gibt inhaltlichen Input in kompakten Input Snacks, danach arbeiten wir an euren konkreten Fällen. Die nächsten Themen: Website, KI, Mitarbeitende, Social Media.",
+        "Jedes Treffen ist ein Workshop mit einem Thema. Es gibt inhaltlichen Input in kompakten Input Snacks, danach arbeiten wir an euren konkreten Fällen. Die nächsten Themen: Website, KI, Mitarbeiter, Social Media.",
         "Die Atmosphäre ist ungezwungen. Private Themen haben genauso Platz wie Zahlen, denn Erfolg, Familie und Frau sein lassen sich nicht sauber trennen. Genau daraus entsteht die Verbindung, die den Kreis trägt.",
       ],
     },

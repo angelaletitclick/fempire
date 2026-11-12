@@ -124,7 +124,7 @@ export const leaderCircle = {
     {
       title: "12 Workshop-Treffen im Jahr",
       status: "start" as FormatStatus,
-      body: "Jeden ersten Dienstag im Monat, persönlich. Jedes Treffen ist ein Workshop: inhaltlicher Input als kompakte Input Snacks, echte Zahlen, konkrete Entscheidungen. Danach ungezwungen Zeit füreinander, auch für Privates. Die nächsten Themen: Website, KI, Mitarbeitende, Social Media.",
+      body: "Jeden ersten Dienstag im Monat, persönlich. Jedes Treffen ist ein Workshop: inhaltlicher Input als kompakte Input Snacks, echte Zahlen, konkrete Entscheidungen. Danach ungezwungen Zeit füreinander, auch für Privates. Die nächsten Themen: Website, KI, Mitarbeiter, Social Media.",
     },
     {
       title: "Business Talk & Walk",
@@ -211,7 +211,7 @@ export const termine = {
   workshops: {
     "2027-01-05": "Website",
     "2027-02-02": "KI",
-    "2027-03-02": "Mitarbeitende",
+    "2027-03-02": "Mitarbeiter",
     "2027-04-06": "Social Media",
   } as Record<string, string>,
   events: {

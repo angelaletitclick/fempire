@@ -19,7 +19,6 @@ export const site = {
     { label: "Leader Circle", href: "/#leader-circle" },
     { label: "Foundations", href: "/#foundations" },
     { label: "Termine", href: "/#termine" },
-    { label: "Gründerinnen", href: "/#gruenderinnen" },
     { label: "Magazin", href: "/magazin" },
   ],
 
