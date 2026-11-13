@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { ActionForm } from "@/components/club/ActionForm";
 import { Avatar } from "@/components/club/Avatar";
+import { ImageInput } from "@/components/club/ImageInput";
 import { CheckField, SelectField, TextAreaField, TextField } from "@/components/club/fields";
 import { PageHead } from "@/components/club/PageHead";
 import { cities } from "@/content/cities";
@@ -42,14 +43,7 @@ export default async function ProfilPage() {
             <label htmlFor="f-avatar" className="text-sm font-medium text-white">
               {f.avatar}
             </label>
-            <input
-              id="f-avatar"
-              name="avatar"
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              aria-describedby="f-avatar-hint"
-              className="text-sm text-slate-light file:mr-4 file:h-10 file:cursor-pointer file:border file:border-white/40 file:bg-transparent file:px-4 file:text-[0.7rem] file:font-semibold file:uppercase file:tracking-[0.12em] file:text-white hover:file:border-pink hover:file:bg-pink"
-            />
+            <ImageInput id="f-avatar" name="avatar" maxSize={1200} describedBy="f-avatar-hint" />
             <p id="f-avatar-hint" className="text-sm text-slate-light">
               {f.avatarHint}
             </p>

@@ -10,11 +10,11 @@ import { ArticleForm, type ArticleDraft } from "../ArticleForm";
 export default async function EditArticlePage({ params, searchParams }: PageProps<"/club/admin/magazin/[id]">) {
   await requireAdmin();
   const { id } = await params;
-  const { neu } = await searchParams;
+  const { neu, gespeichert } = await searchParams;
   if (!/^[0-9a-f-]{36}$/i.test(id)) notFound();
   const { data } = await supabaseAdmin()
     .from("articles")
-    .select("id, title, slug, teaser, topic, author, body, paid, status, published_at")
+    .select("id, title, slug, teaser, topic, author, body, paid, status, published_at, cover_path, cover_alt, cover_caption")
     .eq("id", id)
     .maybeSingle();
   if (!data) notFound();
@@ -38,6 +38,11 @@ export default async function EditArticlePage({ params, searchParams }: PageProp
           }
         />
       </div>
+      {gespeichert ? (
+        <p role="status" className="mt-6 border border-white px-4 py-3 text-sm text-white">
+          Gespeichert.
+        </p>
+      ) : null}
       {neu ? (
         <p role="status" className="mt-6 border border-white px-4 py-3 text-sm text-white">
           Angelegt.

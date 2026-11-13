@@ -4,6 +4,7 @@ import { useRef, useState, type ClipboardEvent } from "react";
 import TurndownService from "turndown";
 import { gfm } from "turndown-plugin-gfm";
 import { Markdown } from "@/components/ui/Markdown";
+import { downscaleImage } from "@/lib/downscale";
 import { cx } from "@/lib/cx";
 
 /** HTML aus Word, Google Docs oder Webseiten → Markdown (Überschriften, Listen, Tabellen, Links) */
@@ -90,10 +91,47 @@ const TOOLS: Tool[] = [
  * Editor für Magazin-Artikel: Markdown mit Werkzeugleiste und Vorschau.
  * Das Textfeld heißt "body" und wird mit dem umgebenden Formular abgeschickt.
  */
-export function MarkdownEditor({ name, defaultValue, hint }: { name: string; defaultValue: string; hint?: string }) {
+export function MarkdownEditor({
+  name,
+  defaultValue,
+  hint,
+  onUploadImage,
+}: {
+  name: string;
+  defaultValue: string;
+  hint?: string;
+  /** Lädt ein Bild hoch und gibt dessen Adresse zurück (Server Action) */
+  onUploadImage?: (formData: FormData) => Promise<{ url: string } | { error: string }>;
+}) {
   const [value, setValue] = useState(defaultValue);
   const [preview, setPreview] = useState(false);
+  const [imageStatus, setImageStatus] = useState("");
   const ref = useRef<HTMLTextAreaElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  /** Bild verkleinern, hochladen und mit Bildunterschrift an der Cursorposition einfügen */
+  async function insertImage(file: File) {
+    if (!onUploadImage) return;
+    const el = ref.current;
+    const start = el?.selectionStart ?? value.length;
+    const end = el?.selectionEnd ?? value.length;
+    setImageStatus("Bild wird hochgeladen …");
+    const formData = new FormData();
+    formData.set("image", await downscaleImage(file, 1800));
+    const result = await onUploadImage(formData);
+    if ("error" in result) {
+      setImageStatus(result.error);
+      return;
+    }
+    setImageStatus("");
+    // Zeichen entfernen, die die Markdown-Syntax des Bildes brechen würden
+    const caption = (window.prompt("Bildunterschrift (optional, z. B. Foto: Name)") ?? "").replace(/["[\]]/g, "").trim();
+    const alt = (window.prompt("Kurze Bildbeschreibung für Screenreader (was ist zu sehen?)", caption) ?? caption)
+      .replace(/[[\]]/g, "")
+      .trim();
+    const markdown = `\n\n![${alt}](${result.url}${caption ? ` "${caption}"` : ""})\n\n`;
+    replace(start, end, markdown, start + markdown.length, start + markdown.length);
+  }
 
   /** Text ersetzen und Auswahl setzen, ohne den Verlauf (Strg+Z) zu zerstören, wo möglich */
   function replace(start: number, end: number, text: string, selectStart: number, selectEnd: number) {
@@ -174,6 +212,31 @@ export function MarkdownEditor({ name, defaultValue, hint }: { name: string; def
       </div>
 
       <div className={cx("flex flex-wrap gap-1 border border-b-0 border-line bg-surface p-2", preview && "hidden")} role="toolbar" aria-label="Formatierung">
+        {onUploadImage ? (
+          <>
+            <button
+              type="button"
+              title="Bild mit Bildunterschrift einfügen"
+              aria-label="Bild mit Bildunterschrift einfügen"
+              onClick={() => fileRef.current?.click()}
+              className="h-9 min-w-9 border border-transparent px-2.5 text-xs font-semibold text-white hover:border-line hover:bg-plum"
+            >
+              Bild
+            </button>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="hidden"
+              tabIndex={-1}
+              onChange={(event) => {
+                const file = event.currentTarget.files?.[0];
+                event.currentTarget.value = "";
+                if (file) void insertImage(file);
+              }}
+            />
+          </>
+        ) : null}
         {TOOLS.map((tool) => (
           <button
             key={tool.label}
@@ -214,6 +277,11 @@ export function MarkdownEditor({ name, defaultValue, hint }: { name: string; def
         </div>
       ) : null}
 
+      {imageStatus ? (
+        <p role="status" className="text-sm text-white">
+          {imageStatus}
+        </p>
+      ) : null}
       {hint ? (
         <p id={`f-${name}-hint`} className="text-sm leading-relaxed text-slate-light">
           {hint}

@@ -42,7 +42,8 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;
-  const isPublic = pathname.startsWith("/club/login") || pathname.startsWith("/club/auth");
+  // Profilfotos prüfen ihre Berechtigung selbst (Team-Fotos sind öffentlich)
+  const isPublic = pathname.startsWith("/club/login") || pathname.startsWith("/club/auth") || pathname.startsWith("/club/avatar");
   if (!user && !isPublic) {
     return NextResponse.redirect(new URL("/club/login", request.url));
   }

@@ -11,7 +11,21 @@ const components: Components = {
   h2: ({ children }) => <h2 className="headline pt-8 text-2xl text-white md:text-3xl">{children}</h2>,
   h3: ({ children }) => <h3 className="pt-6 text-xl font-semibold text-white md:text-2xl">{children}</h3>,
   h4: ({ children }) => <h4 className="label pt-4 text-white">{children}</h4>,
-  p: ({ children }) => <p>{children}</p>,
+  // Ein Absatz, der nur ein Bild enthält, wird zur Abbildung (figure darf nicht in p stehen)
+  p: ({ node, children }) => {
+    const only = node?.children.length === 1 ? node.children[0] : undefined;
+    if (only && only.type === "element" && only.tagName === "img") return <>{children}</>;
+    return <p>{children}</p>;
+  },
+  // ![Beschreibung](Adresse "Bildunterschrift")
+  img: ({ src, alt, title }) =>
+    typeof src === "string" ? (
+      <figure className="my-10">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt={alt ?? ""} loading="lazy" className="w-full border border-line" />
+        {title ? <figcaption className="mt-3 text-sm text-slate-light">{title}</figcaption> : null}
+      </figure>
+    ) : null,
   strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
   em: ({ children }) => <em className="italic">{children}</em>,
   a: ({ href, children }) => {

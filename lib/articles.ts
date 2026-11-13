@@ -14,11 +14,14 @@ export type ArticleSummary = {
   author: string;
   paid: boolean;
   published_at: string;
+  cover_path: string | null;
+  cover_alt: string;
+  cover_caption: string;
 };
 
 export type Article = ArticleSummary & { body: string; updated_at: string };
 
-const SUMMARY = "id, slug, title, teaser, topic, author, paid, published_at";
+const SUMMARY = "id, slug, title, teaser, topic, author, paid, published_at, cover_path, cover_alt, cover_caption";
 
 /** Veröffentlichte Artikel, neueste zuerst. Bei technischem Fehler leer, damit die Seite trotzdem steht. */
 export async function publishedArticles(limit?: number): Promise<ArticleSummary[]> {

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { PageHead, Tag } from "@/components/club/PageHead";
-import { Arrow, ButtonLink } from "@/components/ui/Button";
+import { ArticleList } from "@/components/sections/Magazin";
+import { ButtonLink } from "@/components/ui/Button";
 import { magazin } from "@/content/magazin";
 import { requireMember } from "@/lib/auth";
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { formatDate } from "@/lib/time";
+import { publishedArticles } from "@/lib/articles";
 
 export const metadata = { title: "Magazin" };
 
@@ -35,6 +36,7 @@ export default async function ClubMagazinPage() {
   const { data } = await query;
   const rows = (data ?? []) as Row[];
   const drafts = rows.filter((row) => row.status === "draft");
+  const articles = await publishedArticles();
   const published = rows.filter((row) => row.status === "published");
 
   return (
@@ -65,39 +67,30 @@ export default async function ClubMagazinPage() {
         </section>
       ) : null}
 
-      {published.length === 0 ? (
-        <p className="mt-12 border border-line p-6 text-slate-light">{magazin.empty}</p>
-      ) : (
-        <ul className="mt-12 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-          {published.map((row) => (
-            <li key={row.id} className="card flex flex-col">
-              <Link href={`/club/magazin/${row.slug}`} className="group flex flex-1 flex-col p-6 md:p-8">
-                <p className="label flex flex-wrap gap-x-3">
-                  {row.topic ? <span className="text-white">{row.topic}</span> : null}
-                  {row.published_at ? <time dateTime={row.published_at}>{formatDate(row.published_at)}</time> : null}
-                  {row.paid ? <span>{magazin.paidLabel}</span> : null}
-                </p>
-                <h2 className="headline mt-6 text-xl leading-tight md:text-2xl">{row.title}</h2>
-                <p className="mt-4 flex-1 text-base leading-relaxed text-slate-light">{row.teaser}</p>
-                <p className="label mt-6 flex items-center gap-2 text-white group-hover:underline">
-                  {magazin.readMore}
-                  <Arrow />
-                </p>
-              </Link>
-              {viewer.isAdmin ? (
-                <div className="flex gap-5 border-t border-line px-6 py-3 md:px-8">
-                  <Link href={`/club/admin/magazin/${row.id}`} className="label hover:text-white">
-                    Bearbeiten
-                  </Link>
-                  <Link href={`/magazin/${row.slug}`} className="label hover:text-white">
-                    Öffentliche Ansicht
-                  </Link>
-                </div>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="mt-12">
+        <ArticleList articles={articles} hrefBase="/club/magazin" />
+      </div>
+
+      {viewer.isAdmin && published.length ? (
+        <section aria-labelledby="verwalten" className="mt-14">
+          <h2 id="verwalten" className="label text-white">
+            Veröffentlichte Artikel bearbeiten
+          </h2>
+          <ul className="mt-4 divide-y divide-line border-y border-line">
+            {published.map((row) => (
+              <li key={row.id} className="flex flex-wrap items-center gap-x-5 gap-y-1 py-3 md:px-4">
+                <span className="min-w-0 flex-1 text-white">{row.title}</span>
+                <Link href={`/club/admin/magazin/${row.id}`} className="label hover:text-white">
+                  Bearbeiten
+                </Link>
+                <Link href={`/magazin/${row.slug}`} className="label hover:text-white">
+                  Öffentliche Ansicht
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </div>
   );
 }

@@ -238,7 +238,7 @@ export const club = {
       bio: "Über dich",
       bioHint: "Ein paar Sätze: woran du arbeitest und wobei du anderen helfen kannst.",
       avatar: "Foto",
-      avatarHint: "JPG, PNG oder WebP, höchstens 3 MB. Wir schneiden es quadratisch zu.",
+      avatarHint: "JPG, PNG oder WebP. Große Handyfotos werden automatisch verkleinert und quadratisch zugeschnitten.",
       removeAvatar: "Foto entfernen",
     },
     save: "Speichern",
