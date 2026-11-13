@@ -10,43 +10,63 @@ import { PressFeature } from "./PressFeature";
  */
 export function Gruenderinnen() {
   return (
-    <Section
-      id={gruenderinnen.id}
-      index="06"
-      label={gruenderinnen.label}
-      headline={gruenderinnen.headline}
-      intro={gruenderinnen.intro}
-    >
-      <div className="grid gap-3 lg:grid-cols-2 lg:gap-4">
-        {gruenderinnen.people.map((person, i) => (
-          <Reveal
-            as="article"
-            key={person.name}
-            delay={i * 150}
-            className="card grid grid-cols-[5.5rem_1fr] gap-x-5 gap-y-5 p-5 sm:grid-cols-[9rem_1fr] sm:gap-x-7 sm:p-7"
-          >
-            <div className="relative aspect-[4/5] w-full self-start overflow-hidden border border-line">
-              <Image
-                src={person.image}
-                alt={person.imageAlt}
-                fill
-                sizes="(min-width: 640px) 9rem, 5.5rem"
-                className="object-cover object-top grayscale contrast-110"
-              />
-            </div>
-            <div className="min-w-0 self-center sm:self-start">
-              <h3 className="headline text-xl [hyphens:none] sm:text-2xl xl:text-3xl">{person.name}</h3>
-              <p className="label mt-3">{person.role}</p>
-              <p className="mt-4 hidden text-base leading-relaxed text-slate-light sm:block">{person.bio}</p>
-            </div>
-            <p className="col-span-2 text-base leading-relaxed text-slate-light sm:hidden">{person.bio}</p>
-            <p className="col-span-2 border-t border-line pt-4 text-base leading-relaxed text-white">
-              {person.club}
-            </p>
-          </Reveal>
-        ))}
+    <div className="relative overflow-hidden">
+      {/* Hintergrundbild: schwarz-weiß und stark mit Aubergine überlagert, nur leicht erkennbar */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <Image
+          src={gruenderinnen.backgroundImage}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-[65%_15%] grayscale contrast-125"
+        />
+        <div className="absolute inset-0 bg-plum/85" />
       </div>
-      <PressFeature />
-    </Section>
+      <Section
+        id={gruenderinnen.id}
+        index="06"
+        label={gruenderinnen.label}
+        headline={gruenderinnen.headline}
+        intro={gruenderinnen.intro}
+        className="relative"
+      >
+        <div className="grid gap-3 lg:grid-cols-2 lg:gap-4">
+          {gruenderinnen.people.map((person, i) => (
+            <Reveal
+              as="article"
+              key={person.name}
+              delay={i * 150}
+              className="card grid grid-cols-[5.5rem_1fr] gap-x-5 gap-y-5 p-5 sm:grid-cols-[9rem_1fr] sm:gap-x-7 sm:p-7"
+            >
+              <div className="relative aspect-[4/5] w-full self-start overflow-hidden border border-line">
+                <Image
+                  src={person.image}
+                  alt={person.imageAlt}
+                  fill
+                  sizes="(min-width: 640px) 9rem, 5.5rem"
+                  className="object-cover object-top grayscale contrast-110"
+                />
+              </div>
+              <div className="min-w-0 self-center sm:self-start">
+                <h3 className="headline text-xl [hyphens:none] sm:text-2xl xl:text-3xl">
+                  {person.name}
+                </h3>
+                <p className="label mt-3">{person.role}</p>
+                <p className="mt-4 hidden text-base leading-relaxed text-slate-light sm:block">
+                  {person.bio}
+                </p>
+              </div>
+              <p className="col-span-2 text-base leading-relaxed text-slate-light sm:hidden">
+                {person.bio}
+              </p>
+              <p className="col-span-2 border-t border-line pt-4 text-base leading-relaxed text-white">
+                {person.club}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+        <PressFeature />
+      </Section>
+    </div>
   );
 }

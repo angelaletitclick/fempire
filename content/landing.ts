@@ -226,6 +226,8 @@ export const gruenderinnen = {
   id: "gruenderinnen",
   label: "Gründerinnen",
   headline: "Markenwelt trifft auf ++skalierbare Struktur.++",
+  /** Hintergrundbild der Sektion, liegt in public/bilder/. Wird stark abgedunkelt. */
+  backgroundImage: "/bilder/gruenderinnen-duo.jpg",
   intro:
     "Zwei Unternehmerinnen aus Osnabrück, die selbst liefern, was sie im Kreis einfordern. Beide führen eigene GmbHs, beide sind Mütter. Beide sind neurodivergent, deshalb läuft der Club direkt, schnell und ohne Umwege.",
   people: [
