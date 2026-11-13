@@ -1,5 +1,5 @@
 import { gruenderinnen } from "@/content/landing";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { PressFeature } from "./PressFeature";
@@ -25,7 +25,15 @@ export function Gruenderinnen() {
             delay={i * 150}
             className="card grid grid-cols-[5.5rem_1fr] gap-x-5 gap-y-5 p-5 sm:grid-cols-[9rem_1fr] sm:gap-x-7 sm:p-7"
           >
-            <ImagePlaceholder caption={person.imageCaption} captionClassName="hidden sm:block" />
+            <div className="relative aspect-[4/5] w-full self-start overflow-hidden border border-line">
+              <Image
+                src={person.image}
+                alt={person.imageAlt}
+                fill
+                sizes="(min-width: 640px) 9rem, 5.5rem"
+                className="object-cover object-top grayscale contrast-110"
+              />
+            </div>
             <div className="min-w-0 self-center sm:self-start">
               <h3 className="headline text-xl [hyphens:none] sm:text-2xl xl:text-3xl">{person.name}</h3>
               <p className="label mt-3">{person.role}</p>

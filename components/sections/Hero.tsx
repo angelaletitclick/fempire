@@ -1,4 +1,5 @@
 import { homeCity } from "@/content/cities";
+import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { hero } from "@/content/landing";
@@ -20,6 +21,20 @@ export function Hero() {
       // Mobil: volle Bildschirmhöhe abzüglich Kopfzeile und unterer Aktionsleiste
       className="relative flex min-h-[calc(100svh-4rem-4.5rem)] flex-col overflow-hidden lg:min-h-[min(calc(100svh-4rem),56rem)]"
     >
+      {/* Hintergrundbild: schwarz-weiß und stark mit Aubergine überlagert, nur leicht erkennbar */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <Image
+          src={hero.image.src}
+          alt={hero.image.alt}
+          fill
+          sizes="100vw"
+          loading="eager"
+          fetchPriority="high"
+          className="object-cover object-[50%_30%] grayscale contrast-125"
+        />
+        <div className="absolute inset-0 bg-plum/85" />
+      </div>
+
       <div aria-hidden="true" className="container-site pointer-events-none absolute inset-0">
         <div className="relative h-full">
           {PILLARS.map((left, i) => (

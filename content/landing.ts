@@ -26,6 +26,8 @@ export const hero = {
   /** Datum wird automatisch aus der Terminregel in content/cities.ts berechnet */
   nextMeetingLabel: "Nächstes Treffen",
   secondaryCta: { label: "Was hier anders läuft", href: "#manifest" },
+  /** Hintergrundbild, liegt in public/bilder/. Wird stark abgedunkelt, damit der Text lesbar bleibt. */
+  image: { src: "/bilder/hero-treffen.jpg", alt: "" },
 };
 
 /** Laufband unter dem Hero. Begriffe, um die es im Kreis geht. */
@@ -233,7 +235,7 @@ export const gruenderinnen = {
       bio: "M.Sc. Informatik. Gründerin und Geschäftsführerin von Deutschlands größter Plattform für Fotografen. Außerdem Inhaberin der Marketing- und Medienagentur LIC Media in der Region Osnabrück: Social-Media-Strategie, High-End-Content, Short-Form-Video, Branding, Webentwicklung und visuelle B2B-Positionierung. Mutter einer Tochter.",
       club: "Im Club verantwortlich für Marke, Content, Ästhetik und das Erlebnis rund um jedes Treffen.",
       imageAlt: "Porträt Angela Pister",
-      imageCaption: "Porträt Angela Pister. Foto folgt.",
+      image: "/bilder/angela-pister.jpg",
     },
     {
       name: "Maria Elisabeth Doerk",
@@ -241,7 +243,7 @@ export const gruenderinnen = {
       bio: "M.A. Geschichte, serielle Gründerin. Walk With Me betreibt Erlebnis- und Stadtführungen in Osnabrück, Münster, Oldenburg, Bielefeld und Paderborn. Mit MejWay verantwortet sie das Medienprojekt The Entrepreness, außerdem ist sie Mitgründerin von Eskapadia. Mutter von drei Kindern.",
       club: "Im Club verantwortlich für Struktur, Prozesse, Skalierung und den Aufbau weiterer Städte.",
       imageAlt: "Porträt Maria Elisabeth Doerk",
-      imageCaption: "Porträt Maria Elisabeth Doerk. Foto folgt.",
+      image: "/bilder/maria-elisabeth-doerk.jpg",
     },
   ],
   /** Presse. Titel und Teaser wörtlich aus dem Artikel übernehmen, nichts umformulieren. */
