@@ -1,14 +1,14 @@
-import { circlesNote, foundations } from "@/content/landing";
+import { circlesNote, founderCircle } from "@/content/landing";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 
 /**
- * FEMPIRE FOUNDATIONS als eigenständiges Programm. Bewusst anders aufgebaut als der
+ * Founder Circle als eigenständiges Programm. Bewusst anders aufgebaut als der
  * Leader Circle (kein gleiches Kartenraster daneben), damit es nicht wie eine Stufe wirkt.
  */
-export function Foundations() {
-  const t = foundations;
+export function FounderCircle() {
+  const t = founderCircle;
   return (
     <Section id={t.id} index="04" label={t.label} headline={t.headline} intro={t.intro}>
       {t.status ? (

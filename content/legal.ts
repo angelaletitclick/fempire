@@ -113,7 +113,7 @@ export const datenschutz: LegalDocument = {
     {
       heading: "7. Datenbank",
       paragraphs: [
-        "Bewerbungen, Warteliste und Mitgliederkonten speichern wir bei Supabase Inc., 970 Toa Payoh North #07-04, Singapur. Die Daten liegen in einem Rechenzentrum in der EU [[Region prüfen]]. Mit Supabase besteht ein Vertrag zur Auftragsverarbeitung mit EU-Standardvertragsklauseln [[abschließen]].",
+        "Bewerbungen, Warteliste, Schnupper-Anfragen, Mitgliederkonten und die Inhalte des Mitgliederbereichs speichern wir bei Supabase Inc., 970 Toa Payoh North #07-04, Singapur. Die Daten liegen in einem Rechenzentrum in der EU [[Region prüfen]]. Mit Supabase besteht ein Vertrag zur Auftragsverarbeitung mit EU-Standardvertragsklauseln [[abschließen]].",
       ],
     },
     {
@@ -126,16 +126,25 @@ export const datenschutz: LegalDocument = {
       heading: "9. Mitgliederbereich",
       paragraphs: [
         "Aufgenommene Mitglieder melden sich per Link per E-Mail im Mitgliederbereich an. Dafür setzen wir technisch notwendige Cookies, die deine Anmeldung speichern (§ 25 Abs. 2 Nr. 2 TDDDG). Rechtsgrundlage für die Verarbeitung ist Art. 6 Abs. 1 lit. b DSGVO.",
+        "Im Mitgliederbereich verarbeiten wir dein Profil (Name, Unternehmen, Position, Stadt, Links, Text über dich und optional ein Foto), deine Zusagen zu Terminen, deine Beiträge im Forum und deine Nachrichten im Website-Chat. Profil und Forum-Beiträge sehen nur aktive Mitglieder und das Team. Nachrichten sehen nur du und die Person, mit der du schreibst. Deine E-Mail-Adresse ist für andere Mitglieder nicht sichtbar. Neue Forum-Themen prüft das Team vor der Veröffentlichung und kann Beiträge ausblenden oder löschen.",
+        "Profilfotos speichern wir in einem nicht öffentlichen Speicher und liefern sie nur an angemeldete Mitglieder aus. Beim Hochladen schneiden wir das Foto zu und entfernen alle Metadaten, etwa Aufnahmeort und Kameradaten.",
+        "Endet deine Mitgliedschaft, wird der Zugang gesperrt. Auf Wunsch löschen wir dein Konto mit Profil, Foto, Forum-Beiträgen und Nachrichten vollständig. [[Löschfrist nach Ende der Mitgliedschaft festlegen]]",
       ],
     },
     {
-      heading: "10. Kontakt per E-Mail",
+      heading: "10. Schnuppertermin",
+      paragraphs: [
+        "Wenn du einen Schnuppertermin anfragst, verarbeiten wir Name, E-Mail, optional Telefon, Unternehmen und deine Nachricht sowie den gewählten Termin. Zweck ist die Planung und Bestätigung deines Besuchs. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Die Anfrage löschen wir [[sechs Monate]] nach dem Termin, sofern daraus keine Bewerbung entsteht.",
+      ],
+    },
+    {
+      heading: "11. Kontakt per E-Mail",
       paragraphs: [
         "Wenn du uns schreibst, verarbeiten wir deine Angaben, um deine Anfrage zu beantworten (Art. 6 Abs. 1 lit. b bzw. f DSGVO).",
       ],
     },
     {
-      heading: "11. Deine Rechte",
+      heading: "12. Deine Rechte",
       paragraphs: [
         "Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine erteilte Einwilligung kannst du jederzeit für die Zukunft widerrufen. Eine formlose E-Mail an [[datenschutz@fempireclub.de]] genügt.",
         "Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel bei der Landesbeauftragten für den Datenschutz Niedersachsen, Prinzenstraße 5, 30159 Hannover.",

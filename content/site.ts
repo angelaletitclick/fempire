@@ -17,7 +17,7 @@ export const site = {
   /** Punkte der Hauptnavigation. `href` zeigt auf eine Sektion der Startseite oder eine eigene Seite. */
   nav: [
     { label: "Leader Circle", href: "/#leader-circle" },
-    { label: "Foundations", href: "/#foundations" },
+    { label: "Founder Circle", href: "/#founder-circle" },
     { label: "Termine", href: "/#termine" },
     { label: "Magazin", href: "/magazin" },
   ],

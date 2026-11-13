@@ -10,7 +10,7 @@
  * Keine Beträge auf der Startseite (die stehen nur auf /mitgliedsbeitrag, content/membership.ts).
  * Zur Investition hier nur die Formulierung:
  * „Die Investition besprechen wir im persönlichen Gespräch.“
- * FOUNDATIONS nie als günstigere Variante darstellen, nie „Einsteigerinnen“ oder „Anfängerinnen“.
+ * Founder Circle nie als günstigere Variante darstellen, nie „Einsteigerinnen“ oder „Anfängerinnen“.
  */
 
 import { plannedCities } from "./cities";
@@ -23,7 +23,7 @@ export const hero = {
   headline: ["Der Club für Unter­nehmerinnen,", "==die ein Fempire bauen.=="],
   subline:
     "Der FEMPIRE CLUB ist kein Netzwerk und keine Weiterbildung, sondern ein geschlossener Kreis für Unternehmerinnen, die ein laufendes Business führen, Verantwortung für ein Team tragen und ihr Geschäft in die nächste Größenordnung bringen wollen. Bei regelmäßigen Treffen in fester Runde legen wir Umsätze und offene Painpoints auf den Tisch und arbeiten konkret daran weiter. Application only.",
-  /** Datum wird automatisch aus der Terminregel in content/cities.ts berechnet */
+  /** Datum kommt aus dem nächsten veröffentlichten Termin im Backend */
   nextMeetingLabel: "Nächstes Treffen",
   secondaryCta: { label: "Was hier anders läuft", href: "#manifest" },
   /** Hintergrundbild, liegt in public/bilder/. Wird stark abgedunkelt, damit der Text lesbar bleibt. */
@@ -103,8 +103,8 @@ export const filter = {
   },
   foundationsHint: {
     text: "Du hast noch nicht gegründet, wirst es aber tun?",
-    link: "Dafür gibt es FEMPIRE FOUNDATIONS",
-    href: "#foundations",
+    link: "Dafür gibt es den Founder Circle",
+    href: "#founder-circle",
   },
 };
 
@@ -122,6 +122,7 @@ export const leaderCircle = {
     start: "Ab Januar 2027",
     vorbereitung: "In Vorbereitung",
   } satisfies Record<FormatStatus, string>,
+  /* Pro Eintrag kann statusLabel den Standardtext ersetzen, z. B. "Juni 2027" */
   items: [
     {
       title: "12 Workshop-Treffen im Jahr",
@@ -132,6 +133,11 @@ export const leaderCircle = {
       title: "Business Talk & Walk",
       status: "start" as FormatStatus,
       body: "Zwischendurch treffen wir uns draußen, in Bewegung. Ungezwungene Gespräche über Business und Leben, die am Tisch so nicht entstehen würden.",
+    },
+    {
+      title: "Hot Seats",
+      status: "start" as FormatStatus,
+      body: "Einmal im Quartal stehst du im Mittelpunkt. Dein Thema, deine Zahlen, die volle Aufmerksamkeit des Kreises und am Ende eine klare Entscheidung.",
     },
     {
       title: "Community-Hub",
@@ -149,20 +155,21 @@ export const leaderCircle = {
       body: "Strukturierte Formate zu Holding, Finanzen, Führung und Skalierung. Von Unternehmerinnen, die es selbst umgesetzt haben.",
     },
     {
-      title: "Retreats",
-      status: "vorbereitung" as FormatStatus,
-      body: "Mehrere Tage raus aus dem Tagesgeschäft. Strategie für das nächste Jahr, mit Frauen, die vor denselben Entscheidungen stehen.",
+      title: "Retreat",
+      status: "start" as FormatStatus,
+      statusLabel: "Juni 2027",
+      body: "Ein Wochenende raus aus dem Tagesgeschäft. Strategie, Ruhe und Zeit füreinander, mit Frauen, die vor denselben Entscheidungen stehen.",
     },
   ],
   cta: { label: "Für den Leader Circle bewerben", href: "/bewerbung" },
 };
 
 /** Eigenständiges 12-Monats-Programm. Kein Vergleich mit dem Leader Circle, keine Stufen-Optik. */
-export const foundations = {
-  id: "foundations",
-  label: "Foundations",
-  headline: "FEMPIRE ==FOUNDATIONS.==",
-  /** Hinweis neben dem Programm. Leer lassen (""), sobald FOUNDATIONS startet. */
+export const founderCircle = {
+  id: "founder-circle",
+  label: "Founder Circle",
+  headline: "Der ==Founder Circle.==",
+  /** Hinweis neben dem Programm. Leer lassen (""), sobald der Founder Circle startet. */
   status: "Coming soon",
   intro:
     "Ein eigenes Programm für Frauen, die gründen werden. Zwölf Monate mit einem klaren Ziel: dein Unternehmen steht. Mit starken Partnerinnen an deiner Seite, die dich fordern.",
@@ -170,15 +177,15 @@ export const foundations = {
   items: [
     {
       title: "Eigene Treffen",
-      body: "Monatlich, in einem eigenen Kreis mit Frauen in derselben Phase. Eigene Termine, eigener Raum.",
+      body: "Monatlich, in einem eigenen Kreis mit Frauen in derselben Phase. Begleitet von Angela Pister und Maria Elisabeth Doerk: Sparring und Support, direkt an deinem Vorhaben.",
     },
     {
-      title: "Begleitung durch die Gründerinnen",
-      body: "Coaching, Sparring und Support durch Angela Pister und Maria Elisabeth Doerk. Direkt, konkret, an deinem Vorhaben.",
+      title: "Workshops und Community",
+      body: "Zugang zu den Workshops und zur Community. Austausch mit Gleichgesinnten, die vor denselben Fragen stehen oder sie gerade gelöst haben.",
     },
     {
-      title: "Eigener Kanal",
-      body: "Ein geschlossener Kanal für Fragen, Entwürfe und Entscheidungen zwischen den Treffen.",
+      title: "Social Media Push",
+      body: "Wir machen dein Vorhaben sichtbar, über die Kanäle des FEMPIRE CLUB. Reichweite genau dann, wenn du sie für den Start brauchst.",
     },
     {
       title: "Klarer Abschluss",
@@ -187,38 +194,33 @@ export const foundations = {
   ],
   forWhom:
     "Für dich, wenn du gründen wirst und dafür Verbindlichkeit, Struktur und ehrliches Feedback suchst.",
-  cta: { label: "Für FOUNDATIONS bewerben", href: "/bewerbung" },
+  cta: { label: "Für den Founder Circle bewerben", href: "/bewerbung" },
 };
 
-/** Hinweis zur Trennung beider Kreise, steht unter FOUNDATIONS */
+/** Hinweis zum Verhältnis beider Kreise, steht unter dem Founder Circle */
 export const circlesNote =
-  "Leader Circle und FEMPIRE FOUNDATIONS teilen die Marke, aber nie den Raum, nie den Chat, nie die Treffen. In welchen Kreis du gehörst, ordnen wir nach deiner Bewerbung zu.";
+  "Leader Circle und Founder Circle treffen sich jeweils im eigenen Kreis. Workshops und Community teilen sie. In welchen Kreis du gehörst, ordnen wir nach deiner Bewerbung zu.";
 
 export const termine = {
   id: "termine",
   label: "Termine",
   headline: "Termine.",
   intro:
-    "Der Leader Circle trifft sich 12 Mal im Jahr, jeden ersten Dienstag im Monat. Jedes Treffen ist ein Workshop mit einem Thema. Den genauen Ort erhalten aufgenommene Mitglieder vorab. FOUNDATIONS hat eigene Termine.",
-  /** So viele kommende Termine werden angezeigt. Die Terminregel steht in content/cities.ts. */
+    "Der Leader Circle trifft sich 12 Mal im Jahr, jeden ersten Dienstag im Monat. Jedes Treffen ist ein Workshop mit einem Thema. Den genauen Ort erhalten Mitglieder vorab. Der Founder Circle hat eigene Termine.",
+  /** So viele kommende Termine werden angezeigt. Die Termine selbst pflegt ihr im Backend. */
   show: 4,
-  firstTitle: "Auftakt Leader Circle",
-  regularTitle: "Leader Circle",
   note: "Ort für Mitglieder",
-  /**
-   * Workshop-Thema pro Termin. Datum im Format JJJJ-MM-TT, Termine ohne Eintrag
-   * erscheinen ohne Thema.
-   */
-  workshopLabel: "Workshop",
-  workshops: {
-    "2027-01-05": "Website",
-    "2027-02-02": "KI",
-    "2027-03-02": "Mitarbeiter",
-    "2027-04-06": "Social Media",
-  } as Record<string, string>,
+  empty: "Die nächsten Termine stehen in Kürze fest.",
+  cancelled: "Abgesagt",
+  /** Link unter Terminen, an denen Schnuppern möglich ist */
+  trialLink: "Als Schnuppertermin anfragen",
   events: {
     title: "Plus Business Talk & Walk",
     body: "Zwischen den festen Treffen gibt es Business Talk & Walk und Events über das Jahr. Die Termine gehen rechtzeitig an alle Mitglieder.",
+  },
+  retreat: {
+    title: "Retreat im Juni",
+    body: "Im Juni 2027 geht es für ein Wochenende raus aus dem Tagesgeschäft. Details erhalten Mitglieder im Mitgliederbereich.",
   },
 };
 
@@ -242,7 +244,7 @@ export const gruenderinnen = {
     {
       name: "Maria Elisabeth Doerk",
       role: "Geschäftsführerin, Walk With Me GmbH und MejWay GmbH",
-      bio: "M.A. Geschichte, serielle Gründerin. Walk With Me betreibt Erlebnis- und Stadtführungen in Osnabrück, Münster, Oldenburg, Bielefeld und Paderborn. Mit MejWay verantwortet sie das Medienprojekt The Entrepreness, außerdem ist sie Mitgründerin von Eskapadia. Mutter von drei Kindern.",
+      bio: "M.A. Geschichte, serielle Gründerin. Mit WALKWITHME Tours, ihrer Walk With Me GmbH, betreibt sie Erlebnis- und Stadtführungen in Osnabrück, Münster, Oldenburg, Bielefeld und Paderborn. Mit MejWay verantwortet sie das Medienprojekt The Entrepreness. Mutter von zwei Kindern.",
       club: "Im Club verantwortlich für Struktur, Prozesse, Skalierung und den Aufbau weiterer Städte.",
       imageAlt: "Porträt Maria Elisabeth Doerk",
       image: "/bilder/maria-elisabeth-doerk.jpg",

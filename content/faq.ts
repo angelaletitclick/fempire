@@ -19,9 +19,21 @@ export const faq = {
       ],
     },
     {
-      question: "Wie hängen Leader Circle und FEMPIRE FOUNDATIONS zusammen?",
+      question: "Wie hängen Leader Circle und Founder Circle zusammen?",
       answer: [
-        "Beide Kreise teilen die Marke, aber nie den Raum, nie den Chat, nie die Treffen. Der Leader Circle ist für Frauen mit bestehendem Business. FOUNDATIONS ist ein eigenes Programm über zwölf Monate für Frauen, die gründen werden. Danach ist eine Bewerbung für den Leader Circle möglich.",
+        "Beide Kreise treffen sich jeweils im eigenen Kreis, Workshops und Community teilen sie. Der Leader Circle ist für Frauen mit bestehendem Business. Der Founder Circle ist ein eigenes Programm über zwölf Monate für Frauen, die gründen werden. Danach ist eine Bewerbung für den Leader Circle möglich.",
+      ],
+    },
+    {
+      question: "Gibt es eine Mitgliedschaft ohne festen Kreis?",
+      answer: [
+        "Ja, die Community-Mitgliedschaft. Du bist Teil der digitalen Community, siehst alle Mitglieder und Termine, stellst deine Fragen im geschlossenen Forum und liest alle Artikel für Mitglieder. Die festen Treffen gehören zu den Kreisen.",
+      ],
+    },
+    {
+      question: "Kann ich vorher reinschnuppern?",
+      answer: [
+        "Ja. Ausgewählte Treffen kannst du einmalig als Schnuppertermin besuchen, inklusive Heißgetränk. Unter Termine siehst du, welche Treffen dafür offen sind. Die Plätze sind begrenzt, wir bestätigen jede Anfrage persönlich.",
       ],
     },
     {
@@ -41,7 +53,7 @@ export const faq = {
     {
       question: "Wo und wann finden die Treffen statt?",
       answer: [
-        "Der Leader Circle trifft sich ab Januar 2027 in Osnabrück, 12 Mal im Jahr am ersten Dienstag im Monat, dazu kommen Business Talk & Walk und Events. FOUNDATIONS hat eigene Termine. Den genauen Ort erhalten aufgenommene Mitglieder.",
+        "Der Leader Circle trifft sich ab Januar 2027 in Osnabrück, 12 Mal im Jahr am ersten Dienstag im Monat, dazu kommen Business Talk & Walk, Events und im Juni 2027 ein Retreat-Wochenende. Der Founder Circle hat eigene Termine. Den genauen Ort erhalten aufgenommene Mitglieder.",
       ],
     },
     {

@@ -19,7 +19,7 @@ export const mails = {
     intro: "Neue Bewerbung über fempireclub.de. Kreis-Vorschlag und Score sind nur intern sichtbar. Die Zuordnung trefft ihr.",
     circleLabel: "Kreis-Vorschlag (aus Schritt 2)",
     circleLeader: "Leader Circle",
-    circleFoundations: "FEMPIRE FOUNDATIONS",
+    circleFoundations: "Founder Circle",
   },
 
   waitlistConfirm: {
@@ -31,5 +31,51 @@ export const mails = {
     ],
     button: "Eintragung bestätigen",
     unsubscribe: "Von der Warteliste abmelden",
+  },
+
+  /** Nach der Aufnahme im Backend. {tier} = Mitgliedschaft, {loginUrl} = Link zur Anmeldung */
+  welcome: {
+    subject: "Willkommen im FEMPIRE CLUB",
+    greeting: "Hallo {name},",
+    body: [
+      "du bist aufgenommen: {tier}. Wir freuen uns auf dich.",
+      "Im Mitgliederbereich findest du alle Termine, das Forum, das Verzeichnis der anderen Mitglieder und die Artikel für Mitglieder. Du meldest dich mit dieser E-Mail-Adresse an, ohne Passwort. Wir schicken dir dafür jedes Mal einen Link.",
+      "Leg als Erstes dein Profil an: Foto, Unternehmen, Position und ein paar Sätze über dich. So wissen die anderen, mit wem sie es zu tun haben.",
+    ],
+    button: "Zum Mitgliederbereich",
+  },
+
+  /** Absage nach Prüfung oder Gespräch */
+  rejection: {
+    subject: "Deine Bewerbung beim FEMPIRE CLUB",
+    greeting: "Hallo {name},",
+    body: [
+      "danke für deine Bewerbung und die Zeit, die du dir dafür genommen hast.",
+      "Wir haben uns entschieden, dir aktuell keinen Platz anzubieten. Meist liegt das an der Phase, nicht an der Person. Eine Absage ist keine Bewertung von dir.",
+      "Wenn sich deine Situation verändert, kannst du dich gern erneut bewerben.",
+    ],
+  },
+
+  /** Schnuppertermin: Bestätigung an die Interessentin */
+  trialConfirmation: {
+    subject: "Deine Anfrage für einen Schnuppertermin",
+    greeting: "Hallo {name},",
+    body: [
+      "deine Anfrage für den Termin am {date} ist bei uns angekommen.",
+      "Wir melden uns in den nächsten Tagen mit allen Details zu Ort und Ablauf. Die Plätze sind begrenzt, deshalb bestätigen wir jeden Schnuppertermin persönlich.",
+    ],
+  },
+
+  /** Schnuppertermin: Benachrichtigung an das Team */
+  trialNotification: {
+    subject: "Schnupper-Anfrage: {name} für {date}",
+    intro: "Neue Anfrage für einen Schnuppertermin. Bestätigen oder absagen im Backend unter Schnuppern.",
+  },
+
+  /** Neues Forum-Thema wartet auf Freigabe */
+  forumPending: {
+    subject: "Forum: neues Thema wartet auf Freigabe",
+    body: "{author} hat ein neues Thema eröffnet: „{title}“. Freigeben im Backend unter Forum.",
+    button: "Zur Freigabe",
   },
 };

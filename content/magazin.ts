@@ -1,41 +1,10 @@
 /**
- * Das FEMPIRE Magazin: Artikel der Gründerinnen.
+ * Texte rund um das FEMPIRE Magazin.
  *
- * Neuen Artikel veröffentlichen: einen Eintrag in `articles` ergänzen (am besten oben).
- * - slug:    Teil der Adresse, nur Kleinbuchstaben, Zahlen und Bindestriche,
- *            z. B. "holding-aufbau" ergibt /magazin/holding-aufbau
- * - date:    Veröffentlichungsdatum im Format JJJJ-MM-TT
- * - body:    Absätze in Reihenfolge. Ein Absatz, der mit "## " beginnt, wird zur Zwischenüberschrift.
- *
- * Die Startseite zeigt automatisch die neuesten Artikel. Gleiche Textregeln wie überall:
- * Du-Anrede, weibliche Formen, kurze Sätze, keine Ausrufezeichen, keine Emojis, keine Beträge.
+ * Die Artikel selbst schreibt ihr im Backend unter /club/admin/magazin. Dort legt ihr fest,
+ * ob ein Artikel frei lesbar ist oder nur für Mitglieder (Paywall). Gleiche Textregeln wie
+ * überall: Du-Anrede, weibliche Formen, kurze Sätze, keine Ausrufezeichen, keine Emojis, keine Beträge.
  */
-
-export type Article = {
-  slug: string;
-  title: string;
-  /** Ein bis zwei Sätze für Übersicht, Startseite und Suchmaschinen */
-  teaser: string;
-  date: string;
-  author: "Angela Pister" | "Maria Elisabeth Doerk" | "Angela Pister und Maria Elisabeth Doerk";
-  /** Kurzes Thema, z. B. "Führung" oder "Struktur" */
-  topic: string;
-  body: string[];
-};
-
-export const articles: Article[] = [
-  // Beispiel für einen Eintrag (zum Veröffentlichen die Kommentarzeichen entfernen und Text ersetzen):
-  // {
-  //   slug: "warum-wir-ueber-zahlen-reden",
-  //   title: "Warum wir über Zahlen reden",
-  //   teaser: "Ein Satz, worum es geht.",
-  //   date: "2026-12-01",
-  //   author: "Angela Pister",
-  //   topic: "Wachstum",
-  //   body: ["Erster Absatz.", "## Zwischenüberschrift", "Zweiter Absatz."],
-  // },
-];
-
 export const magazin = {
   id: "magazin",
   label: "Magazin",
@@ -49,6 +18,16 @@ export const magazin = {
   readMore: "Weiterlesen",
   backLink: "Zurück zum Magazin",
   byLabel: "Von",
+  paidLabel: "Für Mitglieder",
+  /** So viele Absätze eines Mitglieder-Artikels sind für alle sichtbar */
+  previewBlocks: 2,
+  paywall: {
+    title: "Weiterlesen als Mitglied.",
+    body: "Dieser Artikel ist Teil der Mitgliedschaft. Mitglieder lesen ihn vollständig im eingeloggten Zustand.",
+    login: "Anmelden",
+    apply: "Bewerbung starten",
+    inactive: "Deine Mitgliedschaft ist gerade nicht aktiv. Sobald sie wieder läuft, liest du hier weiter.",
+  },
   meta: {
     title: "Magazin",
     description:
@@ -56,23 +35,5 @@ export const magazin = {
   },
 };
 
-/** Alle Artikel, neueste zuerst */
-export function sortedArticles(): Article[] {
-  return [...articles].sort((a, b) => b.date.localeCompare(a.date));
-}
-
-export function articleBySlug(slug: string): Article | undefined {
-  return articles.find((article) => article.slug === slug);
-}
-
-const dateFormat = new Intl.DateTimeFormat("de-DE", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-});
-
-/** "1. Dezember 2026" */
-export function formatArticleDate(iso: string): string {
-  return dateFormat.format(new Date(`${iso}T00:00:00Z`));
-}
+/** Autorinnen zur Auswahl im Backend */
+export const authors = ["Angela Pister", "Maria Elisabeth Doerk", "Angela Pister und Maria Elisabeth Doerk"];

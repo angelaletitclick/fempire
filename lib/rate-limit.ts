@@ -18,6 +18,7 @@ export function hashIp(ip: string): string {
 const LIMITS = {
   application: { limit: 5, windowSeconds: 60 * 60 },
   waitlist: { limit: 10, windowSeconds: 60 * 60 },
+  trial: { limit: 5, windowSeconds: 60 * 60 },
 } as const;
 
 /**

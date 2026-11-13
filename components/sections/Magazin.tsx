@@ -1,12 +1,14 @@
 import Link from "next/link";
-import { formatArticleDate, magazin, sortedArticles, type Article } from "@/content/magazin";
+import { magazin } from "@/content/magazin";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
+import { publishedArticles, type ArticleSummary } from "@/lib/articles";
+import { formatDate } from "@/lib/time";
 
 /** Teaser-Sektion der Startseite mit den neuesten Artikeln */
-export function Magazin() {
-  const latest = sortedArticles().slice(0, magazin.showOnHome);
+export async function Magazin() {
+  const latest = await publishedArticles(magazin.showOnHome);
   return (
     <Section id={magazin.id} index="09" label={magazin.label} headline={magazin.headline} intro={magazin.intro}>
       <ArticleList articles={latest} />
@@ -22,7 +24,7 @@ export function Magazin() {
   );
 }
 
-export function ArticleList({ articles }: { articles: Article[] }) {
+export function ArticleList({ articles }: { articles: ArticleSummary[] }) {
   if (articles.length === 0) {
     return (
       <Reveal as="p" className="border border-line p-6 text-lg text-slate-light md:p-10">
@@ -36,8 +38,9 @@ export function ArticleList({ articles }: { articles: Article[] }) {
         <Reveal as="li" key={article.slug} delay={i * 70} className="card group flex">
           <Link href={`/magazin/${article.slug}`} className="flex w-full flex-col p-6 md:p-8">
             <p className="label flex flex-wrap gap-x-3">
-              <span className="text-white">{article.topic}</span>
-              <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
+              {article.topic ? <span className="text-white">{article.topic}</span> : null}
+              <time dateTime={article.published_at}>{formatDate(article.published_at)}</time>
+              {article.paid ? <span>{magazin.paidLabel}</span> : null}
             </p>
             <h3 className="headline mt-8 text-xl leading-tight md:text-2xl">{article.title}</h3>
             <p className="mt-4 flex-1 text-base leading-relaxed text-slate-light">{article.teaser}</p>

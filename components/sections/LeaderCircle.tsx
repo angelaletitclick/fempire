@@ -28,7 +28,7 @@ export function LeaderCircle() {
           >
             <p className={cx("label flex items-center gap-3", item.status !== "vorbereitung" && "text-white")}>
               <span aria-hidden="true" className={cx("h-2 w-2 shrink-0", marker[item.status])} />
-              {t.statusLabels[item.status]}
+              {("statusLabel" in item && item.statusLabel) || t.statusLabels[item.status]}
             </p>
             <h3 className="headline mt-8 text-xl md:text-2xl">{item.title}</h3>
             <p className="mt-4 text-base leading-relaxed text-slate-light">{item.body}</p>

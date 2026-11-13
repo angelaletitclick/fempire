@@ -3,7 +3,7 @@ import { ClosingCta } from "@/components/sections/ClosingCta";
 import { WaitlistForm } from "@/components/sections/WaitlistForm";
 import { Faq } from "@/components/sections/Faq";
 import { Filter } from "@/components/sections/Filter";
-import { Foundations } from "@/components/sections/Foundations";
+import { FounderCircle } from "@/components/sections/FounderCircle";
 import { LeaderCircle } from "@/components/sections/LeaderCircle";
 import { Gruenderinnen } from "@/components/sections/Gruenderinnen";
 import { Hero } from "@/components/sections/Hero";
@@ -13,9 +13,9 @@ import { OrganizationJsonLd } from "@/components/sections/OrganizationJsonLd";
 import { Termine } from "@/components/sections/Termine";
 import { Ticker } from "@/components/sections/Ticker";
 
-// Die Termine werden aus einer Regel berechnet. Einmal täglich neu erzeugen,
-// damit "Nächstes Treffen" und die Terminliste nie veraltet sind.
-export const revalidate = 86400;
+// Termine und Magazin kommen aus dem Backend. Änderungen dort aktualisieren die Seite sofort,
+// zusätzlich stündlich, damit vergangene Termine verschwinden.
+export const revalidate = 3600;
 
 export default function Home() {
   return (
@@ -26,7 +26,7 @@ export default function Home() {
       <Manifest />
       <Filter />
       <LeaderCircle />
-      <Foundations />
+      <FounderCircle />
       <Termine />
       <Gruenderinnen />
       <Ablauf />

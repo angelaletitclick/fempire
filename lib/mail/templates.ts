@@ -2,6 +2,7 @@ import "server-only";
 import { funnel } from "@/content/funnel";
 import { mails } from "@/content/mails";
 import { isFoundations, type Application } from "@/lib/validation/application";
+import { siteUrl } from "@/lib/site-url";
 import type { Mail } from "./index";
 
 // Mail-Clients kennen keine CSS-Variablen, daher die CI-Werte hier als Konstanten.
@@ -151,5 +152,84 @@ export function waitlistConfirm(input: {
     subject: fill(t.subject, { city: input.city }),
     html: layout(paragraphs([t.greeting, ...body]) + button + unsubscribe),
     text: textBlock([t.greeting, ...body, `${t.button}: ${input.confirmUrl}`, `${t.unsubscribe}: ${input.unsubscribeUrl}`]),
+  };
+}
+
+function button(label: string, url: string): string {
+  return `<p style="margin:24px 0;"><a href="${escapeHtml(url)}" style="display:inline-block;padding:16px 28px;background:${WHITE};color:${PLUM};font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;">${escapeHtml(label)}</a></p>`;
+}
+
+function detailRows(rows: Array<[string, string]>): string {
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${rows
+    .map(
+      ([label, value]) =>
+        `<tr><td style="padding:10px 0;border-bottom:1px solid ${LINE};vertical-align:top;">
+<div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:${SLATE};">${escapeHtml(label)}</div>
+<div style="margin-top:4px;font-size:15px;line-height:1.5;color:${WHITE};white-space:pre-wrap;">${escapeHtml(value)}</div></td></tr>`,
+    )
+    .join("")}</table>`;
+}
+
+export function welcomeMail(input: { to: string; name: string; tier: string; loginUrl: string }): Mail {
+  const t = mails.welcome;
+  const greeting = fill(t.greeting, { name: input.name });
+  const body = t.body.map((line) => fill(line, { tier: input.tier }));
+  return {
+    to: input.to,
+    subject: t.subject,
+    html: layout(paragraphs([greeting, ...body]) + button(t.button, input.loginUrl)),
+    text: textBlock([greeting, ...body, `${t.button}: ${input.loginUrl}`]),
+  };
+}
+
+export function rejectionMail(input: { to: string; name: string }): Mail {
+  const t = mails.rejection;
+  const greeting = fill(t.greeting, { name: input.name });
+  return {
+    to: input.to,
+    subject: t.subject,
+    html: layout(paragraphs([greeting, ...t.body])),
+    text: textBlock([greeting, ...t.body]),
+  };
+}
+
+export function trialConfirmation(input: { to: string; name: string; date: string }): Mail {
+  const t = mails.trialConfirmation;
+  const greeting = fill(t.greeting, { name: input.name });
+  const body = t.body.map((line) => fill(line, { date: input.date }));
+  return {
+    to: input.to,
+    subject: t.subject,
+    html: layout(paragraphs([greeting, ...body])),
+    text: textBlock([greeting, ...body]),
+  };
+}
+
+export function trialNotification(input: {
+  to: string[];
+  name: string;
+  email: string;
+  date: string;
+  rows: Array<[string, string]>;
+}): Mail {
+  const t = mails.trialNotification;
+  return {
+    to: input.to,
+    replyTo: input.email,
+    subject: fill(t.subject, { name: input.name, date: input.date }),
+    html: layout(`<p style="margin:0 0 24px;font-size:14px;color:${SLATE};">${escapeHtml(t.intro)}</p>${detailRows(input.rows)}`),
+    text: [t.intro, "", ...input.rows.map(([label, value]) => `${label}: ${value}`)].join("\n"),
+  };
+}
+
+export function forumPendingNotification(input: { to: string[]; author: string; title: string; adminUrl?: string }): Mail {
+  const t = mails.forumPending;
+  const body = fill(t.body, { author: input.author, title: input.title });
+  const url = input.adminUrl ?? `${siteUrl}/club/admin/forum`;
+  return {
+    to: input.to,
+    subject: t.subject,
+    html: layout(paragraphs([body]) + button(t.button, url)),
+    text: textBlock([body, `${t.button}: ${url}`]),
   };
 }

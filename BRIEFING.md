@@ -35,7 +35,7 @@ Preise: nur auf /mitgliedsbeitrag, siehe Abschnitt 11.
 
 **Angela Pister** — Co-Geschäftsführerin der LET IT CLICK GmbH (Marketing- und Medienagentur, Region Osnabrück). Social-Media-Strategie, High-End-Content, Short-Form-Video, Branding, Webentwicklung, visuelle B2B-Positionierung. 33, Mutter einer Tochter. Im Club: Marke, Content, Ästhetik, Marken-Erlebnis.
 
-**Maria Elisabeth Doerk** — M.A. Geschichte, serielle Gründerin in Osnabrück. GF der Walk With Me GmbH (Erlebnis- und Stadtführungen, Nachtwächter-Touren, Outdoor Escape Games in Osnabrück, Münster, Oldenburg, Bielefeld, Paderborn) und der MejWay GmbH (Medienprojekt The Entrepreness). Mitgründerin von Eskapadia. Themen: Business-Systeme und Autonomie, Krisen-Resilienz und Skalierung, Vereinbarkeit über Strukturen und Holdings. Mutter von drei Kindern. Im Club: Struktur, Prozesse, Skalierung, Multi-City-Aufbau.
+**Maria Elisabeth Doerk** — M.A. Geschichte, serielle Gründerin in Osnabrück. GF der Walk With Me GmbH (Erlebnis- und Stadtführungen, Nachtwächter-Touren, Outdoor Escape Games in Osnabrück, Münster, Oldenburg, Bielefeld, Paderborn) und der MejWay GmbH (Medienprojekt The Entrepreness). Gründerin von WALKWITHME Tours. Themen: Business-Systeme und Autonomie, Krisen-Resilienz und Skalierung, Vereinbarkeit über Strukturen und Holdings. Mutter von zwei Kindern. Im Club: Struktur, Prozesse, Skalierung, Multi-City-Aufbau.
 
 Erzählkern: Markenwelt trifft auf skalierbare Struktur. Zwei Unternehmerinnen, die selbst liefern, was sie predigen. Beide neurodivergent — sachlich erwähnen, nicht pathetisch.
 
@@ -144,12 +144,21 @@ Landing und Funnel vollständig in CI, Bewerbungen kommen in Supabase an, beide 
 Der Club hat **zwei getrennte Kreise**. Sie teilen die Marke, aber nie den Raum, nie den Chat, nie die Treffen.
 
 - **Leader Circle** (Hauptkreis): Unternehmerinnen mit eigener GmbH/Holding oder hoher Führungsverantwortung. Bestehendes Business, echte Zahlen. 12 Treffen pro Jahr (monatlich, erster Dienstag) plus Events, Masterminds in festen Kleingruppen, Community-Hub, Retreats, Academy.
-- **FEMPIRE FOUNDATIONS**: Frauen vor der Gründung. Eigenes Programm über 12 Monate mit Abschluss, danach Bewerbung in den Leader Circle oder Ende. Kein Dauerabo. Eigene monatliche Treffen, Coaching durch die Gründerinnen, eigener Kanal.
+- **Founder Circle**: Frauen vor der Gründung. Eigenes Programm über 12 Monate mit Abschluss, danach Bewerbung in den Leader Circle oder Ende. Kein Dauerabo. Eigene monatliche Treffen, Coaching durch die Gründerinnen, eigener Kanal.
 
 Regeln für die Website:
 - Beiträge stehen ausschließlich auf der Seite /mitgliedsbeitrag (Texte in content/membership.ts), die nur im Footer verlinkt ist. Dort netto und brutto, beide Kreise untereinander, keine Vergleichstabelle. Überall sonst (Startseite, FAQ, Bewerbung) keine Beträge, nur: „Die Investition besprechen wir im persönlichen Gespräch.“ Founding-Konditionen (Sonderpreise der ersten Runde) werden nirgends genannt.
 - Beide Kreise sichtbar getrennt: eigene Sektion, eigener CTA. Keine Preistabelle, keine Stufen-Optik, kein „Basic vs. Premium“.
-- FOUNDATIONS nie als günstigere Variante des Leader Circle, sondern als eigenes Programm mit eigenem Ziel. Nie „Einsteigerinnen“, „Anfängerinnen“ oder „kleine Selbstständige“.
-- Bewerberinnen wählen keinen Kreis. Schritt 2 der Bewerbung (Situation) entscheidet über den Pfad: Wer noch nicht gegründet hat, bekommt die FOUNDATIONS-Fragen, alle anderen die Leader-Fragen. Die Zuordnung trifft das Auswahlteam.
+- Founder Circle nie als günstigere Variante des Leader Circle, sondern als eigenes Programm mit eigenem Ziel. Nie „Einsteigerinnen“, „Anfängerinnen“ oder „kleine Selbstständige“.
+- Bewerberinnen wählen keinen Kreis. Schritt 2 der Bewerbung (Situation) entscheidet über den Pfad: Wer noch nicht gegründet hat, bekommt die Founder Circle-Fragen, alle anderen die Leader-Fragen. Die Zuordnung trifft das Auswahlteam.
 
 Skalierung: Start in Osnabrück, Wachstum über City-Leads in weitere Städte. Städte sind Daten (`content/cities.ts`): Stadt-Auswahl in der Bewerbung, Warteliste für Städte ohne Kreis, Terminregel pro Stadt. Markenelemente wie das Siegel nennen keine Stadt.
+
+## 12. Nachtrag: Backend, Mitgliedschaften, Preise (Stand November 2026)
+
+- Vier Mitgliedschaften (Beträge nur auf /mitgliedsbeitrag): Community-Mitgliedschaft 19,90 € im Monat, Founder Circle 49 €, Leader Circle 99 €, Masterminds ab 249 €. Schnuppertermin 29 € inkl. Heißgetränk. Retreat-Wochenende im Juni 2027.
+- Community: sieht alle Mitglieder und Termine, Forum, alle Mitglieder-Artikel. Founder Circle: eigene monatliche Treffen, Community, Social Media Push, Workshops. Leader Circle: zusätzlich Hot Seats einmal im Quartal. Masterminds: alles plus Hot Seats.
+- Workshops und Community teilen sich Founder und Leader Circle, die eigenen Treffen bleiben getrennt.
+- Backend unter /club/admin (Rollen: member, admin): Bewerbungen annehmen und ablehnen, Mitglieder und Zahlungsstatus, Magazin-CMS mit frei/Mitglieder (Paywall), Termine mit Formaten, Preisen, Absage und Veröffentlichung, Schnupper-Anfragen, Forum-Moderation.
+- Mitgliederbereich unter /club: Termine mit Zusage, Forum (neue Themen nach Freigabe), Mitgliederverzeichnis, Profile mit Foto, Website-Chat.
+- Admins: angela@let-it-click.com, elisabeth@walkwithmetours.de. Benachrichtigungen an fempireclub@gmail.com.

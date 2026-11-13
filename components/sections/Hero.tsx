@@ -1,4 +1,4 @@
-import { homeCity } from "@/content/cities";
+import { cityBySlug } from "@/content/cities";
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
@@ -6,15 +6,16 @@ import { hero } from "@/content/landing";
 import { site } from "@/content/site";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
 import { Marked } from "@/components/ui/Marked";
-import { formatLong, upcomingMeetings } from "@/lib/meetings";
+import { nextPublicEvent } from "@/lib/events";
+import { formatLong } from "@/lib/time";
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 /** Senkrechte Linien im Hintergrund: Säulen als architektonisches Motiv */
 const PILLARS = ["25%", "50%", "75%"];
 
-export function Hero() {
-  const next = upcomingMeetings(1)[0];
+export async function Hero() {
+  const next = await nextPublicEvent();
   return (
     <section
       aria-labelledby="hero-heading"
@@ -73,7 +74,7 @@ export function Hero() {
                 <span aria-hidden="true" className="anim-pulse h-1.5 w-1.5 bg-white" />
                 <span className="label text-white">{hero.nextMeetingLabel}</span>
                 <span className="text-slate-light">
-                  {homeCity.name}, {formatLong(next.date)}
+                  {cityBySlug(next.city_slug)?.name ?? next.city_slug}, {formatLong(next.starts_at)}
                 </span>
               </p>
             ) : null}
