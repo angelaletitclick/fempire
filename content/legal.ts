@@ -36,7 +36,7 @@ export const impressum: LegalDocument = {
     },
     {
       heading: "Kontakt",
-      paragraphs: ["E-Mail: [[kontakt@fempireclub.de]]\nTelefon: [[Telefonnummer]]"],
+      paragraphs: ["E-Mail: fempireclubs@gmail.com\nTelefon: [[Telefonnummer]]"],
     },
     {
       heading: "Registereintrag",
@@ -69,7 +69,7 @@ export const datenschutz: LegalDocument = {
     {
       heading: "1. Verantwortliche",
       paragraphs: [
-        "Verantwortlich für die Datenverarbeitung auf dieser Website ist die MejWay GmbH, Stockumer Straße 31, 49086 Osnabrück, vertreten durch die Geschäftsführerin Maria Elisabeth Doerk, E-Mail: [[datenschutz@fempireclub.de]]. Weitere Angaben findest du im Impressum.",
+        "Verantwortlich für die Datenverarbeitung auf dieser Website ist die MejWay GmbH, Stockumer Straße 31, 49086 Osnabrück, vertreten durch die Geschäftsführerin Maria Elisabeth Doerk, E-Mail: fempireclubs@gmail.com. Weitere Angaben findest du im Impressum.",
       ],
     },
     {
@@ -119,7 +119,7 @@ export const datenschutz: LegalDocument = {
     {
       heading: "8. E-Mail-Versand",
       paragraphs: [
-        "Bestätigungs- und Benachrichtigungsmails versenden wir über Resend (Plus Five Five, Inc., USA). Dabei werden deine E-Mail-Adresse und der Inhalt der Mail verarbeitet. Grundlage ist ein Vertrag zur Auftragsverarbeitung mit EU-Standardvertragsklauseln [[abschließen]]. [[Versandregion EU prüfen]]",
+        "Bestätigungs-, Benachrichtigungs- und Anmeldemails versenden wir über unser E-Mail-Konto bei Google (Gmail, Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Dabei werden deine E-Mail-Adresse und der Inhalt der Mail verarbeitet. Google kann Daten auch in den USA verarbeiten, Google ist unter dem EU-US Data Privacy Framework zertifiziert. [[Auftragsverarbeitung prüfen: für ein privates Gmail-Konto gibt es keinen AV-Vertrag, dafür wäre Google Workspace nötig]]",
       ],
     },
     {
@@ -146,7 +146,7 @@ export const datenschutz: LegalDocument = {
     {
       heading: "12. Deine Rechte",
       paragraphs: [
-        "Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine erteilte Einwilligung kannst du jederzeit für die Zukunft widerrufen. Eine formlose E-Mail an [[datenschutz@fempireclub.de]] genügt.",
+        "Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine erteilte Einwilligung kannst du jederzeit für die Zukunft widerrufen. Eine formlose E-Mail an fempireclubs@gmail.com genügt.",
         "Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel bei der Landesbeauftragten für den Datenschutz Niedersachsen, Prinzenstraße 5, 30159 Hannover.",
       ],
     },
