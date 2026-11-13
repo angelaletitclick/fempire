@@ -372,14 +372,8 @@ export function ApplicationForm() {
               </>
             ) : null}
 
-            {stepId === "passung" ? (
+            {stepId === "plan" ? (
               <>
-                <Field id="motivation" label={fields.motivation.label} error={errors.motivation}>
-                  {(describedBy) => <TextArea {...input("motivation")} aria-describedby={describedBy} />}
-                </Field>
-                <Field id="contribution" label={fields.contribution.label} hint={fields.contribution.hint} error={errors.contribution}>
-                  {(describedBy) => <TextArea {...input("contribution")} aria-describedby={describedBy} />}
-                </Field>
                 <ChoiceGroup
                   name="hasChildren"
                   legend={fields.hasChildren.label}
@@ -472,6 +466,10 @@ function Summary({ draft, onEdit }: { draft: ApplicationDraft; onEdit: (step: nu
   const foundations = pathForStage(draft.stage) === "foundations";
   const city = draft.city === OTHER_CITY ? draft.cityOther : label(cityOptions, draft.city);
 
+  const alltagRows: Array<[string, string]> = [
+    [fields.hasChildren.label, label(options.hasChildren, draft.hasChildren)],
+    [fields.timeCommitment.label, label(options.timeCommitment, draft.timeCommitment)],
+  ];
   const groups: Array<{ step: number; rows: Array<[string, string]> }> = [
     {
       step: 0,
@@ -509,21 +507,14 @@ function Summary({ draft, onEdit }: { draft: ApplicationDraft; onEdit: (step: nu
             [fields.idea.label, draft.idea],
             [fields.goal12m.labelFoundations, draft.goal12m],
             [fields.bottleneck.labelFoundations, draft.bottleneck],
+            ...alltagRows,
           ]
         : [
             [fields.revenueRange.label, label(options.revenueRange, draft.revenueRange)],
             [fields.goal12m.label, draft.goal12m],
             [fields.bottleneck.label, draft.bottleneck],
+            ...alltagRows,
           ],
-    },
-    {
-      step: 3,
-      rows: [
-        [fields.motivation.label, draft.motivation],
-        [fields.contribution.label, draft.contribution],
-        [fields.hasChildren.label, label(options.hasChildren, draft.hasChildren)],
-        [fields.timeCommitment.label, label(options.timeCommitment, draft.timeCommitment)],
-      ],
     },
   ];
 

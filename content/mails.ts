@@ -78,4 +78,16 @@ export const mails = {
     body: "{author} hat ein neues Thema eröffnet: „{title}“. Freigeben im Backend unter Forum.",
     button: "Zur Freigabe",
   },
+
+  /** Neue Nachricht im Website-Chat. Der Inhalt steht bewusst nicht in der Mail. */
+  newMessage: {
+    subject: "Neue Nachricht von {sender} im FEMPIRE CLUB",
+    greeting: "Hallo {name},",
+    body: [
+      "{sender} hat dir im Mitgliederbereich eine Nachricht geschrieben.",
+      "Aus Datenschutzgründen steht der Inhalt nicht in dieser Mail. Du liest und beantwortest sie im Mitgliederbereich.",
+    ],
+    button: "Nachricht lesen",
+    note: "Du bekommst eine Mail pro Unterhaltung, solange du die Nachrichten noch nicht gelesen hast.",
+  },
 };

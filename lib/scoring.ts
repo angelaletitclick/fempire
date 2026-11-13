@@ -64,8 +64,6 @@ function scoreLeader(application: LeaderApplication): number {
   const completeness =
     textDepth(application.goal12m) +
     textDepth(application.bottleneck) +
-    textDepth(application.motivation) +
-    textDepth(application.contribution) +
     (application.phone ? 3 : 0) +
     (application.profileUrl ? 3 : 0);
   return clamp(revenue + position + completeness);
@@ -77,8 +75,6 @@ function scoreFoundations(application: FoundationsApplication): number {
     textDepth(application.idea, 16) +
     textDepth(application.goal12m, 12) +
     textDepth(application.bottleneck, 10) +
-    textDepth(application.motivation, 12) +
-    textDepth(application.contribution, 10) +
     (application.phone ? 5 : 0) +
     (application.profileUrl ? 5 : 0);
   return clamp(timeline + depth);

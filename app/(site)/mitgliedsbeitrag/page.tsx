@@ -25,6 +25,10 @@ const delay = (ms: number) => ({ "--d": `${ms}ms` });
 
 const features = membership.comparison.features;
 const countFor = (tier: TierKey) => features.filter((feature) => feature.tiers[tier]).length;
+const countText = (count: number) =>
+  (count === features.length ? membership.comparison.allLabel : membership.comparison.countLabel)
+    .replace("{count}", String(count))
+    .replace("{total}", String(features.length));
 
 /**
  * Mitgliedschaften im Überblick: vier Karten in den Farben der Mitgliedschaften,
@@ -53,6 +57,24 @@ export default function MitgliedsbeitragPage() {
           <TierCard key={circle.id} circle={circle} index={i} />
         ))}
       </PlayInView>
+
+      {/* Founder und Leader: warum der Leader Circle darüber steht */}
+      <section aria-labelledby="stufe" className="mt-24 md:mt-32" style={tierStyle("leader")}>
+        <SectionLabel index="↑" label={t.step.label} />
+        <h2 id="stufe" className="headline mt-5 max-w-[22ch] text-[2rem] leading-[1.05] sm:text-5xl">
+          <Marked text={t.step.title} />
+        </h2>
+        <p className="prose-width mt-5 text-base leading-relaxed text-slate-light md:text-lg">{t.step.intro}</p>
+        <PlayInView as="ol" className="mt-10 grid gap-px border border-line bg-line md:grid-cols-3">
+          {t.step.points.map((point, i) => (
+            <li key={point.title} className="anim-fade-up bg-plum p-6 md:p-8" style={delay(i * 150) as CSSProperties}>
+              <span aria-hidden="true" className="anim-fill block h-1 w-12 bg-[var(--tier)]" style={delay(i * 150 + 200) as CSSProperties} />
+              <h3 className="headline mt-6 text-xl">{point.title}</h3>
+              <p className="mt-3 text-base leading-relaxed text-slate-light">{point.body}</p>
+            </li>
+          ))}
+        </PlayInView>
+      </section>
 
       {/* Vergleich */}
       <section aria-labelledby="vergleich" className="mt-24 md:mt-32">
@@ -116,12 +138,24 @@ export default function MitgliedsbeitragPage() {
                 </tr>
               ))}
             </tbody>
+            <tfoot>
+              <tr className="border-t border-white">
+                <th scope="row" className="sticky left-0 z-10 bg-plum py-4 pr-4 text-left">
+                  <span className="label text-white">{c.totalLabel}</span>
+                </th>
+                {t.circles.map((circle) => (
+                  <td key={circle.id} className="px-2 py-4 text-sm font-semibold text-[var(--tier)]" style={tierStyle(circle.tier)}>
+                    {countFor(circle.tier)} / {features.length}
+                  </td>
+                ))}
+              </tr>
+            </tfoot>
           </table>
         </PlayInView>
       </section>
 
-      {/* Schnuppern, Retreat, Gründungsphase, Warum */}
-      <div className="mt-24 grid gap-4 md:mt-32 lg:grid-cols-2">
+      {/* Schnuppern, Retreat, Warum */}
+      <div className="mt-24 grid gap-4 md:mt-32 lg:grid-cols-3">
         <Reveal as="section" aria-labelledby="trial-title" className="flex flex-col border border-white p-6 sm:p-10">
           <h2 id="trial-title" className="label text-white">
             {t.trial.title}
@@ -146,10 +180,6 @@ export default function MitgliedsbeitragPage() {
             {t.retreat.title}
           </h2>
           <p className="mt-4 text-lg leading-relaxed">{t.retreat.body}</p>
-        </Reveal>
-        <Reveal className="border border-white p-6 sm:p-10">
-          <h2 className="label text-white">{t.foundingPhase.title}</h2>
-          <p className="mt-4 text-lg leading-relaxed">{t.foundingPhase.body}</p>
         </Reveal>
         <Reveal className="border border-line p-6 sm:p-10">
           <h2 className="label text-white">{t.why.title}</h2>
@@ -205,7 +235,7 @@ function TierCard({ circle, index }: { circle: Circle; index: number }) {
 
         <div className="mt-8">
           <p className="label flex justify-between gap-2">
-            <span>{membership.comparison.countLabel.replace("{count}", String(count)).replace("{total}", String(total))}</span>
+            <span className={count === total ? "text-[var(--tier)]" : undefined}>{countText(count)}</span>
           </p>
           <div aria-hidden="true" className="mt-2 h-1 bg-line-soft">
             <span
@@ -215,8 +245,9 @@ function TierCard({ circle, index }: { circle: Circle; index: number }) {
           </div>
         </div>
 
-        <ul className="mt-6 grid gap-2 text-sm leading-relaxed text-white">
-          {circle.included.slice(0, 4).map((item) => (
+        {circle.builds ? <p className="mt-6 text-sm font-semibold text-[var(--tier)]">{circle.builds}</p> : null}
+        <ul className={`${circle.builds ? "mt-3" : "mt-6"} grid gap-2 text-sm leading-relaxed text-white`}>
+          {circle.plus.map((item) => (
             <li key={item} className="flex items-start gap-3">
               <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 bg-[var(--tier)]" />
               {item}
@@ -239,7 +270,7 @@ function TierCard({ circle, index }: { circle: Circle; index: number }) {
 }
 
 /**
- * Eigenes Zeichen pro Mitgliedschaft, ohne Rangfolge: Community als Netz aus vier Feldern,
+ * Eigenes Zeichen pro Mitgliedschaft, mit jeder Stufe dichter: Community als Netz aus vier Feldern,
  * Founder Circle als Fundament, Leader Circle als Kreis im Kreis, Masterminds als verdichteter Kern.
  * Die Linien zeichnen sich nacheinander.
  */

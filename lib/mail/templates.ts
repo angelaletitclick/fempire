@@ -106,8 +106,6 @@ export function applicationNotification(
     [fields.profileUrl.label, application.profileUrl],
     [fields.stage.label, optionLabel(options.stage, application.stage)],
     ...pathRows,
-    [fields.motivation.label, application.motivation],
-    [fields.contribution.label, application.contribution],
     [fields.hasChildren.label, optionLabel(options.hasChildren, application.hasChildren)],
     [fields.timeCommitment.label, optionLabel(options.timeCommitment, application.timeCommitment)],
     ["Datensatz-ID", meta.id],
@@ -231,5 +229,18 @@ export function forumPendingNotification(input: { to: string[]; author: string; 
     subject: t.subject,
     html: layout(paragraphs([body]) + button(t.button, url)),
     text: textBlock([body, `${t.button}: ${url}`]),
+  };
+}
+
+export function newMessageMail(input: { to: string; name: string; sender: string; url: string }): Mail {
+  const t = mails.newMessage;
+  const greeting = fill(t.greeting, { name: input.name });
+  const body = t.body.map((line) => fill(line, { sender: input.sender }));
+  const note = `<p style="margin:0;font-size:13px;color:${SLATE};">${escapeHtml(t.note)}</p>`;
+  return {
+    to: input.to,
+    subject: fill(t.subject, { sender: input.sender }),
+    html: layout(paragraphs([greeting, ...body]) + button(t.button, input.url) + note),
+    text: textBlock([greeting, ...body, `${t.button}: ${input.url}`, t.note]),
   };
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { PageHead } from "@/components/club/PageHead";
+import { TierBadge } from "@/components/club/TierBadge";
 import { Arrow } from "@/components/ui/Button";
 import { StatusPage } from "@/components/ui/StatusPage";
 import { club, formatLabel, memberStatuses, optionLabel, tierLabel } from "@/content/club";
@@ -60,7 +61,10 @@ export default async function ClubPage() {
             <h2 id="dash-membership" className="label text-white">
               {t.membership}
             </h2>
-            <p className="headline mt-4 text-3xl">{plan.name}</p>
+            <p className="mt-4">
+              <TierBadge member={member} long />
+            </p>
+            <p className="headline mt-3 text-3xl">{plan.name}</p>
             <dl className="mt-6 grid gap-4">
               <div>
                 <dt className="label">{t.fee}</dt>

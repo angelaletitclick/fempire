@@ -4,7 +4,6 @@ import { ActionForm } from "@/components/club/ActionForm";
 import { CheckField, SelectField, TextAreaField, TextField } from "@/components/club/fields";
 import { Marked } from "@/components/ui/Marked";
 import { SectionLabel } from "@/components/ui/Section";
-import { formatLabel } from "@/content/club";
 import { schnuppern } from "@/content/schnuppern";
 import { trialEvents } from "@/lib/events";
 import { formatLong, formatTime } from "@/lib/time";
@@ -50,7 +49,7 @@ export default async function SchnuppernPage({ searchParams }: PageProps<"/schnu
               defaultValue={preselected}
               options={events.map((event) => ({
                 value: event.id,
-                label: `${formatLong(event.starts_at)}, ${formatTime(event.starts_at)} Uhr · ${event.topic ? `${formatLabel(event.format)}: ${event.topic}` : event.title}`,
+                label: `${formatLong(event.starts_at)}, ${formatTime(event.starts_at)} Uhr · ${event.topic ? `${event.title}, Thema: ${event.topic}` : event.title}`,
               }))}
             />
             <div className="grid gap-5 sm:grid-cols-2">

@@ -52,7 +52,18 @@ export function Nav() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1 lg:gap-3">
+          <Link
+            href={site.login.href}
+            className="flex h-11 w-11 items-center justify-center text-slate-light transition-colors hover:text-white"
+            title={site.login.label}
+          >
+            <span className="sr-only">{site.login.label}</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+            </svg>
+          </Link>
           {/* Mobil liegt der CTA in der Aktionsleiste unten */}
           <span className="hidden lg:block">
             <ButtonLink href={site.cta.href} variant="outline" size="sm">

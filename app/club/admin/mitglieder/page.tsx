@@ -4,6 +4,7 @@ import { Avatar } from "@/components/club/Avatar";
 import { ConfirmButton } from "@/components/club/ConfirmButton";
 import { CheckField, SelectField, TextField } from "@/components/club/fields";
 import { PageHead } from "@/components/club/PageHead";
+import { TierBadge } from "@/components/club/TierBadge";
 import { memberStatuses, roles, tiers } from "@/content/club";
 import { requireAdmin, type Member } from "@/lib/auth";
 import { supabaseAdmin } from "@/lib/supabase/admin";
@@ -33,14 +34,20 @@ export default async function AdminMitgliederPage() {
             <div className="flex flex-wrap items-center gap-4">
               <Avatar member={member} size="sm" />
               <div className="min-w-0 flex-1">
-                <Link href={`/club/mitglieder/${member.user_id}`} className="font-semibold text-white hover:underline">
-                  {member.full_name}
-                </Link>
+                <p className="flex flex-wrap items-center gap-2">
+                  <Link href={`/club/admin/mitglieder/${member.user_id}`} className="font-semibold text-white hover:underline">
+                    {member.full_name}
+                  </Link>
+                  <TierBadge member={member} />
+                </p>
                 <p className="text-sm text-slate-light">
                   {member.email}
                   {member.company ? ` · ${member.company}` : ""} · seit {formatDate(member.created_at)}
                 </p>
               </div>
+              <Link href={`/club/admin/mitglieder/${member.user_id}`} className="label text-white underline-offset-4 hover:underline">
+                Profil bearbeiten
+              </Link>
             </div>
             <ActionForm action={updateMembership} submitLabel="Speichern" variant="outline" className="mt-5 lg:grid-cols-[1fr_1fr_1fr_auto] lg:items-end">
               <input type="hidden" name="userId" value={member.user_id} />

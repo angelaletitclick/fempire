@@ -84,24 +84,26 @@ const foundationsSituation = z.object({
   foundingTimeline: optionEnum(options.foundingTimeline, "Bitte einen Zeitraum wählen."),
 });
 
-const leaderPlan = z.object({
+const leaderPlanBase = z.object({
   revenueRange: optionEnum(options.revenueRange, "Bitte eine Spanne wählen."),
   goal12m: text("Ziel", 20),
   bottleneck: text("Engpass", 20),
 });
 
-const foundationsPlan = z.object({
+const foundationsPlanBase = z.object({
   idea: text("Vorhaben", 40),
   goal12m: text("Ziel", 20),
   bottleneck: text("Hürde", 20),
 });
 
-const passung = z.object({
-  motivation: text("Motivation", 30),
-  contribution: text("Beitrag", 30),
+/** Kinder und Zeit: hängen in beiden Pfaden am Schritt "plan" */
+const alltag = z.object({
   hasChildren: z.enum(["ja", "nein", ""]).default(""),
   timeCommitment: optionEnum(options.timeCommitment, "Bitte eine Option wählen."),
 });
+
+const leaderPlan = leaderPlanBase.extend(alltag.shape);
+const foundationsPlan = foundationsPlanBase.extend(alltag.shape);
 
 const bestaetigung = z.object({
   privacy: z.literal(true, { error: "Bitte stimme der Datenschutzerklärung zu." }),
@@ -112,7 +114,7 @@ const bestaetigung = z.object({
 // ---------------------------------------------------------------------------
 
 export const stepIds = funnel.steps.map((step) => step.id) as StepId[];
-export type StepId = "person" | "situation" | "plan" | "passung" | "bestaetigung";
+export type StepId = "person" | "situation" | "plan" | "bestaetigung";
 
 /** Schema eines Schritts, abhängig von der gewählten Situation */
 export function schemaForStep(step: StepId, stageValue: string): z.ZodType {
@@ -125,8 +127,6 @@ export function schemaForStep(step: StepId, stageValue: string): z.ZodType {
       return path === "foundations" ? foundationsSituation : leaderSituation;
     case "plan":
       return path === "foundations" ? foundationsPlan : leaderPlan;
-    case "passung":
-      return passung;
     case "bestaetigung":
       return bestaetigung;
   }
@@ -153,15 +153,13 @@ export const fieldStep: Record<string, StepId> = {
   idea: "plan",
   goal12m: "plan",
   bottleneck: "plan",
-  motivation: "passung",
-  contribution: "passung",
-  hasChildren: "passung",
-  timeCommitment: "passung",
+  hasChildren: "plan",
+  timeCommitment: "plan",
   privacy: "bestaetigung",
 };
 
-const leaderSchema = person.and(leaderSituation).and(leaderPlan).and(passung).and(bestaetigung);
-const foundationsSchema = person.and(foundationsSituation).and(foundationsPlan).and(passung).and(bestaetigung);
+const leaderSchema = person.and(leaderSituation).and(leaderPlan).and(bestaetigung);
+const foundationsSchema = person.and(foundationsSituation).and(foundationsPlan).and(bestaetigung);
 
 export type LeaderApplication = z.infer<typeof leaderSchema>;
 export type FoundationsApplication = z.infer<typeof foundationsSchema>;
@@ -206,8 +204,6 @@ export type ApplicationDraft = {
   idea: string;
   goal12m: string;
   bottleneck: string;
-  motivation: string;
-  contribution: string;
   hasChildren: string;
   timeCommitment: string;
   privacy: boolean;
@@ -233,8 +229,6 @@ export const emptyDraft: ApplicationDraft = {
   idea: "",
   goal12m: "",
   bottleneck: "",
-  motivation: "",
-  contribution: "",
   hasChildren: "",
   timeCommitment: "",
   privacy: false,

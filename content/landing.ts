@@ -209,9 +209,18 @@ export const termine = {
     "Der Leader Circle trifft sich 12 Mal im Jahr, jeden ersten Dienstag im Monat. Jedes Treffen ist ein Workshop mit einem Thema. Den genauen Ort erhalten Mitglieder vorab. Der Founder Circle hat eigene Termine.",
   /** So viele kommende Termine werden angezeigt. Die Termine selbst pflegt ihr im Backend. */
   show: 4,
+  /** Eigene Seite /termine: so viele kommende Termine */
+  showAll: 50,
+  allLink: "Alle Termine",
+  meta: {
+    title: "Termine",
+    description: "Kommende Treffen, Workshops und Events des FEMPIRE CLUB in Osnabrück.",
+  },
   note: "Ort für Mitglieder",
   empty: "Die nächsten Termine stehen in Kürze fest.",
   cancelled: "Abgesagt",
+  /** Vor dem Thema eines Treffens, z. B. „Thema: Website“ */
+  topicLabel: "Thema",
   /** Link unter Terminen, an denen Schnuppern möglich ist */
   trialLink: "Als Schnuppertermin anfragen",
   events: {

@@ -1,6 +1,7 @@
 /**
  * Seite /mitgliedsbeitrag. Die einzige öffentliche Stelle der Website mit Beträgen.
- * Verlinkt nur im Footer. Die Mitgliedschaften stehen untereinander, nie als Vergleichstabelle.
+ * Verlinkt nur im Footer. Die Mitgliedschaften bauen aufeinander auf: Community, Founder Circle,
+ * Leader Circle, Masterminds. Masterminds enthalten alle Leistungen.
  *
  * Beträge in Cent. ANNAHME: Die genannten Beträge sind Endpreise inklusive 19 % USt.
  * Netto wird daraus berechnet und klein darunter angezeigt.
@@ -55,6 +56,9 @@ export const membership = {
         "Alle Termine im Blick",
         "Alle Artikel für Mitglieder im Magazin",
       ],
+      /** Karte: Zeile über den Leistungen und nur das, was gegenüber der vorigen Mitgliedschaft dazukommt */
+      builds: "",
+      plus: ["Alle Mitglieder sehen und anschreiben", "Geschlossenes Community-Forum", "Alle Termine im Blick", "Alle Artikel für Mitglieder im Magazin"],
       note: "",
     },
     {
@@ -75,6 +79,8 @@ export const membership = {
         "Social Media Push",
         "Zugang zu den Workshops",
       ],
+      builds: "Alles aus der Community, dazu:",
+      plus: ["Eigene monatliche Treffen im Founder Circle", "Workshops", "Social Media Push", "Austausch mit Gleichgesinnten"],
       note: "Der Founder Circle startet in Kürze.",
     },
     {
@@ -96,6 +102,8 @@ export const membership = {
         "Zugang zu den Workshops",
         "Teilnahme an den Hot Seats, einmal im Quartal",
       ],
+      builds: "Alle Leistungen wie im Founder Circle, dazu:",
+      plus: ["Hot Seats, einmal im Quartal", "Treffen jeden ersten Dienstag, ohne Enddatum", "Eine Runde aus Unternehmerinnen mit laufendem Business"],
       note: "",
     },
     {
@@ -109,7 +117,9 @@ export const membership = {
       for: "Für Unternehmerinnen, die in einer festen Kleingruppe am nächsten Sprung arbeiten.",
       price: price(24900, true),
       period: "pro Monat",
-      included: ["Alles aus dem Leader Circle", "Feste Mastermind-Kleingruppe", "Hot Seats"],
+      included: ["Alles aus dem Leader Circle", "Feste Mastermind-Kleingruppe", "Hot Seats inklusive"],
+      builds: "Alles aus dem Leader Circle, dazu:",
+      plus: ["Feste Mastermind-Kleingruppe", "Hot Seats inklusive", "Alle Leistungen des Clubs"],
       note: "Masterminds sind in Vorbereitung und starten schrittweise.",
     },
   ],
@@ -120,11 +130,13 @@ export const membership = {
    */
   comparison: {
     title: "Im ++Vergleich.++",
-    intro: "Alle Mitgliedschaften auf einen Blick. Founder und Leader Circle sind keine Stufen, sondern zwei Kreise für zwei Phasen.",
+    intro: "Jede Mitgliedschaft baut auf der vorigen auf. Masterminds enthalten alle Leistungen des Clubs.",
     featureLabel: "Leistung",
     included: "enthalten",
     notIncluded: "nicht enthalten",
     countLabel: "{count} von {total} Leistungen",
+    allLabel: "Alle {total} Leistungen",
+    totalLabel: "Leistungen gesamt",
     features: [
       { label: "Alle Mitglieder sehen und direkt anschreiben", tiers: { community: true, founder: true, leader: true, mastermind: true } },
       { label: "Geschlossenes Community-Forum", tiers: { community: true, founder: true, leader: true, mastermind: true } },
@@ -134,13 +146,34 @@ export const membership = {
       { label: "Austausch mit Gleichgesinnten", tiers: { founder: true, leader: true, mastermind: true } },
       { label: "Workshops", tiers: { founder: true, leader: true, mastermind: true } },
       { label: "Social Media Push", tiers: { founder: true, leader: true, mastermind: true } },
-      { label: "Programm über 12 Monate mit Abschluss", tiers: { founder: true } },
       { label: "Hot Seats", tiers: { leader: "1× im Quartal", mastermind: "inklusive" } },
       { label: "Feste Mastermind-Kleingruppe", tiers: { mastermind: true } },
     ] as Array<{ label: string; tiers: Partial<Record<"community" | "founder" | "leader" | "mastermind", true | string>> }>,
   },
 
   cardCta: "Bewerben",
+
+  /** Warum der Leader Circle über dem Founder Circle steht und mehr kostet */
+  step: {
+    label: "Founder und Leader",
+    title: "Warum der Leader Circle ++mehr kostet.++",
+    intro:
+      "Founder Circle und Leader Circle richten sich an verschiedene Phasen. Der Leader Circle liegt eine Stufe darüber: Er enthält alle Leistungen des Founder Circle und geht weiter.",
+    points: [
+      {
+        title: "Hot Seats",
+        body: "Einmal im Quartal steht dein Unternehmen im Mittelpunkt. Du legst Zahlen und Engpässe offen, der Kreis arbeitet eine Sitzung lang an deinem Fall.",
+      },
+      {
+        title: "Die Runde",
+        body: "Am Tisch sitzen Unternehmerinnen mit eigener GmbH, Holding oder hoher Führungsverantwortung. Gesprochen wird über Umsatz, Margen, Personal und Strukturen, die schon laufen.",
+      },
+      {
+        title: "Ohne Enddatum",
+        body: "Der Founder Circle begleitet dich zwölf Monate bis zur Gründung. Der Leader Circle ist dein fester Kreis, jeden ersten Dienstag, so lange du Mitglied bist.",
+      },
+    ],
+  },
 
   /** Einzelner Schnuppertermin für Nicht-Mitglieder. priceCents ist auch der Standard im Backend. */
   trial: {
@@ -160,12 +193,6 @@ export const membership = {
   labels: {
     price: "Beitrag",
     included: "Enthalten",
-  },
-
-  // ANNAHME: Gilt für den Start in Osnabrück. Stichtag 1. April 2027.
-  foundingPhase: {
-    title: "Gründungsphase",
-    body: "Bis zum 1. April 2027 erheben wir keinen Mitgliedsbeitrag. Pro Treffen fällt lediglich eine Aufwandsentschädigung an.",
   },
 
   why: {

@@ -93,8 +93,9 @@ export async function submitApplication(_prev: ApplicationState, formData: FormD
         idea: foundations ? application.idea : null,
         goal_12m: application.goal12m,
         bottleneck: application.bottleneck,
-        motivation: application.motivation,
-        contribution: application.contribution,
+        // Fragen entfallen seit November 2026, Spalten sind in der Datenbank Pflicht
+        motivation: "",
+        contribution: "",
         has_children: application.hasChildren || null,
         time_commitment: application.timeCommitment,
         privacy_accepted_at: new Date().toISOString(),

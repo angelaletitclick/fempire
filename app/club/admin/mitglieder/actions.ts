@@ -1,11 +1,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 import type { FormState } from "@/components/club/ActionForm";
 import { memberStatuses, roles, tierValues } from "@/content/club";
 import { requireAdmin } from "@/lib/auth";
 import { upsertMember } from "@/lib/members";
+import { applyAvatar, readProfile } from "@/lib/profiles";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 function revalidate() {
@@ -83,4 +85,30 @@ export async function deleteMember(userId: string): Promise<void> {
   const { error } = await admin.auth.admin.deleteUser(userId);
   if (error) console.error("Mitglied löschen:", error.message);
   revalidate();
+  redirect("/club/admin/mitglieder");
+}
+
+/** Profil eines anderen Mitglieds bearbeiten (Name, Unternehmen, Links, Text, Foto) */
+export async function saveMemberProfile(_prev: FormState, formData: FormData): Promise<FormState> {
+  await requireAdmin();
+  const userId = z.uuid().safeParse(formData.get("userId"));
+  if (!userId.success) return { status: "error", message: "Mitglied nicht gefunden." };
+  const admin = supabaseAdmin();
+  const { data: member } = await admin.from("members").select("city_slug, avatar_path").eq("user_id", userId.data).maybeSingle();
+  if (!member) return { status: "error", message: "Mitglied nicht gefunden." };
+
+  const parsed = readProfile(formData, member.city_slug as string);
+  if (!parsed.success) return { status: "error", message: parsed.error.issues[0]?.message ?? "Bitte Eingaben prüfen." };
+  const { error } = await admin
+    .from("members")
+    .update({ ...parsed.data, updated_at: new Date().toISOString() })
+    .eq("user_id", userId.data);
+  if (error) return { status: "error", message: "Das hat nicht geklappt." };
+
+  const avatarError = await applyAvatar(userId.data, member.avatar_path as string | null, formData);
+  revalidate();
+  revalidatePath(`/club/admin/mitglieder/${userId.data}`);
+  revalidatePath(`/club/mitglieder/${userId.data}`);
+  if (avatarError) return { status: "error", message: avatarError };
+  return { status: "ok", message: "Profil gespeichert." };
 }

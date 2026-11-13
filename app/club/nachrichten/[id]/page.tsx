@@ -4,6 +4,8 @@ import { ActionForm } from "@/components/club/ActionForm";
 import { AutoRefresh } from "@/components/club/AutoRefresh";
 import { Avatar } from "@/components/club/Avatar";
 import { TextAreaField } from "@/components/club/fields";
+import { TierBadge } from "@/components/club/TierBadge";
+import { canMessage } from "@/lib/messaging";
 import { PlainText } from "@/components/ui/RichText";
 import { club } from "@/content/club";
 import { requireMember, type Member } from "@/lib/auth";
@@ -25,10 +27,10 @@ export default async function ConversationPage({ params }: PageProps<"/club/nach
   const supabase = await supabaseServer();
   const { data: partnerData } = await supabase
     .from("members")
-    .select("user_id, full_name, avatar_path, updated_at, company, position, role, status")
+    .select("user_id, full_name, avatar_path, updated_at, company, position, role, status, tier")
     .eq("user_id", id)
     .maybeSingle();
-  const partner = partnerData as (Pick<Member, "user_id" | "full_name" | "avatar_path" | "updated_at" | "company" | "position" | "role" | "status">) | null;
+  const partner = partnerData as (Pick<Member, "user_id" | "full_name" | "avatar_path" | "updated_at" | "company" | "position" | "role" | "status" | "tier">) | null;
   if (!partner || (partner.role !== "admin" && partner.status !== "active")) notFound();
 
   const me = viewer.userId;
@@ -54,6 +56,7 @@ export default async function ConversationPage({ params }: PageProps<"/club/nach
         <Avatar member={partner} size="md" />
         <span>
           <span className="headline block text-2xl">{partner.full_name}</span>
+          <TierBadge member={partner} className="my-1 flex w-fit" />
           {partner.position || partner.company ? (
             <span className="text-sm text-slate-light">{[partner.position, partner.company].filter(Boolean).join(", ")}</span>
           ) : null}
@@ -78,10 +81,14 @@ export default async function ConversationPage({ params }: PageProps<"/club/nach
         })}
       </ol>
 
+      {canMessage(viewer.member, partner, messages.some((message) => message.sender_id === id)) ? (
       <ActionForm action={sendMessage} submitLabel={t.send} pendingLabel="Wird gesendet" resetOnSuccess className="mt-8">
         <input type="hidden" name="recipientId" value={partner.user_id} />
-        <TextAreaField name="body" label={t.placeholder} maxLength={4000} rows={3} className="[&_textarea]:min-h-24" />
+        <TextAreaField name="body" label={t.placeholder} hint={t.mailNote} maxLength={4000} rows={3} className="[&_textarea]:min-h-24" />
       </ActionForm>
+      ) : (
+        <p className="mt-8 border border-line px-4 py-3 text-sm text-slate-light">{t.notAllowed}</p>
+      )}
     </div>
   );
 }

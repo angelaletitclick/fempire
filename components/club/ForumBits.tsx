@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Avatar } from "@/components/club/Avatar";
 import { Tag } from "@/components/club/PageHead";
-import { club, tierLabel } from "@/content/club";
+import { TierBadge } from "@/components/club/TierBadge";
+import { club } from "@/content/club";
 import type { ForumAuthor, ThreadListItem } from "@/lib/forum";
 import { formatDate } from "@/lib/time";
 
@@ -29,10 +30,7 @@ export function ThreadTags({ thread }: { thread: Pick<ThreadListItem, "kind" | "
 
 /** Rolle unter dem Namen: Moderatorin (Admin) oder Mitgliedschaft */
 export function RoleBadge({ author }: { author: Pick<ForumAuthor, "role" | "tier"> }) {
-  if (author.role === "admin") {
-    return <span className="label inline-block bg-white px-2 py-0.5 text-[0.625rem] text-plum">{t.moderator}</span>;
-  }
-  return <span className="label text-[0.625rem]">{tierLabel(author.tier, true)}</span>;
+  return <TierBadge member={author} adminLabel={t.moderator} />;
 }
 
 /** Autorinnen-Spalte eines Beitrags */

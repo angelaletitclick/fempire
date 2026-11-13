@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Avatar } from "@/components/club/Avatar";
-import { PageHead, Tag } from "@/components/club/PageHead";
-import { club, tierLabel } from "@/content/club";
+import { PageHead } from "@/components/club/PageHead";
+import { TierBadge } from "@/components/club/TierBadge";
+import { club } from "@/content/club";
 import { MEMBER_COLUMNS, requireMember, type Member } from "@/lib/auth";
 import { supabaseServer } from "@/lib/supabase/server";
 
@@ -36,9 +37,7 @@ export default async function MitgliederPage() {
                     </p>
                   ) : null}
                   <p className="mt-3">
-                    <Tag tone={member.role === "admin" ? "white" : "line"}>
-                      {member.role === "admin" ? t.team : tierLabel(member.tier, true)}
-                    </Tag>
+                    <TierBadge member={member} adminLabel={t.team} />
                   </p>
                 </div>
               </Link>

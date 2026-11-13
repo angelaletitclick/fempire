@@ -15,6 +15,8 @@ export const site = {
   },
 
   /** Punkte der Hauptnavigation. `href` zeigt auf eine Sektion der Startseite oder eine eigene Seite. */
+  /** Symbol oben rechts im Header, führt in den Mitgliederbereich (ohne Anmeldung zum Login) */
+  login: { label: "Mitglieder-Login", href: "/club" },
   nav: [
     { label: "Leader Circle", href: "/#leader-circle" },
     { label: "Founder Circle", href: "/#founder-circle" },

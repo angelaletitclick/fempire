@@ -8,11 +8,11 @@
 export const funnel = {
   meta: {
     title: "Bewerbung",
-    description: "Bewirb dich für den FEMPIRE CLUB. Fünf Schritte, rund zehn Minuten.",
+    description: "Bewirb dich für den FEMPIRE CLUB. Vier Schritte, rund acht Minuten.",
   },
   intro: {
     label: "Bewerbung",
-    headline: "Fünf Schritte. ==Rund zehn Minuten.==",
+    headline: "Vier Schritte. ==Rund acht Minuten.==",
     body: "Wir lesen jede Bewerbung selbst und ordnen dich dem passenden Kreis zu. Je konkreter du antwortest, desto besser gelingt das. Deine Eingaben werden auf diesem Gerät zwischengespeichert, du kannst also jederzeit pausieren.",
   },
   exit: { label: "Zurück zur Startseite", href: "/" },
@@ -26,7 +26,7 @@ export const funnel = {
   optional: "optional",
   restored: "Dein letzter Zwischenstand wurde wiederhergestellt.",
   /**
-   * Fünf Schritte. Schritt 2 („situation“) entscheidet über den weiteren Pfad:
+   * Vier Schritte. Schritt 2 („situation“) entscheidet über den weiteren Pfad:
    * Wer noch nicht gegründet hat, bekommt in Schritt 3 die Fragen zum Vorhaben
    * (FOUNDATIONS), alle anderen die Fragen zu den Zahlen (Leader Circle).
    * Die Bewerberin wählt dabei nie einen Kreis, sie beschreibt nur ihre Situation.
@@ -35,7 +35,6 @@ export const funnel = {
     { id: "person", title: "Zu dir" },
     { id: "situation", title: "Deine Situation" },
     { id: "plan", title: "Deine Zahlen", titleFoundations: "Dein Vorhaben" },
-    { id: "passung", title: "Passung" },
     { id: "bestaetigung", title: "Absenden" },
   ],
   fields: {
@@ -70,8 +69,6 @@ export const funnel = {
       hint: "Was hält dich konkret auf?",
       labelFoundations: "Was hat dich bisher vom Start abgehalten?",
     },
-    motivation: { label: "Warum dieser Kreis?" },
-    contribution: { label: "Was bringst du ein?", hint: "Erfahrung, Netzwerk, Know-how, das anderen weiterhilft." },
     hasChildren: {
       label: "Hast du Kinder?",
       hint: "Freiwillig. Hilft uns, Termine und Formate so zu planen, dass sie für Mütter funktionieren.",

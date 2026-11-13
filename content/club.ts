@@ -221,6 +221,8 @@ export const club = {
     send: "Senden",
     back: "Alle Nachrichten",
     startHint: "Schreib die erste Nachricht.",
+    notAllowed: "Du kannst Mitgliedern deiner Mitgliedschaft und darunter schreiben, dem Team immer. Diese Person kann dir aber zuerst schreiben.",
+    mailNote: "Die Empfängerin bekommt eine Mail, dass eine neue Nachricht da ist. Der Inhalt steht nicht in der Mail.",
   },
 
   profile: {

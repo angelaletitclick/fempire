@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Avatar } from "@/components/club/Avatar";
-import { Tag } from "@/components/club/PageHead";
+import { TierBadge } from "@/components/club/TierBadge";
 import { ButtonLink } from "@/components/ui/Button";
 import { PlainText } from "@/components/ui/RichText";
 import { cityBySlug } from "@/content/cities";
-import { club, tierLabel } from "@/content/club";
+import { club } from "@/content/club";
+import { canMessage } from "@/lib/messaging";
 import { MEMBER_COLUMNS, requireMember, type Member } from "@/lib/auth";
 import { safeUrl } from "@/lib/validation/profile";
 import { supabaseServer } from "@/lib/supabase/server";
@@ -29,6 +30,12 @@ export default async function MemberProfilePage({ params }: PageProps<"/club/mit
     { label: "Instagram", href: safeUrl(member.instagram) },
   ].filter((link): link is { label: string; href: string } => Boolean(link.href));
   const isSelf = member.user_id === viewer.userId;
+  const { count: incoming } = await supabase
+    .from("messages")
+    .select("id", { count: "exact", head: true })
+    .eq("sender_id", member.user_id)
+    .eq("recipient_id", viewer.userId);
+  const mayWrite = canMessage(viewer.member, member, (incoming ?? 0) > 0);
 
   return (
     <div className="container-site max-w-4xl py-section">
@@ -39,9 +46,7 @@ export default async function MemberProfilePage({ params }: PageProps<"/club/mit
       <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-start">
         <Avatar member={member} size="lg" />
         <div className="min-w-0 flex-1">
-          <Tag tone={member.role === "admin" ? "white" : "line"}>
-            {member.role === "admin" ? t.team : tierLabel(member.tier)}
-          </Tag>
+          <TierBadge member={member} adminLabel={t.team} long />
           <h1 className="headline mt-4 text-[2.25rem] leading-[1.1] sm:text-5xl">{member.full_name}</h1>
           {member.position || member.company ? (
             <p className="mt-3 text-lg text-white">{[member.position, member.company].filter(Boolean).join(", ")}</p>
@@ -53,11 +58,18 @@ export default async function MemberProfilePage({ params }: PageProps<"/club/mit
               <ButtonLink href="/club/profil" variant="outline" size="sm">
                 Profil bearbeiten
               </ButtonLink>
-            ) : (
+            ) : mayWrite ? (
               <ButtonLink href={`/club/nachrichten/${member.user_id}`} size="sm">
                 {t.message}
               </ButtonLink>
+            ) : (
+              <p className="max-w-md text-sm text-slate-light">{club.messages.notAllowed}</p>
             )}
+            {viewer.isAdmin && !isSelf ? (
+              <ButtonLink href={`/club/admin/mitglieder/${member.user_id}`} variant="outline" size="sm">
+                Profil bearbeiten
+              </ButtonLink>
+            ) : null}
           </div>
         </div>
       </div>

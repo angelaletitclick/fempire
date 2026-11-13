@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AutoRefresh } from "@/components/club/AutoRefresh";
 import { Avatar } from "@/components/club/Avatar";
 import { PageHead } from "@/components/club/PageHead";
+import { TierBadge } from "@/components/club/TierBadge";
 import { club } from "@/content/club";
 import { requireMember, type Member } from "@/lib/auth";
 import { supabaseServer } from "@/lib/supabase/server";
@@ -20,10 +21,10 @@ export default async function NachrichtenPage() {
 
   const ids = conversations.map((c) => c.partner_id);
   const { data: partnersData } = ids.length
-    ? await supabase.from("members").select("user_id, full_name, avatar_path, updated_at, company").in("user_id", ids)
+    ? await supabase.from("members").select("user_id, full_name, avatar_path, updated_at, company, role, tier").in("user_id", ids)
     : { data: [] };
   const partners = new Map(
-    ((partnersData ?? []) as Array<Pick<Member, "user_id" | "full_name" | "avatar_path" | "updated_at" | "company">>).map((p) => [p.user_id, p]),
+    ((partnersData ?? []) as Array<Pick<Member, "user_id" | "full_name" | "avatar_path" | "updated_at" | "company" | "role" | "tier">>).map((p) => [p.user_id, p]),
   );
 
   return (
@@ -49,7 +50,10 @@ export default async function NachrichtenPage() {
                   <Avatar member={partner} size="md" />
                   <div className="min-w-0 flex-1">
                     <p className="flex items-baseline justify-between gap-4">
-                      <span className={unread ? "font-semibold text-white" : "text-white"}>{partner.full_name}</span>
+                      <span className="flex min-w-0 items-center gap-2">
+                        <span className={unread ? "truncate font-semibold text-white" : "truncate text-white"}>{partner.full_name}</span>
+                        <TierBadge member={partner} />
+                      </span>
                       <span className="label shrink-0">{formatShort(conversation.last_at)}</span>
                     </p>
                     <p className="mt-1 truncate text-sm text-slate-light">

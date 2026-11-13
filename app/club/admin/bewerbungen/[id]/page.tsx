@@ -60,8 +60,9 @@ export default async function BewerbungPage({ params }: PageProps<"/club/admin/b
           [fields.goal12m.label, str(a.goal_12m)],
           [fields.bottleneck.label, str(a.bottleneck)],
         ] as Array<[string, string]>)),
-    [fields.motivation.label, str(a.motivation)],
-    [fields.contribution.label, str(a.contribution)],
+    // Ältere Bewerbungen enthalten noch Antworten auf die entfallenen Fragen
+    ...(a.motivation ? ([["Warum dieser Kreis?", str(a.motivation)]] as Array<[string, string]>) : []),
+    ...(a.contribution ? ([["Was bringst du ein?", str(a.contribution)]] as Array<[string, string]>) : []),
     [fields.hasChildren.label, a.has_children ? optionLabel(options.hasChildren, a.has_children as string) : "Keine Angabe"],
     [fields.timeCommitment.label, optionLabel(options.timeCommitment, a.time_commitment as string)],
   ];
