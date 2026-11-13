@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
-import { RichText } from "@/components/ui/RichText";
+import { Markdown, markdownPreview } from "@/components/ui/Markdown";
 import { SectionLabel } from "@/components/ui/Section";
 import { magazin } from "@/content/magazin";
 import { site } from "@/content/site";
-import { parseBody, publishedArticle } from "@/lib/articles";
+import { publishedArticle } from "@/lib/articles";
 import { getViewer } from "@/lib/auth";
 import { formatDate } from "@/lib/time";
 
@@ -36,8 +36,8 @@ export default async function ArticlePage({ params }: PageProps<"/magazin/[slug]
 
   const viewer = article.paid ? await getViewer() : null;
   const entitled = !article.paid || Boolean(viewer?.isActive);
-  const blocks = parseBody(article.body);
-  const visible = entitled ? blocks : blocks.slice(0, magazin.previewBlocks);
+  // Gäste bekommen bei Mitglieder-Artikeln nur den Anfang, der Rest verlässt den Server nicht
+  const visible = entitled ? article.body : markdownPreview(article.body, magazin.previewBlocks);
   const p = magazin.paywall;
 
   return (
@@ -60,7 +60,7 @@ export default async function ArticlePage({ params }: PageProps<"/magazin/[slug]
       {article.teaser ? <p className="prose-width mt-10 text-xl leading-relaxed text-white">{article.teaser}</p> : null}
 
       <div className="prose-width relative mt-10 border-t border-line pt-10 text-lg leading-relaxed text-slate-light">
-        <RichText blocks={visible} />
+        <Markdown text={visible} />
         {!entitled ? (
           <p aria-hidden="true" className="mt-6 text-2xl tracking-[0.3em] text-slate">
             …

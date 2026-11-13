@@ -5,7 +5,10 @@ import { PlainText } from "@/components/ui/RichText";
 import { requireAdmin } from "@/lib/auth";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { formatShort } from "@/lib/time";
-import { deletePost, deleteThread, setPostStatus, setThreadStatus } from "../../forum/actions";
+import { ActionForm } from "@/components/club/ActionForm";
+import { TextField } from "@/components/club/fields";
+import type { ForumCategory } from "@/lib/forum";
+import { deleteCategory, deletePost, deleteThread, saveCategory, setPostStatus, setThreadStatus } from "../../forum/actions";
 
 type Thread = { id: string; title: string; body: string; status: string; created_at: string; author: { full_name: string } | null };
 type Post = { id: string; thread_id: string; body: string; status: string; created_at: string; author: { full_name: string } | null; thread: { title: string } | null };
@@ -13,18 +16,23 @@ type Post = { id: string; thread_id: string; body: string; status: string; creat
 export default async function AdminForumPage() {
   await requireAdmin();
   const db = supabaseAdmin();
-  const [{ data: pendingData }, { data: postsData }] = await Promise.all([
+  const [{ data: pendingData }, { data: postsData }, { data: categoryData }, { data: countData }] = await Promise.all([
     db
       .from("forum_threads")
-      .select("id, title, body, status, created_at, author:members(full_name)")
+      .select("id, title, body, status, created_at, author:members!forum_threads_author_id_fkey(full_name)")
       .in("status", ["pending", "hidden"])
       .order("created_at", { ascending: false }),
     db
       .from("forum_posts")
-      .select("id, thread_id, body, status, created_at, author:members(full_name), thread:forum_threads(title)")
+      .select("id, thread_id, body, status, created_at, author:members!forum_posts_author_id_fkey(full_name), thread:forum_threads!forum_posts_thread_id_fkey(title)")
       .order("created_at", { ascending: false })
       .limit(30),
+    db.from("forum_categories").select("id, slug, name, description, sort").order("sort"),
+    db.from("forum_threads").select("category_id"),
   ]);
+  const categories = (categoryData ?? []) as ForumCategory[];
+  const threadCount = new Map<string, number>();
+  for (const row of (countData ?? []) as Array<{ category_id: string }>) threadCount.set(row.category_id, (threadCount.get(row.category_id) ?? 0) + 1);
   const threads = (pendingData ?? []) as unknown as Thread[];
   const posts = (postsData ?? []) as unknown as Post[];
 
@@ -107,6 +115,43 @@ export default async function AdminForumPage() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section className="mt-14">
+        <h2 className="label text-white">Kategorien</h2>
+        <p className="mt-2 max-w-2xl text-sm text-slate-light">
+          Reihenfolge über die Zahl (kleiner steht weiter oben). Löschen geht nur bei Kategorien ohne Themen.
+        </p>
+        <ul className="mt-4 grid gap-3">
+          {categories.map((category) => (
+            <li key={category.id} className="card p-5">
+              <ActionForm action={saveCategory} submitLabel="Speichern" variant="outline" className="lg:grid-cols-[1fr_2fr_6rem_auto] lg:items-end">
+                <input type="hidden" name="id" value={category.id} />
+                <TextField name="name" label="Name" defaultValue={category.name} maxLength={60} />
+                <TextField name="description" label="Beschreibung" defaultValue={category.description} optional maxLength={200} />
+                <TextField name="sort" label="Reihenfolge" defaultValue={String(category.sort)} inputMode="numeric" />
+              </ActionForm>
+              <div className="mt-3 flex items-center gap-4 text-sm text-slate-light">
+                <span>{threadCount.get(category.id) ?? 0} Themen</span>
+                {(threadCount.get(category.id) ?? 0) === 0 ? (
+                  <form action={deleteCategory.bind(null, category.id)}>
+                    <ConfirmButton variant="link" confirm={`Kategorie „${category.name}“ löschen?`}>
+                      Löschen
+                    </ConfirmButton>
+                  </form>
+                ) : null}
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-4 max-w-2xl border border-white p-5">
+          <h3 className="label text-white">Neue Kategorie</h3>
+          <ActionForm action={saveCategory} submitLabel="Anlegen" resetOnSuccess className="mt-4">
+            <TextField name="name" label="Name" maxLength={60} />
+            <TextField name="description" label="Beschreibung" optional maxLength={200} />
+            <TextField name="sort" label="Reihenfolge" defaultValue="50" inputMode="numeric" />
+          </ActionForm>
+        </div>
       </section>
     </div>
   );

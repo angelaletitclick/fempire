@@ -143,11 +143,12 @@ export async function duplicateEvent(id: string): Promise<void> {
   if (copy) redirect(`/club/admin/termine/${copy.id}`);
 }
 
-export async function deleteEvent(id: string): Promise<void> {
+/** Löschen. returnTo: wohin es danach geht (Backend-Liste oder Terminseite im Mitgliederbereich) */
+export async function deleteEvent(id: string, returnTo: "/club/admin/termine" | "/club/termine" = "/club/admin/termine"): Promise<void> {
   await requireAdmin();
   if (!z.uuid().safeParse(id).success) return;
   const { error } = await supabaseAdmin().from("events").delete().eq("id", id);
   if (error) console.error("Termin löschen:", error.message);
   revalidateEvents();
-  redirect("/club/admin/termine");
+  redirect(returnTo === "/club/termine" ? "/club/termine" : "/club/admin/termine");
 }

@@ -289,6 +289,28 @@
 }
 
 /* ------------------------------------------------------------------ */
+/* Magazin-Text (components/ui/Markdown.tsx): Listenpunkte als Quadrate  */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .markdown ul > li {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  .markdown ul > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 6px;
+    height: 6px;
+    background: var(--white);
+  }
+  .markdown li > p {
+    margin: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /* Karten und wischbare Reihen (mobil App-Gefühl)                      */
 /* ------------------------------------------------------------------ */
 @layer components {

@@ -89,7 +89,7 @@ export default async function EditEventPage({ params, searchParams }: PageProps<
         <form action={duplicateEvent.bind(null, event.id)}>
           <ConfirmButton>Als Entwurf kopieren</ConfirmButton>
         </form>
-        <form action={deleteEvent.bind(null, event.id)}>
+        <form action={deleteEvent.bind(null, event.id, "/club/admin/termine")}>
           <ConfirmButton confirm="Termin endgültig löschen? Zusagen gehen verloren. Zum Absagen lieber den Status „Abgesagt“ nutzen.">
             Termin löschen
           </ConfirmButton>

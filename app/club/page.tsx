@@ -160,7 +160,7 @@ export default async function ClubPage() {
           <ul className="mt-6 grid gap-3 md:grid-cols-3">
             {articles.map((article) => (
               <li key={article.id} className="card">
-                <Link href={`/magazin/${article.slug}`} className="flex h-full flex-col p-6">
+                <Link href={`/club/magazin/${article.slug}`} className="flex h-full flex-col p-6">
                   <p className="label">
                     {article.paid ? `${magazin.paidLabel} · ` : ""}
                     {formatDate(article.published_at)}

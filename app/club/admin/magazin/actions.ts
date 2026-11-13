@@ -42,7 +42,11 @@ function revalidateMagazin(slug?: string) {
   revalidatePath("/");
   revalidatePath("/club");
   revalidatePath("/sitemap.xml");
-  if (slug) revalidatePath(`/magazin/${slug}`);
+  revalidatePath("/club/magazin");
+  if (slug) {
+    revalidatePath(`/magazin/${slug}`);
+    revalidatePath(`/club/magazin/${slug}`);
+  }
 }
 
 export async function saveArticle(_prev: FormState, formData: FormData): Promise<FormState> {

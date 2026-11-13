@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ConfirmButton } from "@/components/club/ConfirmButton";
 import { PageHead, Tag } from "@/components/club/PageHead";
 import { PlainText } from "@/components/ui/RichText";
@@ -7,6 +8,8 @@ import { requireMember } from "@/lib/auth";
 import type { ClubEvent } from "@/lib/events";
 import { supabaseServer } from "@/lib/supabase/server";
 import { formatEuro, formatLong, formatTime } from "@/lib/time";
+import { ButtonLink } from "@/components/ui/Button";
+import { deleteEvent, setEventStatus } from "../admin/termine/actions";
 import { attendEvent, declineEvent } from "./actions";
 
 export const metadata = { title: "Termine" };
@@ -30,7 +33,21 @@ export default async function ClubTerminePage() {
 
   return (
     <div className="container-site py-section">
-      <PageHead label={t.label} headline={t.headline} intro={t.intro} />
+      <PageHead
+        label={t.label}
+        headline={t.headline}
+        intro={t.intro}
+        actions={
+          viewer.isAdmin ? (
+            <>
+              <ButtonLink href="/club/admin/termine/neu">Termin anlegen</ButtonLink>
+              <ButtonLink href="/club/admin/termine" variant="outline">
+                Entwürfe und Verwaltung
+              </ButtonLink>
+            </>
+          ) : undefined
+        }
+      />
 
       {events.length === 0 ? (
         <p className="mt-12 border border-line p-6 text-slate-light">{t.empty}</p>
@@ -65,6 +82,30 @@ export default async function ClubTerminePage() {
                     {cancelled && event.cancel_note ? <p className="mt-3 text-base text-white">{event.cancel_note}</p> : null}
                     {event.description && !cancelled ? (
                       <PlainText text={event.description} className="prose-width mt-4 text-base leading-relaxed text-slate-light" />
+                    ) : null}
+                    {viewer.isAdmin ? (
+                      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-4">
+                        <span className="label text-white">Admin</span>
+                        <Link href={`/club/admin/termine/${event.id}`} className="label hover:text-white">
+                          Bearbeiten
+                        </Link>
+                        {cancelled ? (
+                          <form action={setEventStatus.bind(null, event.id, "published")}>
+                            <ConfirmButton variant="link">Wieder ansetzen</ConfirmButton>
+                          </form>
+                        ) : (
+                          <form action={setEventStatus.bind(null, event.id, "cancelled")}>
+                            <ConfirmButton variant="link" confirm="Termin absagen? Er bleibt durchgestrichen sichtbar.">
+                              Absagen
+                            </ConfirmButton>
+                          </form>
+                        )}
+                        <form action={deleteEvent.bind(null, event.id, "/club/termine")}>
+                          <ConfirmButton variant="link" confirm="Termin endgültig löschen? Zusagen gehen verloren.">
+                            Löschen
+                          </ConfirmButton>
+                        </form>
+                      </div>
                     ) : null}
                   </div>
 

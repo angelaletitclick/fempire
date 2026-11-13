@@ -16,14 +16,15 @@ export function ConfirmButton({
   ...props
 }: {
   confirm?: string;
-  variant?: "primary" | "accent" | "outline";
+  /** "link": schlichter Text-Knopf wie ein Link, z. B. in Aktionszeilen */
+  variant?: "primary" | "accent" | "outline" | "link";
 } & ComponentProps<"button">) {
   const { pending } = useFormStatus();
   return (
     <button
       type="submit"
       disabled={pending}
-      className={buttonClasses({ variant, size: "sm", className })}
+      className={variant === "link" ? `label transition-colors hover:text-white disabled:opacity-50 ${className ?? ""}` : buttonClasses({ variant, size: "sm", className })}
       onClick={(event) => {
         if (confirm && !window.confirm(confirm)) event.preventDefault();
       }}

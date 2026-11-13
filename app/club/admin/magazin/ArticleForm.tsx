@@ -1,4 +1,5 @@
 import { ActionForm } from "@/components/club/ActionForm";
+import { MarkdownEditor } from "@/components/club/MarkdownEditor";
 import { CheckField, SelectField, TextAreaField, TextField } from "@/components/club/fields";
 import { authors, magazin } from "@/content/magazin";
 import { toBerlinLocal } from "@/lib/time";
@@ -30,7 +31,7 @@ export const emptyArticle: ArticleDraft = {
   published_at: null,
 };
 
-/** Editor für Magazin-Artikel. Bewusst schlichter Text statt Baukasten: Absätze, ## Überschriften, - Listen. */
+/** Editor für Magazin-Artikel. Text in Markdown mit Werkzeugleiste, Vorschau und Einfügen aus Word/Google Docs. */
 export function ArticleForm({ article }: { article: ArticleDraft }) {
   return (
     <ActionForm action={saveArticle} submitLabel="Speichern" className="mt-10">
@@ -58,15 +59,10 @@ export function ArticleForm({ article }: { article: ArticleDraft }) {
         maxLength={400}
         className="[&_textarea]:min-h-24"
       />
-      <TextAreaField
+      <MarkdownEditor
         name="body"
-        label="Text"
-        hint={`Leerzeile = neuer Absatz. „## “ am Zeilenanfang = Zwischenüberschrift. „- “ am Zeilenanfang = Liste. Bei Mitglieder-Artikeln sind die ersten ${magazin.previewBlocks} Absätze für alle sichtbar.`}
         defaultValue={article.body}
-        optional
-        rows={22}
-        maxLength={100000}
-        className="[&_textarea]:font-mono [&_textarea]:text-sm"
+        hint={`Formatieren über die Leiste oder direkt: ## Überschrift, ### Zwischenüberschrift, **fett**, _kursiv_, - Liste, | Tabelle |. Text aus Word oder Google Docs einfach einfügen, Überschriften, Listen und Tabellen werden übernommen. Bei Mitglieder-Artikeln sind die ersten ${magazin.previewBlocks} Absätze für alle sichtbar.`}
       />
 
       <div className="grid gap-5 border-y border-line py-6 md:grid-cols-3">

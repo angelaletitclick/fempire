@@ -53,26 +53,3 @@ export async function publishedArticle(slug: string): Promise<Article | null> {
     return null;
   }
 }
-
-export type Block = { type: "heading"; text: string } | { type: "list"; items: string[] } | { type: "paragraph"; text: string };
-
-/**
- * Text aus dem Backend in Blöcke zerlegen:
- * Leerzeile trennt Absätze, "## " am Anfang ergibt eine Zwischenüberschrift,
- * Zeilen mit "- " ergeben eine Liste.
- */
-export function parseBody(body: string): Block[] {
-  return body
-    .replace(/\r\n/g, "\n")
-    .split(/\n\s*\n/)
-    .map((chunk) => chunk.trim())
-    .filter(Boolean)
-    .map((chunk): Block => {
-      if (chunk.startsWith("## ")) return { type: "heading", text: chunk.slice(3).trim() };
-      const lines = chunk.split("\n");
-      if (lines.every((line) => line.trim().startsWith("- "))) {
-        return { type: "list", items: lines.map((line) => line.trim().slice(2).trim()) };
-      }
-      return { type: "paragraph", text: chunk };
-    });
-}
