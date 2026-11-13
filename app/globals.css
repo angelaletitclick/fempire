@@ -21,6 +21,17 @@
   /* Leicht abgesetzte Fläche für Karten: 6 % Blush auf Plum */
   --surface: #351f3a;
 
+  /* Farben der Mitgliedschaften (nur /mitgliedsbeitrag und Mitgliederbereich).
+     --tier-*-ink ist die Schrift auf der jeweiligen Farbfläche. */
+  --tier-community: var(--blush);
+  --tier-community-ink: var(--plum);
+  --tier-founder: #a98bd6;
+  --tier-founder-ink: var(--plum);
+  --tier-leader: var(--pink);
+  --tier-leader-ink: var(--white);
+  --tier-mastermind: #e9cf9e;
+  --tier-mastermind-ink: var(--plum);
+
   --section-gap: clamp(5rem, 12vw, 11rem);
   --gutter: clamp(1.25rem, 4vw, 3rem);
 
@@ -156,6 +167,16 @@
 @keyframes marquee {
   to { transform: translateX(-50%); }
 }
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes pop {
+  from { transform: scale(0.2); opacity: 0; }
+}
+@keyframes fill-x {
+  from { transform: scaleX(0); }
+}
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.25; }
@@ -172,6 +193,17 @@
   .anim-marquee { animation: marquee 50s linear infinite; }
   .anim-marquee:hover { animation-play-state: paused; }
   .anim-pulse { animation: pulse-dot 2.4s ease-in-out infinite; }
+
+  /* Linien zeichnen sich (SVG mit pathLength="1"), Balken füllen sich von links */
+  .anim-draw { stroke-dasharray: 1; animation: draw 1400ms var(--ease-out) var(--d, 0ms) both; }
+  .anim-fill { transform-origin: left; animation: fill-x 1600ms var(--ease-out) var(--d, 0ms) both; }
+
+  .anim-pop { animation: pop 500ms var(--ease-out) var(--d, 0ms) both; }
+
+  /* Innerhalb von PlayInView warten alle Animationen, bis der Bereich sichtbar ist */
+  [data-play="wait"] :is(.anim-draw, .anim-fill, .anim-pop, .anim-fade-up) {
+    animation-play-state: paused;
+  }
 
   /* Scroll-Reveal-Varianten */
   [data-reveal] {

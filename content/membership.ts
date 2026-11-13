@@ -32,13 +32,18 @@ export const membership = {
   },
   label: "Mitgliedsbeitrag",
   headline: "Wir reden über Zahlen. ++Auch über unsere.++",
+  cardsLabel: "Mitgliedschaften",
   intro:
     "Hier steht, was die Mitgliedschaften kosten und was enthalten ist. Aufgenommen wird nur nach Bewerbung und Kennenlerngespräch. Welche Mitgliedschaft zu dir passt, ordnen wir nach deiner Bewerbung zu.",
 
   circles: [
     {
       id: "community",
-      tier: "community",
+      short: "Community",
+      /** Für die Hochzähl-Animation */
+      grossCents: 1990,
+      from: false,
+      tier: "community" as const,
       name: "Community-Mitgliedschaft",
       for: "Für dich, wenn du Teil der Gemeinschaft sein willst, ohne festen Kreis.",
       price: price(1990),
@@ -54,7 +59,11 @@ export const membership = {
     },
     {
       id: "founder-circle",
-      tier: "founder",
+      short: "Founder",
+      /** Für die Hochzähl-Animation */
+      grossCents: 4900,
+      from: false,
+      tier: "founder" as const,
       name: "Founder Circle",
       for: "Für Frauen, die gründen werden. Ein eigenes Programm mit klarem Ziel und Abschluss nach zwölf Monaten.",
       price: price(4900),
@@ -70,7 +79,11 @@ export const membership = {
     },
     {
       id: "leader-circle",
-      tier: "leader",
+      short: "Leader",
+      /** Für die Hochzähl-Animation */
+      grossCents: 9900,
+      from: false,
+      tier: "leader" as const,
       name: "Leader Circle",
       for: "Für Unternehmerinnen mit eigener GmbH oder Holding und für Frauen mit hoher Führungsverantwortung.",
       price: price(9900),
@@ -87,7 +100,11 @@ export const membership = {
     },
     {
       id: "masterminds",
-      tier: "mastermind",
+      short: "Mastermind",
+      /** Für die Hochzähl-Animation */
+      grossCents: 24900,
+      from: true,
+      tier: "mastermind" as const,
       name: "Masterminds",
       for: "Für Unternehmerinnen, die in einer festen Kleingruppe am nächsten Sprung arbeiten.",
       price: price(24900, true),
@@ -96,6 +113,34 @@ export const membership = {
       note: "Masterminds sind in Vorbereitung und starten schrittweise.",
     },
   ],
+
+  /**
+   * Vergleich auf /mitgliedsbeitrag. true = enthalten, Text = enthalten mit Hinweis, fehlt = nicht enthalten.
+   * Schlüssel wie bei tier: community, founder, leader, mastermind.
+   */
+  comparison: {
+    title: "Im ++Vergleich.++",
+    intro: "Alle Mitgliedschaften auf einen Blick. Founder und Leader Circle sind keine Stufen, sondern zwei Kreise für zwei Phasen.",
+    featureLabel: "Leistung",
+    included: "enthalten",
+    notIncluded: "nicht enthalten",
+    countLabel: "{count} von {total} Leistungen",
+    features: [
+      { label: "Alle Mitglieder sehen und direkt anschreiben", tiers: { community: true, founder: true, leader: true, mastermind: true } },
+      { label: "Geschlossenes Community-Forum", tiers: { community: true, founder: true, leader: true, mastermind: true } },
+      { label: "Alle Termine im Blick", tiers: { community: true, founder: true, leader: true, mastermind: true } },
+      { label: "Alle Artikel für Mitglieder im Magazin", tiers: { community: true, founder: true, leader: true, mastermind: true } },
+      { label: "Eigene monatliche Treffen im Kreis", tiers: { founder: true, leader: "erster Dienstag", mastermind: true } },
+      { label: "Austausch mit Gleichgesinnten", tiers: { founder: true, leader: true, mastermind: true } },
+      { label: "Workshops", tiers: { founder: true, leader: true, mastermind: true } },
+      { label: "Social Media Push", tiers: { founder: true, leader: true, mastermind: true } },
+      { label: "Programm über 12 Monate mit Abschluss", tiers: { founder: true } },
+      { label: "Hot Seats", tiers: { leader: "1× im Quartal", mastermind: "inklusive" } },
+      { label: "Feste Mastermind-Kleingruppe", tiers: { mastermind: true } },
+    ] as Array<{ label: string; tiers: Partial<Record<"community" | "founder" | "leader" | "mastermind", true | string>> }>,
+  },
+
+  cardCta: "Bewerben",
 
   /** Einzelner Schnuppertermin für Nicht-Mitglieder. priceCents ist auch der Standard im Backend. */
   trial: {

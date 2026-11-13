@@ -44,9 +44,17 @@ export const supabaseAdminEnv = lazy(
   }),
 );
 
+/**
+ * Versand entweder über Gmail (SMTP_USER + SMTP_PASS, App-Passwort von Google)
+ * oder über Resend (RESEND_API_KEY, braucht eine bei Resend bestätigte Domain).
+ */
 export const mailEnv = lazy(
   z.object({
-    RESEND_API_KEY: z.string().min(1),
+    RESEND_API_KEY: z.string().optional(),
+    SMTP_HOST: z.string().default("smtp.gmail.com"),
+    SMTP_PORT: z.coerce.number().default(465),
+    SMTP_USER: z.string().optional(),
+    SMTP_PASS: z.string().optional(),
     MAIL_FROM: z.string().min(1),
     MAIL_REPLY_TO: z.email(),
     MAIL_NOTIFY_TO: z
