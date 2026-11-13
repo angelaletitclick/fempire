@@ -7,6 +7,18 @@ import { NextResponse, type NextRequest } from "next/server";
  * Berechtigungsprüfung passiert zusätzlich in app/club/page.tsx.
  */
 export async function proxy(request: NextRequest) {
+  // Landet ein Login-Link auf der Startseite (z. B. wenn Supabase auf die Site URL zurückfällt),
+  // weiter zum Callback statt den Code zu verlieren
+  if (request.nextUrl.pathname === "/") {
+    const params = request.nextUrl.searchParams;
+    if (params.has("code") || params.has("token_hash")) {
+      const target = new URL("/club/auth/callback", request.url);
+      target.search = request.nextUrl.search;
+      return NextResponse.redirect(target);
+    }
+    return NextResponse.next();
+  }
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() || process.env.SUPABASE_URL?.trim();
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return NextResponse.next();
@@ -38,5 +50,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/club", "/club/:path*"],
+  matcher: ["/", "/club", "/club/:path*"],
 };

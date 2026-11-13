@@ -1,11 +1,24 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { siteUrl } from "@/lib/site-url";
 import { supabaseServer } from "@/lib/supabase/server";
 
 export type LoginState = { status: "idle" } | { status: "sent" } | { status: "error"; message: string };
+
+/**
+ * Adresse, unter der die Seite gerade aufgerufen wird (Vercel-Domain, eigene Domain oder localhost).
+ * So führt der Login-Link immer zurück auf dieselbe Website, auch ohne NEXT_PUBLIC_SITE_URL.
+ */
+async function requestOrigin(): Promise<string> {
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  if (!host) return siteUrl;
+  const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
+  return `${proto}://${host}`;
+}
 
 /**
  * Magic Link per Mail. shouldCreateUser: false, damit sich nur bereits eingeladene
@@ -20,7 +33,7 @@ export async function requestLoginLink(_prev: LoginState, formData: FormData): P
     const supabase = await supabaseServer();
     const { error } = await supabase.auth.signInWithOtp({
       email: parsed.data.toLowerCase(),
-      options: { shouldCreateUser: false, emailRedirectTo: `${siteUrl}/club/auth/callback` },
+      options: { shouldCreateUser: false, emailRedirectTo: `${await requestOrigin()}/club/auth/callback` },
     });
     // Unbekannte Adressen liefern einen Fehler, den wir bewusst nicht anzeigen
     if (error) console.warn("Club-Login:", error.message);
