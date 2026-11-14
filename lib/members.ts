@@ -1,5 +1,5 @@
 import "server-only";
-import { tierLabel, type Tier } from "@/content/club";
+import { tierLabel, type MemberStatus, type Tier } from "@/content/club";
 import { sendMail } from "@/lib/mail";
 import { welcomeMail } from "@/lib/mail/templates";
 import { siteUrl } from "@/lib/site-url";
@@ -31,6 +31,8 @@ export async function upsertMember(input: {
   company?: string | null;
   position?: string | null;
   applicationId?: string | null;
+  /** Standard: active. Nach Bewerbung: payment_due, bis der erste Beitrag da ist. */
+  status?: MemberStatus;
   sendWelcome: boolean;
 }): Promise<{ userId: string; mailError?: string }> {
   const admin = supabaseAdmin();
@@ -47,13 +49,14 @@ export async function upsertMember(input: {
     userId = data.user.id;
   }
 
-  const { data: existing } = await admin.from("members").select("user_id").eq("user_id", userId).maybeSingle();
+  const { data: existing } = await admin.from("members").select("user_id, role").eq("user_id", userId).maybeSingle();
   const row = {
     email,
     full_name: input.fullName,
     tier: input.tier,
-    role: input.role ?? "member",
-    status: "active",
+    // Admins nie versehentlich herabstufen (z. B. bei einer Aufnahme mit derselben Adresse)
+    role: existing?.role === "admin" ? "admin" : (input.role ?? "member"),
+    status: input.status ?? "active",
     updated_at: new Date().toISOString(),
     ...(input.applicationId ? { application_id: input.applicationId } : {}),
   };
@@ -69,17 +72,31 @@ export async function upsertMember(input: {
   if (error) throw new Error(error.message);
 
   if (!input.sendWelcome) return { userId };
+  const mailError = await sendWelcome({ email, fullName: input.fullName, tier: input.tier, role: input.role ?? "member" });
+  return mailError ? { userId, mailError } : { userId };
+}
+
+/** Willkommensmail mit Login-Link (nach Freischaltung). Gibt eine Fehlermeldung zurück oder null. */
+export async function sendWelcome(input: {
+  email: string;
+  fullName: string;
+  tier: Tier | null;
+  role: string;
+  /** Zusätzliche Zeilen nach dem ersten Absatz, z. B. zum Einladungscode */
+  extra?: string[];
+}): Promise<string | null> {
   try {
     await sendMail(
       welcomeMail({
-        to: email,
+        to: input.email,
         name: input.fullName.split(" ")[0] ?? input.fullName,
         tier: input.role === "admin" ? "Team" : tierLabel(input.tier),
         loginUrl: `${siteUrl}/club/login`,
+        extra: input.extra,
       }),
     );
-    return { userId };
+    return null;
   } catch (mailError) {
-    return { userId, mailError: (mailError as Error).message };
+    return (mailError as Error).message;
   }
 }

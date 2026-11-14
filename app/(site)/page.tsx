@@ -12,6 +12,7 @@ import { Manifest } from "@/components/sections/Manifest";
 import { OrganizationJsonLd } from "@/components/sections/OrganizationJsonLd";
 import { Termine } from "@/components/sections/Termine";
 import { Ticker } from "@/components/sections/Ticker";
+import { TrialBand } from "@/components/sections/TrialBand";
 
 // Termine und Magazin kommen aus dem Backend. Änderungen dort aktualisieren die Seite sofort,
 // zusätzlich stündlich, damit vergangene Termine verschwinden.
@@ -27,6 +28,7 @@ export default function Home() {
       <Filter />
       <LeaderCircle />
       <FounderCircle />
+      <TrialBand />
       <Termine />
       <Gruenderinnen />
       <Ablauf />

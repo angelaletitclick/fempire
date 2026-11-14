@@ -1,6 +1,5 @@
 import { cityBySlug } from "@/content/cities";
 import Image from "next/image";
-import Link from "next/link";
 import type { CSSProperties } from "react";
 import { hero } from "@/content/landing";
 import { site } from "@/content/site";
@@ -88,9 +87,9 @@ export async function Hero() {
               {site.cta.label}
               <Arrow />
             </ButtonLink>
-            <Link href={hero.secondaryCta.href} className="label py-3 transition-colors hover:text-white">
+            <ButtonLink href={hero.secondaryCta.href} variant="outline">
               {hero.secondaryCta.label}
-            </Link>
+            </ButtonLink>
           </div>
         </div>
       </div>

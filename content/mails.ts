@@ -8,18 +8,23 @@ export const mails = {
     subject: "Deine Bewerbung beim FEMPIRE CLUB",
     greeting: "Hallo {name},",
     body: [
-      "deine Bewerbung ist bei uns angekommen. Danke für die offenen Antworten.",
+      "deine Bewerbung für {circle} ist bei uns angekommen. Danke für die offenen Antworten.",
       "Wir lesen jede Bewerbung selbst. Innerhalb von 10 Werktagen hörst du von uns. Wenn es passt, vereinbaren wir ein Kennenlerngespräch von rund 30 Minuten, persönlich oder per Video. Dort besprechen wir auch die Investition.",
       "Bis dahin musst du nichts weiter tun. Wenn du etwas ergänzen willst, antworte einfach auf diese Mail.",
     ],
   },
 
   applicationNotification: {
-    subject: "Neue Bewerbung: {name}, Vorschlag {circle} (Score {score})",
-    intro: "Neue Bewerbung über fempireclub.de. Kreis-Vorschlag und Score sind nur intern sichtbar. Die Zuordnung trefft ihr.",
-    circleLabel: "Kreis-Vorschlag (aus Schritt 2)",
-    circleLeader: "Leader Circle",
-    circleFoundations: "Founder Circle",
+    subject: "Neue Bewerbung: {name}, {circle} (Score {score})",
+    intro: "Neue Bewerbung über fempireclub.de. Der Score ist nur intern sichtbar.",
+    circleLabel: "Beworben für",
+    codeLabel: "Einladungscode",
+  },
+
+  /** An das Team: jemand ist über einen Einladungscode ohne Bewerbung Mitglied geworden */
+  directJoinNotification: {
+    subject: "Neues Mitglied über Code {code}: {name}, {circle}",
+    intro: "Über einen Einladungscode ohne Bewerbung angelegt. Status und Beitrag seht ihr im Backend unter Mitglieder.",
   },
 
   waitlistConfirm: {
@@ -38,11 +43,24 @@ export const mails = {
     subject: "Willkommen im FEMPIRE CLUB",
     greeting: "Hallo {name},",
     body: [
-      "du bist aufgenommen: {tier}. Wir freuen uns auf dich.",
+      "dein Mitgliederbereich ist freigeschaltet: {tier}. Schön, dass du dabei bist.",
       "Im Mitgliederbereich findest du alle Termine, das Forum, das Verzeichnis der anderen Mitglieder und die Artikel für Mitglieder. Du meldest dich mit dieser E-Mail-Adresse an, ohne Passwort. Wir schicken dir dafür jedes Mal einen Link.",
       "Leg als Erstes dein Profil an: Foto, Unternehmen, Position und ein paar Sätze über dich. So wissen die anderen, mit wem sie es zu tun haben.",
     ],
     button: "Zum Mitgliederbereich",
+  },
+
+  /** Aufnahme über die Bewerbung: Zusage mit Bitte um den ersten Beitrag. Freigeschaltet wird erst danach. */
+  accepted: {
+    subject: "Deine Aufnahme in den FEMPIRE CLUB",
+    greeting: "Hallo {name},",
+    body: [
+      "du bist aufgenommen: {tier}. Wir freuen uns auf dich.",
+      "Dein Beitrag: {price} {period} ({vat}).{codeNote}",
+      "Bevor wir den Mitgliederbereich für dich freischalten, überweise bitte deinen ersten Monatsbeitrag. Die Rechnung mit allen Angaben zur Überweisung bekommst du in den nächsten Tagen per E-Mail.",
+      "Sobald der Beitrag eingegangen ist, schalten wir dich frei. Du bekommst dann eine zweite Mail mit dem Zugang zum Mitgliederbereich.",
+      "Fragen? Antworte einfach auf diese Mail.",
+    ],
   },
 
   /** Absage nach Prüfung oder Gespräch */

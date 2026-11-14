@@ -25,7 +25,7 @@ export const magazin = {
     title: "Weiterlesen als Mitglied.",
     body: "Dieser Artikel ist Teil der Mitgliedschaft. Mitglieder lesen ihn vollständig im eingeloggten Zustand.",
     login: "Anmelden",
-    apply: "Bewerbung starten",
+    apply: "Mitglied werden",
     inactive: "Deine Mitgliedschaft ist gerade nicht aktiv. Sobald sie wieder läuft, liest du hier weiter.",
   },
   meta: {

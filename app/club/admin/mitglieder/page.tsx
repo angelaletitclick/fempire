@@ -2,11 +2,13 @@ import Link from "next/link";
 import { ActionForm } from "@/components/club/ActionForm";
 import { Avatar } from "@/components/club/Avatar";
 import { ConfirmButton } from "@/components/club/ConfirmButton";
+import { ConfirmPayment } from "@/components/club/ConfirmPayment";
 import { CheckField, SelectField, TextField } from "@/components/club/fields";
 import { PageHead } from "@/components/club/PageHead";
 import { TierBadge } from "@/components/club/TierBadge";
 import { memberStatuses, roles, tiers } from "@/content/club";
 import { requireAdmin, type Member } from "@/lib/auth";
+import { memberDiscountNote } from "@/lib/codes";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { formatDate } from "@/lib/time";
 import { addMember, deleteMember, updateMembership } from "./actions";
@@ -15,10 +17,12 @@ export default async function AdminMitgliederPage() {
   const viewer = await requireAdmin();
   const { data } = await supabaseAdmin()
     .from("members")
-    .select("user_id, email, full_name, role, tier, status, company, avatar_path, updated_at, created_at")
+    .select("user_id, email, full_name, role, tier, status, company, avatar_path, updated_at, created_at, invite_code, discount_percent, free_until")
     .order("role")
     .order("full_name");
-  const members = (data ?? []) as Array<Member & { email: string | null }>;
+  const members = (data ?? []) as Array<
+    Member & { email: string | null; invite_code: string | null; discount_percent: number; free_until: string | null }
+  >;
 
   return (
     <div className="container-site py-section">
@@ -44,11 +48,13 @@ export default async function AdminMitgliederPage() {
                   {member.email}
                   {member.company ? ` · ${member.company}` : ""} · seit {formatDate(member.created_at)}
                 </p>
+                {memberDiscountNote(member) ? <p className="mt-1 text-sm text-white">Beitrag: {memberDiscountNote(member)}</p> : null}
               </div>
               <Link href={`/club/admin/mitglieder/${member.user_id}`} className="label text-white underline-offset-4 hover:underline">
                 Profil bearbeiten
               </Link>
             </div>
+            {member.status === "payment_due" ? <ConfirmPayment userId={member.user_id} /> : null}
             <ActionForm action={updateMembership} submitLabel="Speichern" variant="outline" className="mt-5 lg:grid-cols-[1fr_1fr_1fr_auto] lg:items-end">
               <input type="hidden" name="userId" value={member.user_id} />
               <SelectField name="tier" label="Mitgliedschaft" options={tiers} defaultValue={member.tier ?? ""} emptyLabel="Keine (nur Admin)" />

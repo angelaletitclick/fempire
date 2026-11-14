@@ -4,8 +4,12 @@ import { ActionForm } from "@/components/club/ActionForm";
 import { CheckField, SelectField, TextAreaField } from "@/components/club/fields";
 import { PageHead, Tag } from "@/components/club/PageHead";
 import { applicationStatuses, optionLabel, tierLabel, tiers } from "@/content/club";
+import { TierBadge } from "@/components/club/TierBadge";
 import { funnel } from "@/content/funnel";
 import { requireAdmin } from "@/lib/auth";
+import { codeAllowsTier, describeCode, describeTiers, findCode } from "@/lib/codes";
+import { applicationRows } from "@/lib/mail/templates";
+import { applicationFromRow } from "@/lib/validation/application";
 import { safeUrl } from "@/lib/validation/profile";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { formatShort } from "@/lib/time";
@@ -30,41 +34,22 @@ export default async function BewerbungPage({ params }: PageProps<"/club/admin/b
   const { data } = await supabaseAdmin().from("applications").select("*").eq("id", id).maybeSingle();
   if (!data) notFound();
   const a = data as Application;
-  const { fields, options } = funnel;
-  const founder = a.suggested_circle === "foundations";
+  const { fields } = funnel;
   const str = (value: unknown) => (value === null || value === undefined || value === "" ? "–" : String(value));
+  const application = applicationFromRow(a);
+  const circle = application.circle;
+  const code = a.invite_code ? await findCode(String(a.invite_code)) : null;
 
   const rows: Array<[string, string]> = [
     [fields.email.label, a.email],
     [fields.phone.label, str(a.phone)],
     [fields.city.label, str(a.city)],
     [fields.profileUrl.label, str(a.profile_url)],
-    [fields.stage.label, optionLabel(options.stage, a.stage as string)],
-    ...(founder
-      ? ([
-          [fields.industry.labelFoundations, str(a.industry)],
-          [fields.currentActivity.label, str(a.current_activity)],
-          [fields.foundingTimeline.label, optionLabel(options.foundingTimeline, a.founding_timeline as string)],
-          [fields.idea.label, str(a.idea)],
-          [fields.goal12m.labelFoundations, str(a.goal_12m)],
-          [fields.bottleneck.labelFoundations, str(a.bottleneck)],
-        ] as Array<[string, string]>)
-      : ([
-          [fields.company.label, str(a.company)],
-          [fields.legalForm.label, optionLabel(options.legalForm, a.legal_form as string)],
-          [fields.role.label, optionLabel(options.role, a.role as string)],
-          [fields.foundedYear.label, str(a.founded_year)],
-          [fields.employees.label, optionLabel(options.employees, a.employees as string)],
-          [fields.industry.label, str(a.industry)],
-          [fields.revenueRange.label, optionLabel(options.revenueRange, a.revenue_range as string)],
-          [fields.goal12m.label, str(a.goal_12m)],
-          [fields.bottleneck.label, str(a.bottleneck)],
-        ] as Array<[string, string]>)),
+    ...applicationRows(application),
     // Ältere Bewerbungen enthalten noch Antworten auf die entfallenen Fragen
     ...(a.motivation ? ([["Warum dieser Kreis?", str(a.motivation)]] as Array<[string, string]>) : []),
     ...(a.contribution ? ([["Was bringst du ein?", str(a.contribution)]] as Array<[string, string]>) : []),
-    [fields.hasChildren.label, a.has_children ? optionLabel(options.hasChildren, a.has_children as string) : "Keine Angabe"],
-    [fields.timeCommitment.label, optionLabel(options.timeCommitment, a.time_commitment as string)],
+    ["Verbindlichkeit", a.commitment_accepted_at ? `bestätigt am ${formatShort(String(a.commitment_accepted_at))}` : "–"],
   ];
   const profileLink = safeUrl(a.profile_url as string | null);
   const decided = a.status === "aufgenommen" || a.status === "abgelehnt";
@@ -80,9 +65,19 @@ export default async function BewerbungPage({ params }: PageProps<"/club/admin/b
       <p className="mt-5 flex flex-wrap gap-2">
         <Tag tone="white">{optionLabel(applicationStatuses, a.status)}</Tag>
         <Tag>Score {a.score}</Tag>
-        <Tag>Vorschlag: {founder ? "Founder Circle" : "Leader Circle"}</Tag>
+        <TierBadge member={{ role: "member", tier: circle }} long />
         {a.assigned_circle ? <Tag>Aufgenommen als {tierLabel(a.assigned_circle)}</Tag> : null}
       </p>
+      {code ? (
+        <p className="mt-4 border border-white p-4 text-sm text-white">
+          <span className="label mr-2">Einladungscode</span>
+          <span className="font-semibold">{code.code.code}</span>: {describeCode(code.code)} · gilt für {describeTiers(code.code)}
+          {!codeAllowsTier(code.code, circle) ? " · gilt nicht für den gewählten Kreis" : ""}
+          <span className="mt-1 block text-slate-light">Wird beim Aufnehmen automatisch angewendet.</span>
+        </p>
+      ) : a.invite_code ? (
+        <p className="mt-4 text-sm text-slate-light">Einladungscode {String(a.invite_code)} (inzwischen gelöscht)</p>
+      ) : null}
 
       <div className="mt-10 grid gap-10 lg:grid-cols-12">
         <dl className="divide-y divide-line border-y border-line lg:col-span-7">
@@ -110,12 +105,12 @@ export default async function BewerbungPage({ params }: PageProps<"/club/admin/b
           <section className="card p-6">
             <h2 className="label text-white">Aufnehmen</h2>
             <p className="mt-2 text-sm text-slate-light">
-              Legt das Konto an und schaltet den Mitgliederbereich frei. Die Mitgliedschaft gilt als aktiv (bezahlt), ändern könnt ihr das unter Mitglieder.
+              Legt das Konto mit Status „Zahlung offen“ an. Die Mail nennt den Beitrag und bittet um die erste Überweisung. Sobald das Geld da ist, schaltet ihr das Mitglied unter Mitglieder frei, dann geht die Willkommensmail mit dem Zugang raus. Ist die Mitgliedschaft über den Code kostenlos (100 % oder freie erste Monate), wird sie sofort freigeschaltet und die Willkommensmail geht direkt raus.
             </p>
             <ActionForm action={acceptApplication} submitLabel={a.status === "aufgenommen" ? "Erneut aufnehmen" : "Aufnehmen"} pendingLabel="Wird angelegt" className="mt-5">
               <input type="hidden" name="id" value={a.id} />
-              <SelectField name="tier" label="Mitgliedschaft" options={tiers} defaultValue={a.assigned_circle ?? (founder ? "founder" : "leader")} />
-              <CheckField name="sendWelcome" label="Willkommensmail mit Login-Link senden" defaultChecked />
+              <SelectField name="tier" label="Mitgliedschaft" options={tiers} defaultValue={a.assigned_circle ?? circle} />
+              <CheckField name="sendWelcome" label="Aufnahme-Mail senden" defaultChecked />
             </ActionForm>
           </section>
 

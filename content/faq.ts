@@ -15,7 +15,7 @@ export const faq = {
     {
       question: "Welcher Kreis ist der richtige für mich?",
       answer: [
-        "Das musst du nicht selbst entscheiden. Du beschreibst in der Bewerbung deine Situation, wir ordnen dich zu und sprechen im Kennenlerngespräch darüber.",
+        "Du wählst ihn zu Beginn der Bewerbung. Unter Mitgliedschaften steht, für wen welcher Kreis gedacht ist. Passt ein anderer Kreis besser, sprechen wir im Kennenlerngespräch darüber. Wer unsicher ist, kommt vorher zu einem Schnuppertermin.",
       ],
     },
     {

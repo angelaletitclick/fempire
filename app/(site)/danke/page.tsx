@@ -10,19 +10,22 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function DankePage() {
+/** Nach der Bewerbung, oder mit ?direkt=1 nach der Aufnahme über einen Einladungscode */
+export default async function DankePage({ searchParams }: PageProps<"/danke">) {
+  const { direkt } = await searchParams;
+  const t = direkt === "1" ? { ...danke, ...danke.direct } : danke;
   return (
     <section className="container-site py-section">
       <ClearDraft />
-      <SectionLabel index="✓" label={danke.label} />
+      <SectionLabel index="✓" label={t.label} />
       <h1 className="headline mt-6 max-w-[16ch] text-[2.5rem] leading-[1.15] sm:text-6xl lg:text-7xl">
-        <Marked text={danke.headline} />
+        <Marked text={t.headline} />
       </h1>
-      <p className="prose-width mt-8 text-lg leading-relaxed text-slate-light">{danke.body}</p>
+      <p className="prose-width mt-8 text-lg leading-relaxed text-slate-light">{t.body}</p>
 
       <h2 className="label mt-14 text-white">{danke.nextTitle}</h2>
       <ol className="mt-5 grid gap-3 md:grid-cols-3">
-        {danke.next.map((item, i) => (
+        {t.next.map((item, i) => (
           <li key={item.title} className="card p-6">
             <span aria-hidden="true" className="headline text-4xl text-white">
               {String(i + 1).padStart(2, "0")}

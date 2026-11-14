@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { PageHead, Tag } from "@/components/club/PageHead";
-import { applicationStatuses, optionLabel, tierLabel } from "@/content/club";
+import { TierBadge } from "@/components/club/TierBadge";
+import { applicationStatuses, optionLabel } from "@/content/club";
 import { requireAdmin } from "@/lib/auth";
+import { circleFromStored } from "@/lib/validation/application";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { cx } from "@/lib/cx";
 import { formatShort } from "@/lib/time";
@@ -15,6 +17,7 @@ type Row = {
   status: string;
   score: number;
   suggested_circle: string;
+  invite_code: string | null;
 };
 
 const FILTERS = [{ value: "offen", label: "Offen" }, ...applicationStatuses, { value: "alle", label: "Alle" }];
@@ -26,7 +29,7 @@ export default async function BewerbungenPage({ searchParams }: PageProps<"/club
 
   let query = supabaseAdmin()
     .from("applications")
-    .select("id, created_at, name, city, company, status, score, suggested_circle")
+    .select("id, created_at, name, city, company, status, score, suggested_circle, invite_code")
     .order("created_at", { ascending: false })
     .limit(200);
   if (status === "offen") query = query.in("status", ["neu", "geprueft", "gespraech"]);
@@ -36,7 +39,7 @@ export default async function BewerbungenPage({ searchParams }: PageProps<"/club
 
   return (
     <div className="container-site py-section">
-      <PageHead label="Backend" headline="Bewerbungen." intro="Score und Kreis-Vorschlag sind nur hier sichtbar. Die Zuordnung trefft ihr beim Aufnehmen." />
+      <PageHead label="Backend" headline="Bewerbungen." intro="Jede Bewerberin wählt ihren Kreis selbst. Beim Aufnehmen könnt ihr die Mitgliedschaft noch ändern. Der Score ist nur hier sichtbar." />
 
       <nav aria-label="Filter" className="mt-10 flex flex-wrap gap-2">
         {FILTERS.map((filter) => (
@@ -64,8 +67,9 @@ export default async function BewerbungenPage({ searchParams }: PageProps<"/club
                     {[row.company, row.city].filter(Boolean).join(", ")}
                   </span>
                 </span>
-                <span className="text-sm text-slate-light sm:col-span-3">
-                  Vorschlag: {tierLabel(row.suggested_circle === "foundations" ? "founder" : "leader", true)}
+                <span className="flex flex-wrap items-center gap-2 sm:col-span-3">
+                  <TierBadge member={{ role: "member", tier: circleFromStored(row.suggested_circle) }} long />
+                  {row.invite_code ? <span className="label text-white">Code {row.invite_code}</span> : null}
                 </span>
                 <span className="text-sm tabular-nums text-white sm:col-span-1">Score {row.score}</span>
                 <span className="sm:col-span-2">

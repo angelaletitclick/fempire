@@ -25,7 +25,7 @@ export const hero = {
     "Der FEMPIRE CLUB ist kein Netzwerk und keine Weiterbildung, sondern ein geschlossener Kreis für Unternehmerinnen, die ein laufendes Business führen, Verantwortung für ein Team tragen und ihr Geschäft in die nächste Größenordnung bringen wollen. Bei regelmäßigen Treffen in fester Runde legen wir Umsätze und offene Painpoints auf den Tisch und arbeiten konkret daran weiter. Application only.",
   /** Datum kommt aus dem nächsten veröffentlichten Termin im Backend */
   nextMeetingLabel: "Nächstes Treffen",
-  secondaryCta: { label: "Was hier anders läuft", href: "#manifest" },
+  secondaryCta: { label: "Erst reinschnuppern", href: "/schnuppern" },
   /** Hintergrundbild, liegt in public/bilder/. Wird stark abgedunkelt, damit der Text lesbar bleibt. */
   image: { src: "/bilder/hero-treffen.jpg", alt: "" },
 };
@@ -161,7 +161,7 @@ export const leaderCircle = {
       body: "Ein Wochenende raus aus dem Tagesgeschäft. Strategie, Ruhe und Zeit füreinander, mit Frauen, die vor denselben Entscheidungen stehen.",
     },
   ],
-  cta: { label: "Für den Leader Circle bewerben", href: "/bewerbung" },
+  cta: { label: "Mitglied im Leader Circle werden", href: "/bewerbung?kreis=leader" },
 };
 
 /** Eigenständiges 12-Monats-Programm. Kein Vergleich mit dem Leader Circle, keine Stufen-Optik. */
@@ -194,12 +194,12 @@ export const founderCircle = {
   ],
   forWhom:
     "Für dich, wenn du gründen wirst und dafür Verbindlichkeit, Struktur und ehrliches Feedback suchst.",
-  cta: { label: "Für den Founder Circle bewerben", href: "/bewerbung" },
+  cta: { label: "Mitglied im Founder Circle werden", href: "/bewerbung?kreis=founder" },
 };
 
 /** Hinweis zum Verhältnis beider Kreise, steht unter dem Founder Circle */
 export const circlesNote =
-  "Leader Circle und Founder Circle treffen sich jeweils im eigenen Kreis. Workshops und Community teilen sie. In welchen Kreis du gehörst, ordnen wir nach deiner Bewerbung zu.";
+  "Leader Circle und Founder Circle treffen sich jeweils im eigenen Kreis. Workshops und Community teilen sie. Du bewirbst dich für den Kreis, der zu deiner Phase passt.";
 
 export const termine = {
   id: "termine",
@@ -289,13 +289,12 @@ export const ablauf = {
   headline: "Vier Schritte.",
   steps: [
     {
-      title: "Bewerbung",
-      // ANNAHME: Dauer der Bewerbung ca. 10 Minuten
-      body: "Fünf kurze Schritte, rund zehn Minuten. Du beschreibst deine Situation, deine Zahlen oder dein Vorhaben und warum du in diesen Kreis willst.",
+      title: "Kreis wählen",
+      body: "Du wählst den Kreis, der zu deiner Phase passt, und beantwortest seine Fragen. Rund acht Minuten, verbindlich.",
     },
     {
       title: "Prüfung",
-      body: "Wir lesen jede Bewerbung selbst und ordnen dich dem passenden Kreis zu. Innerhalb von 10 Werktagen hörst du von uns.",
+      body: "Wir lesen jede Bewerbung selbst. Innerhalb von 10 Werktagen hörst du von uns.",
     },
     {
       title: "Kennenlerngespräch",
@@ -304,16 +303,16 @@ export const ablauf = {
     },
     {
       title: "Aufnahme",
-      body: "Du bekommst deinen Platz im Kreis und die Termine der nächsten Treffen.",
+      body: "Mit dem ersten Beitrag schalten wir dich frei. Du bekommst deinen Platz im Kreis und die Termine der nächsten Treffen.",
     },
   ],
 };
 
 export const closing = {
   id: "bewerbung",
-  label: "Bewerbung",
+  label: "Mitglied werden",
   headline: "Dein Platz ++am Tisch.++",
-  body: "Wenn du bis hierhin gelesen hast, weißt du, ob du hierher gehörst. Verbindung, Wachstum, ehrlicher Support. Die Bewerbung dauert rund zehn Minuten. Welcher Kreis passt, ordnen wir für dich zu.",
+  body: "Wenn du bis hierhin gelesen hast, weißt du, ob du hierher gehörst. Verbindung, Wachstum, ehrlicher Support. Du wählst deinen Kreis, die Bewerbung dauert rund acht Minuten. Noch unsicher? Komm vorher zu einem Schnuppertermin.",
   waitlist: {
     title: "Nicht aus Osnabrück?",
     body: `${plannedCities.map((city) => city.name).join(", ").replace(/, ([^,]*)$/, " und $1")} sind als nächste Städte geplant. Trag dich ein, wir melden uns, sobald dort ein Kreis startet.`,
@@ -326,4 +325,19 @@ export const closing = {
     privacyLinkLabel: "Datenschutzerklärung",
     success: "Fast geschafft. Bitte bestätige deine Adresse über den Link in der E-Mail.",
   },
+};
+
+/** Hervorgehobener Schnupper-Bereich auf der Startseite, zwischen den Kreisen und den Terminen */
+export const trialBand = {
+  id: "schnuppern",
+  label: "Schnuppern",
+  headline: "Erst ++kennenlernen.++",
+  intro:
+    "Du willst sehen, wie es im Kreis wirklich zugeht, bevor du dich bewirbst? Ausgewählte Treffen kannst du einmalig als Gast besuchen, inklusive Heißgetränk. Die Plätze sind begrenzt, wir bestätigen jede Anfrage persönlich.",
+  nextLabel: "Offen für Schnuppergäste",
+  empty: "Die nächsten Schnuppertermine stehen in Kürze fest. Frag trotzdem an, wir melden uns.",
+  points: ["Ein echtes Treffen, kein Infoabend", "Einmalig, ohne Verpflichtung", "Danach entscheidest du in Ruhe"],
+  cta: { label: "Schnuppertermin anfragen", href: "/schnuppern" },
+  /** So viele offene Schnuppertermine werden angezeigt */
+  show: 3,
 };

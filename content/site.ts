@@ -18,16 +18,22 @@ export const site = {
   /** Symbol oben rechts im Header, führt in den Mitgliederbereich (ohne Anmeldung zum Login) */
   login: { label: "Mitglieder-Login", href: "/club" },
   nav: [
-    { label: "Leader Circle", href: "/#leader-circle" },
-    { label: "Founder Circle", href: "/#founder-circle" },
+    { label: "Mitgliedschaften", href: "/mitgliedschaften" },
+    { label: "Schnuppern", href: "/schnuppern" },
     { label: "Termine", href: "/#termine" },
     { label: "Magazin", href: "/magazin" },
   ],
 
   cta: {
-    label: "Bewerbung starten",
-    shortLabel: "Bewerben",
+    label: "Mitglied werden",
+    shortLabel: "Mitglied werden",
     href: "/bewerbung",
+  },
+
+  /** Schnuppertermin als zweiter Weg in den Club, auf Startseite und Mitgliedschaften hervorgehoben */
+  trialCta: {
+    label: "Schnuppertermin anfragen",
+    href: "/schnuppern",
   },
 
   footer: {

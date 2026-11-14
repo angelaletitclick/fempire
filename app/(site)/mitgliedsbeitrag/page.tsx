@@ -258,7 +258,7 @@ function TierCard({ circle, index }: { circle: Circle; index: number }) {
         {circle.note ? <p className="mt-4 text-xs leading-relaxed text-slate-light">{circle.note}</p> : null}
 
         <Link
-          href={membership.cta.href}
+          href={`${membership.cta.href}?kreis=${circle.tier}`}
           className="label mt-auto inline-flex items-center gap-2 pt-8 text-white transition-colors group-hover:text-[var(--tier)]"
         >
           {membership.cardCta}

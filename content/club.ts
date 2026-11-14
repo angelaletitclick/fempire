@@ -22,6 +22,8 @@ export function tierLabel(value: string | null | undefined, short = false): stri
 
 export const memberStatuses = [
   { value: "active", label: "Aktiv (bezahlt)" },
+  /** Nach der Aufnahme, bis der erste Beitrag eingegangen ist. Kein Zugang zum Mitgliederbereich. */
+  { value: "payment_due", label: "Zahlung offen" },
   { value: "paused", label: "Pausiert" },
   { value: "ended", label: "Beendet" },
 ] as const;
@@ -91,6 +93,11 @@ export const club = {
     label: "Mitgliederbereich",
     headline: "Deine Mitgliedschaft ist nicht aktiv.",
     body: "Forum, Termine und Mitgliederverzeichnis sind freigeschaltet, sobald deine Mitgliedschaft aktiv ist. Bei Fragen antworte auf deine Aufnahme-Mail.",
+  },
+  /** Aufgenommen, erster Beitrag noch nicht eingegangen */
+  paymentDue: {
+    headline: "Deine Aufnahme steht.",
+    body: "Es fehlt nur noch dein erster Monatsbeitrag. Die Rechnung kommt per E-Mail, gezahlt wird per Überweisung. Sobald der Beitrag eingegangen ist, schalten wir Forum, Termine und Mitgliederverzeichnis frei und schicken dir eine kurze Mail.",
   },
   noAccess: {
     headline: "Kein Zugang.",
@@ -260,9 +267,16 @@ export const admin = {
     { label: "Übersicht", href: "/club/admin" },
     { label: "Bewerbungen", href: "/club/admin/bewerbungen" },
     { label: "Mitglieder", href: "/club/admin/mitglieder" },
+    { label: "Codes", href: "/club/admin/codes" },
     { label: "Magazin", href: "/club/admin/magazin" },
     { label: "Termine", href: "/club/admin/termine" },
     { label: "Schnuppern", href: "/club/admin/schnuppern" },
     { label: "Forum", href: "/club/admin/forum" },
   ],
+  /** Mitglied mit Status "Zahlung offen" */
+  paymentDue: {
+    body: "Zahlung offen. Erst nach Zahlungseingang freischalten, dann geht die Willkommensmail mit dem Zugang raus.",
+    button: "Zahlung eingegangen, freischalten",
+    tile: "Zahlung offen",
+  },
 };

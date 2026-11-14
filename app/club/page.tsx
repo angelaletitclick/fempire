@@ -8,6 +8,8 @@ import { club, formatLabel, memberStatuses, optionLabel, tierLabel } from "@/con
 import { membership } from "@/content/membership";
 import { magazin } from "@/content/magazin";
 import { getViewer } from "@/lib/auth";
+import { memberDiscountNote, priceFor } from "@/lib/codes";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 import { publishedArticles } from "@/lib/articles";
 import { supabaseServer } from "@/lib/supabase/server";
 import { formatDate, formatLong, formatTime } from "@/lib/time";
@@ -18,6 +20,9 @@ export default async function ClubPage() {
 
   if (!viewer.member) {
     return <StatusPage label={club.inactive.label} headline={club.noAccess.headline} body={club.noAccess.body} />;
+  }
+  if (viewer.member.status === "payment_due") {
+    return <StatusPage label={club.inactive.label} headline={club.paymentDue.headline} body={club.paymentDue.body} />;
   }
   if (!viewer.isActive) {
     return <StatusPage label={club.inactive.label} headline={club.inactive.headline} body={club.inactive.body} />;
@@ -50,6 +55,12 @@ export default async function ClubPage() {
   const member = viewer.member;
   const subtitle = viewer.isAdmin ? "Admin" : tierLabel(member.tier);
   const plan = viewer.isAdmin ? undefined : membership.circles.find((circle) => circle.tier === member.tier);
+  // Rabatt aus einem Einladungscode (Spalten sind für Mitglieder nicht freigegeben, daher serverseitig)
+  const { data: discount } = plan
+    ? await supabaseAdmin().from("members").select("invite_code, discount_percent, free_until").eq("user_id", viewer.userId).maybeSingle()
+    : { data: null };
+  const discountNote = discount ? memberDiscountNote(discount as Parameters<typeof memberDiscountNote>[0]) : null;
+  const discountedPrice = plan && discount?.discount_percent ? priceFor(member.tier, discount.discount_percent as number) : null;
 
   return (
     <div className="container-site grid gap-14 py-section">
@@ -69,11 +80,12 @@ export default async function ClubPage() {
               <div>
                 <dt className="label">{t.fee}</dt>
                 <dd className="mt-1">
-                  <span className="headline text-3xl">{plan.price.gross}</span>
+                  <span className="headline text-3xl">{discountedPrice?.gross ?? plan.price.gross}</span>
                   <span className="ml-2 text-base text-white">{plan.period}</span>
                   <span className="mt-1 block text-sm text-slate-light">
-                    {plan.price.vatNote} · {plan.price.net}
+                    {discountedPrice ? `${plan.price.vatNote} · regulär ${plan.price.gross}` : `${plan.price.vatNote} · ${plan.price.net}`}
                   </span>
+                  {discountNote ? <span className="mt-2 block text-sm font-semibold text-white">Dein Vorteil: {discountNote}</span> : null}
                 </dd>
               </div>
               <div>
@@ -116,6 +128,11 @@ export default async function ClubPage() {
                   <p className="mt-1 text-sm text-slate-light">
                     {formatLong(event.starts_at)}, {formatTime(event.starts_at)} Uhr
                   </p>
+                  {viewer.isAdmin ? (
+                    <Link href={`/club/admin/termine/${event.id}`} className="label mt-2 inline-block text-white underline underline-offset-4">
+                      Bearbeiten
+                    </Link>
+                  ) : null}
                 </li>
               ))}
             </ul>

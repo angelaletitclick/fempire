@@ -4,9 +4,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import type { FormState } from "@/components/club/ActionForm";
-import { memberStatuses, roles, tierValues } from "@/content/club";
+import { memberStatuses, roles, tierValues, type Tier } from "@/content/club";
 import { requireAdmin } from "@/lib/auth";
-import { upsertMember } from "@/lib/members";
+import { sendWelcome, upsertMember } from "@/lib/members";
 import { applyAvatar, readProfile } from "@/lib/profiles";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
@@ -39,13 +39,51 @@ export async function updateMembership(_prev: FormState, formData: FormData): Pr
   }
   if (role === "member" && !tier) return { status: "error", message: "Mitglieder brauchen eine Mitgliedschaft." };
 
-  const { error } = await supabaseAdmin()
+  const db = supabaseAdmin();
+  const { data: before } = await db.from("members").select("status, email, full_name").eq("user_id", userId).maybeSingle();
+  const { error } = await db
     .from("members")
     .update({ tier: tier || null, status, role, updated_at: new Date().toISOString() })
     .eq("user_id", userId);
   if (error) return { status: "error", message: "Das hat nicht geklappt." };
   revalidate();
+
+  // Von "Zahlung offen" auf aktiv: Willkommensmail mit Zugang
+  if (before?.status === "payment_due" && status === "active" && before.email) {
+    const mailError = await sendWelcome({
+      email: before.email as string,
+      fullName: before.full_name as string,
+      tier: (tier || null) as Tier | null,
+      role,
+    });
+    if (mailError) return { status: "error", message: "Freigeschaltet, aber die Willkommensmail ist nicht rausgegangen." };
+    return { status: "ok", message: "Freigeschaltet. Die Willkommensmail mit dem Zugang ist raus." };
+  }
   return { status: "ok", message: "Gespeichert." };
+}
+
+/** Zahlung eingegangen: Mitglied freischalten und Willkommensmail mit Zugang schicken */
+export async function confirmPayment(userId: string): Promise<void> {
+  await requireAdmin();
+  if (!z.uuid().safeParse(userId).success) return;
+  const { data } = await supabaseAdmin()
+    .from("members")
+    .update({ status: "active", updated_at: new Date().toISOString() })
+    .eq("user_id", userId)
+    .eq("status", "payment_due")
+    .select("email, full_name, tier, role")
+    .maybeSingle();
+  if (data?.email) {
+    const mailError = await sendWelcome({
+      email: data.email as string,
+      fullName: data.full_name as string,
+      tier: data.tier as Tier | null,
+      role: data.role as string,
+    });
+    if (mailError) console.error("Willkommensmail:", mailError);
+  }
+  revalidate();
+  revalidatePath(`/club/admin/mitglieder/${userId}`);
 }
 
 const addSchema = z.object({

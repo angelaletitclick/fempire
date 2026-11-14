@@ -1,5 +1,5 @@
 import "server-only";
-import { isFoundations, type Application, type FoundationsApplication, type LeaderApplication } from "@/lib/validation/application";
+import type { Application } from "@/lib/validation/application";
 
 /**
  * Interne Vorbewertung einer Bewerbung, 0 bis 100. Wird nur in der Datenbank gespeichert
@@ -7,7 +7,9 @@ import { isFoundations, type Application, type FoundationsApplication, type Lead
  * Sortieren. Scores sind nur innerhalb eines Kreises vergleichbar.
  *
  * ANNAHME Leader Circle: 40 Umsatz, 30 Rolle und Rechtsform, 30 Vollständigkeit.
- * ANNAHME FOUNDATIONS: 30 Gründungszeitpunkt, 70 Tiefe und Vollständigkeit der Antworten.
+ * ANNAHME Founder Circle: 30 Gründungszeitpunkt, 70 Tiefe und Vollständigkeit der Antworten.
+ * ANNAHME Masterminds: wie Leader Circle, der Fokus zählt zur Vollständigkeit.
+ * ANNAHME Community: Tiefe der Antworten und Vollständigkeit der Angaben.
  */
 
 const REVENUE: Record<string, number> = {
@@ -58,18 +60,19 @@ function textDepth(value: string, max = 6): number {
 
 const clamp = (value: number) => Math.max(0, Math.min(100, value));
 
-function scoreLeader(application: LeaderApplication): number {
+function scoreLeader(application: Application): number {
   const revenue = REVENUE[application.revenueRange] ?? 0;
   const position = Math.min(30, (ROLE[application.role] ?? 0) + (LEGAL_FORM[application.legalForm] ?? 0));
   const completeness =
     textDepth(application.goal12m) +
     textDepth(application.bottleneck) +
+    textDepth(application.mastermindFocus) +
     (application.phone ? 3 : 0) +
     (application.profileUrl ? 3 : 0);
   return clamp(revenue + position + completeness);
 }
 
-function scoreFoundations(application: FoundationsApplication): number {
+function scoreFounder(application: Application): number {
   const timeline = TIMELINE[application.foundingTimeline] ?? 0;
   const depth =
     textDepth(application.idea, 16) +
@@ -80,6 +83,17 @@ function scoreFoundations(application: FoundationsApplication): number {
   return clamp(timeline + depth);
 }
 
+function scoreCommunity(application: Application): number {
+  return clamp(
+    textDepth(application.currentActivity, 30) +
+      textDepth(application.expectation, 40) +
+      (application.phone ? 15 : 0) +
+      (application.profileUrl ? 15 : 0),
+  );
+}
+
 export function scoreApplication(application: Application): number {
-  return isFoundations(application) ? scoreFoundations(application) : scoreLeader(application);
+  if (application.circle === "founder") return scoreFounder(application);
+  if (application.circle === "community") return scoreCommunity(application);
+  return scoreLeader(application);
 }

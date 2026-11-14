@@ -19,6 +19,8 @@ const LIMITS = {
   application: { limit: 5, windowSeconds: 60 * 60 },
   waitlist: { limit: 10, windowSeconds: 60 * 60 },
   trial: { limit: 5, windowSeconds: 60 * 60 },
+  /** Einladungscode prüfen: gegen Durchprobieren */
+  code: { limit: 20, windowSeconds: 60 * 60 },
 } as const;
 
 /**

@@ -35,7 +35,7 @@ export const membership = {
   headline: "Wir reden über Zahlen. ++Auch über unsere.++",
   cardsLabel: "Mitgliedschaften",
   intro:
-    "Hier steht, was die Mitgliedschaften kosten und was enthalten ist. Aufgenommen wird nur nach Bewerbung und Kennenlerngespräch. Welche Mitgliedschaft zu dir passt, ordnen wir nach deiner Bewerbung zu.",
+    "Hier steht, was die Mitgliedschaften kosten und was enthalten ist. Du bewirbst dich für die Mitgliedschaft, die zu deiner Phase passt. Aufgenommen wird nach Bewerbung und Kennenlerngespräch.",
 
   circles: [
     {
@@ -151,7 +151,7 @@ export const membership = {
     ] as Array<{ label: string; tiers: Partial<Record<"community" | "founder" | "leader" | "mastermind", true | string>> }>,
   },
 
-  cardCta: "Bewerben",
+  cardCta: "Mitglied werden",
 
   /** Warum der Leader Circle über dem Founder Circle steht und mehr kostet */
   step: {
@@ -206,5 +206,5 @@ export const membership = {
   /** Zahlung: Rechnung per E-Mail, Überweisung. Auch im Mitgliederbereich angezeigt. */
   payment: "Die Rechnung kommt monatlich per E-Mail, gezahlt wird per Überweisung.",
   details: "Die Rechnung kommt monatlich per E-Mail, gezahlt wird per Überweisung. Alles Weitere besprechen wir im Kennenlerngespräch.",
-  cta: { label: "Bewerbung starten", href: "/bewerbung" },
+  cta: { label: "Mitglied werden", href: "/bewerbung" },
 };

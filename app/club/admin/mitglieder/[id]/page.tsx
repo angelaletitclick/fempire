@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ActionForm } from "@/components/club/ActionForm";
 import { Avatar } from "@/components/club/Avatar";
 import { ConfirmButton } from "@/components/club/ConfirmButton";
+import { ConfirmPayment } from "@/components/club/ConfirmPayment";
 import { SelectField } from "@/components/club/fields";
 import { PageHead } from "@/components/club/PageHead";
 import { ProfileFields } from "@/components/club/ProfileFields";
@@ -49,6 +50,7 @@ export default async function AdminMemberPage({ params }: PageProps<"/club/admin
         <h2 id="mitgliedschaft" className="label text-white">
           Mitgliedschaft
         </h2>
+        {member.status === "payment_due" ? <ConfirmPayment userId={member.user_id} /> : null}
         <ActionForm action={updateMembership} submitLabel="Speichern" variant="outline" className="mt-5 md:grid-cols-3 md:items-end">
           <input type="hidden" name="userId" value={member.user_id} />
           <SelectField name="tier" label="Mitgliedschaft" options={tiers} defaultValue={member.tier ?? ""} emptyLabel="Keine (nur Admin)" />

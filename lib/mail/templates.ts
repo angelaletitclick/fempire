@@ -1,7 +1,8 @@
 import "server-only";
 import { funnel } from "@/content/funnel";
 import { mails } from "@/content/mails";
-import { isFoundations, type Application } from "@/lib/validation/application";
+import { tierLabel } from "@/content/club";
+import { usesCompany, type Application } from "@/lib/validation/application";
 import { siteUrl } from "@/lib/site-url";
 import type { Mail } from "./index";
 
@@ -55,11 +56,12 @@ function textBlock(lines: string[]): string {
 export function applicationConfirmation(application: Application): Mail {
   const t = mails.applicationConfirmation;
   const greeting = fill(t.greeting, { name: application.name });
+  const body = t.body.map((line) => fill(line, { circle: tierLabel(application.circle) }));
   return {
     to: application.email,
     subject: t.subject,
-    html: layout(paragraphs([greeting, ...t.body])),
-    text: textBlock([greeting, ...t.body]),
+    html: layout(paragraphs([greeting, ...body])),
+    text: textBlock([greeting, ...body]),
   };
 }
 
@@ -68,69 +70,96 @@ function optionLabel(list: ReadonlyArray<{ value: string; label: string }>, valu
   return list.find((option) => option.value === value)?.label ?? value;
 }
 
+/** Antworten einer Bewerbung als Zeilen, je nach Kreis */
+export function applicationRows(application: Application): Array<[string, string]> {
+  const { fields, options } = funnel;
+  const rows: Array<[string, string]> = [];
+  const add = (label: string, value: string) => {
+    if (value) rows.push([label, value]);
+  };
+  if (usesCompany(application.circle)) {
+    add(fields.stage.label, optionLabel(options.stage, application.stage));
+    add(fields.company.label, application.company);
+    add(fields.legalForm.label, optionLabel(options.legalForm, application.legalForm));
+    add(fields.role.label, optionLabel(options.role, application.role));
+    add(fields.foundedYear.label, application.foundedYear);
+    add(fields.employees.label, optionLabel(options.employees, application.employees));
+    add(fields.industry.label, application.industry);
+    add(fields.revenueRange.label, optionLabel(options.revenueRange, application.revenueRange));
+    add(fields.goal12m.label, application.goal12m);
+    add(fields.mastermindFocus.label, application.mastermindFocus);
+    add(fields.bottleneck.label, application.bottleneck);
+  } else if (application.circle === "founder") {
+    add(fields.industry.labelFoundations, application.industry);
+    add(fields.currentActivity.label, application.currentActivity);
+    add(fields.foundingTimeline.label, optionLabel(options.foundingTimeline, application.foundingTimeline));
+    add(fields.idea.label, application.idea);
+    add(fields.goal12m.labelFoundations, application.goal12m);
+    add(fields.bottleneck.labelFoundations, application.bottleneck);
+  } else {
+    add(fields.currentActivity.labelCommunity, application.currentActivity);
+    add(fields.industry.labelCommunity, application.industry);
+    add(fields.expectation.label, application.expectation);
+  }
+  add(fields.hasChildren.label, application.hasChildren ? optionLabel(options.hasChildren, application.hasChildren) : "");
+  add(fields.timeCommitment.label, application.timeCommitment ? optionLabel(options.timeCommitment, application.timeCommitment) : "");
+  return rows;
+}
+
 export function applicationNotification(
   application: Application,
   meta: { id: string; score: number; cityName: string },
   to: string[],
 ): Mail {
   const t = mails.applicationNotification;
-  const { fields, options } = funnel;
-  const foundations = isFoundations(application);
-  const pathRows: Array<[string, string]> = foundations
-    ? [
-        [fields.industry.labelFoundations, application.industry],
-        [fields.currentActivity.label, application.currentActivity],
-        [fields.foundingTimeline.label, optionLabel(options.foundingTimeline, application.foundingTimeline)],
-        [fields.idea.label, application.idea],
-        [fields.goal12m.labelFoundations, application.goal12m],
-        [fields.bottleneck.labelFoundations, application.bottleneck],
-      ]
-    : [
-        [fields.company.label, application.company],
-        [fields.legalForm.label, optionLabel(options.legalForm, application.legalForm)],
-        [fields.role.label, optionLabel(options.role, application.role)],
-        [fields.foundedYear.label, String(application.foundedYear)],
-        [fields.employees.label, optionLabel(options.employees, application.employees)],
-        [fields.industry.label, application.industry],
-        [fields.revenueRange.label, optionLabel(options.revenueRange, application.revenueRange)],
-        [fields.goal12m.label, application.goal12m],
-        [fields.bottleneck.label, application.bottleneck],
-      ];
+  const { fields } = funnel;
+  const circle = tierLabel(application.circle);
   const rows: Array<[string, string]> = [
-    [t.circleLabel, foundations ? t.circleFoundations : t.circleLeader],
+    [t.circleLabel, circle],
+    ...(application.code ? ([[t.codeLabel, application.code]] as Array<[string, string]>) : []),
     ["Score (intern)", String(meta.score)],
     [fields.name.label, application.name],
     [fields.email.label, application.email],
     [fields.phone.label, application.phone || "–"],
     [fields.city.label, meta.cityName],
-    [fields.profileUrl.label, application.profileUrl],
-    [fields.stage.label, optionLabel(options.stage, application.stage)],
-    ...pathRows,
-    [fields.hasChildren.label, optionLabel(options.hasChildren, application.hasChildren)],
-    [fields.timeCommitment.label, optionLabel(options.timeCommitment, application.timeCommitment)],
+    [fields.profileUrl.label, application.profileUrl || "–"],
+    ...applicationRows(application),
     ["Datensatz-ID", meta.id],
   ];
-
-  const htmlRows = rows
-    .map(
-      ([label, value]) =>
-        `<tr><td style="padding:10px 0;border-bottom:1px solid ${LINE};vertical-align:top;">
-<div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:${SLATE};">${escapeHtml(label)}</div>
-<div style="margin-top:4px;font-size:15px;line-height:1.5;color:${WHITE};white-space:pre-wrap;">${escapeHtml(value)}</div></td></tr>`,
-    )
-    .join("");
-
   return {
     to,
     replyTo: application.email,
-    subject: fill(t.subject, {
-      name: application.name,
-      circle: foundations ? t.circleFoundations : t.circleLeader,
-      score: meta.score,
-    }),
-    html: layout(
-      `<p style="margin:0 0 24px;font-size:14px;color:${SLATE};">${escapeHtml(t.intro)}</p><table role="presentation" width="100%" cellpadding="0" cellspacing="0">${htmlRows}</table>`,
-    ),
+    subject: fill(t.subject, { name: application.name, circle, score: meta.score }),
+    html: layout(`<p style="margin:0 0 24px;font-size:14px;color:${SLATE};">${escapeHtml(t.intro)}</p>${detailRows(rows)}`),
+    text: [t.intro, "", ...rows.map(([label, value]) => `${label}: ${value}`)].join("\n"),
+  };
+}
+
+/** An das Team: Aufnahme über Einladungscode ohne Bewerbung */
+export function directJoinNotification(input: {
+  to: string[];
+  name: string;
+  email: string;
+  circle: string;
+  code: string;
+  benefit: string;
+  status: string;
+  rows: Array<[string, string]>;
+}): Mail {
+  const t = mails.directJoinNotification;
+  const rows: Array<[string, string]> = [
+    ["Mitgliedschaft", input.circle],
+    ["Code", `${input.code} (${input.benefit})`],
+    ["Status", input.status],
+    ["Name", input.name],
+    ["E-Mail", input.email],
+    ...input.rows,
+  ];
+  return {
+    to: input.to,
+    replyTo: input.email,
+    subject: fill(t.subject, { code: input.code, name: input.name, circle: input.circle }),
+    html: layout(`<p style="margin:0 0 24px;font-size:14px;color:${SLATE};">${escapeHtml(t.intro)}</p>${detailRows(rows)}`),
     text: [t.intro, "", ...rows.map(([label, value]) => `${label}: ${value}`)].join("\n"),
   };
 }
@@ -168,15 +197,40 @@ function detailRows(rows: Array<[string, string]>): string {
     .join("")}</table>`;
 }
 
-export function welcomeMail(input: { to: string; name: string; tier: string; loginUrl: string }): Mail {
+export function welcomeMail(input: { to: string; name: string; tier: string; loginUrl: string; extra?: string[] }): Mail {
   const t = mails.welcome;
   const greeting = fill(t.greeting, { name: input.name });
-  const body = t.body.map((line) => fill(line, { tier: input.tier }));
+  const [first, ...rest] = t.body.map((line) => fill(line, { tier: input.tier }));
+  const body = [first ?? "", ...(input.extra ?? []), ...rest];
   return {
     to: input.to,
     subject: t.subject,
     html: layout(paragraphs([greeting, ...body]) + button(t.button, input.loginUrl)),
     text: textBlock([greeting, ...body, `${t.button}: ${input.loginUrl}`]),
+  };
+}
+
+/** Zusage nach der Bewerbung mit Bitte um den ersten Beitrag */
+export function acceptedMail(input: {
+  to: string;
+  name: string;
+  tier: string;
+  price: string;
+  period: string;
+  vat: string;
+  /** z. B. " Mit deinem Code FEMPIRE24: 50 % Rabatt auf den Monatsbeitrag." */
+  codeNote?: string;
+}): Mail {
+  const t = mails.accepted;
+  const greeting = fill(t.greeting, { name: input.name });
+  const body = t.body.map((line) =>
+    fill(line, { tier: input.tier, price: input.price, period: input.period, vat: input.vat, codeNote: input.codeNote ?? "" }),
+  );
+  return {
+    to: input.to,
+    subject: t.subject,
+    html: layout(paragraphs([greeting, ...body])),
+    text: textBlock([greeting, ...body]),
   };
 }
 

@@ -12,11 +12,12 @@ Alle festen Texte stehen im Ordner `content/`. Text zwischen den Anführungszeic
 | `content/landing.ts` | Startseite: Hero, Manifest, Für wen, Leader Circle, Founder Circle, Termine-Texte, Gründerinnen, Ablauf |
 | `content/faq.ts` | Fragen und Antworten |
 | `content/membership.ts` | Seite /mitgliedsbeitrag, die einzige Stelle mit Beträgen |
+| `content/mitgliedschaften.ts` | Seite /mitgliedschaften: Beschreibung jeder Mitgliedschaft, für wen, Rhythmus |
 | `content/schnuppern.ts` | Seite /schnuppern |
 | `content/magazin.ts` | Texte rund ums Magazin (die Artikel selbst schreibt ihr im Backend) |
 | `content/club.ts` | Mitgliederbereich und Backend, Mitgliedschaften, Treff-Formate |
 | `content/mails.ts` | Alle automatischen E-Mails |
-| `content/funnel.ts` | Bewerbungsformular |
+| `content/funnel.ts` | Bewerbungsformular „Mitglied werden“: Kreise, Fragen je Kreis, Verbindlichkeit, Einladungscode |
 | `content/cities.ts` | Städte |
 | `content/legal.ts` | Impressum und Datenschutz |
 
