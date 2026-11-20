@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { publishedArticles } from "@/lib/articles";
 import { siteUrl } from "@/lib/site-url";
+import { site } from "@/content/site";
 
 export const revalidate = 3600;
 
@@ -8,9 +9,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articles = await publishedArticles();
   return [
     { url: `${siteUrl}/`, changeFrequency: "weekly", priority: 1 },
-    { url: `${siteUrl}/bewerbung`, changeFrequency: "yearly", priority: 0.8 },
+    ...(site.aufbauphase
+      ? [{ url: `${siteUrl}/warteliste`, changeFrequency: "monthly" as const, priority: 0.8 }]
+      : [
+          { url: `${siteUrl}/bewerbung`, changeFrequency: "yearly" as const, priority: 0.8 },
+          { url: `${siteUrl}/mitgliedschaften`, changeFrequency: "monthly" as const, priority: 0.8 },
+        ]),
     { url: `${siteUrl}/schnuppern`, changeFrequency: "weekly", priority: 0.6 },
-    { url: `${siteUrl}/mitgliedschaften`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/termine`, changeFrequency: "weekly", priority: 0.6 },
     { url: `${siteUrl}/magazin`, changeFrequency: "weekly", priority: 0.6 },
     ...articles.map((article) => ({

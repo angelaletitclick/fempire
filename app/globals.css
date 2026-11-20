@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Medien-Ordner nicht nach Klassen durchsuchen (mehrere GB, sonst bricht der CSS-Build ab) */
+@source not "../Reels";
+@source not "../_rohmaterial";
+@source not "../_vorschau";
+
 /* ------------------------------------------------------------------ */
 /* CI-Tokens. Einzige Stelle mit Hex-Werten.                           */
 /* ------------------------------------------------------------------ */

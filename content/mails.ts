@@ -28,10 +28,10 @@ export const mails = {
   },
 
   waitlistConfirm: {
-    subject: "Bitte bestätige deine Eintragung für {city}",
+    subject: "Bitte bestätige deine Eintragung auf der Warteliste",
     greeting: "Hallo,",
     body: [
-      "du hast dich auf die Warteliste des FEMPIRE CLUB für {city} eingetragen. Bitte bestätige deine Adresse über den folgenden Link. Erst danach stehst du auf der Liste.",
+      "du hast dich auf die Warteliste für eine Mitgliedschaft im FEMPIRE CLUB eingetragen (Stadt: {city}). Bitte bestätige deine Adresse über den folgenden Link. Erst danach stehst du auf der Liste.",
       "Wenn du dich nicht eingetragen hast, ignoriere diese Mail einfach. Ohne Bestätigung speichern wir nichts dauerhaft.",
     ],
     button: "Eintragung bestätigen",

@@ -17,7 +17,7 @@ export function WaitlistForm() {
   const fieldErrors = state.status === "error" ? state.fieldErrors : undefined;
 
   return (
-    <Reveal className="mt-3 grid gap-8 border border-line p-6 sm:p-10 lg:grid-cols-12 lg:gap-10 lg:p-16">
+    <Reveal id="warteliste" className="mt-3 grid scroll-mt-24 gap-8 border border-line p-6 sm:p-10 lg:grid-cols-12 lg:gap-10 lg:p-16">
       <div className="lg:col-span-5">
         <h3 className="headline text-2xl md:text-3xl">{t.title}</h3>
         <p className="mt-4 text-base leading-relaxed text-slate-light">{t.body}</p>

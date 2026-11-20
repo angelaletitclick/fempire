@@ -1,8 +1,13 @@
 import { z } from "zod";
-import { cityBySlug, OTHER_CITY, otherCityLabel, plannedCities } from "@/content/cities";
+import { activeCities, cityBySlug, OTHER_CITY, otherCityLabel, plannedCities } from "@/content/cities";
+import { site } from "@/content/site";
 
-/** Auswahl der Warteliste: alle geplanten Städte plus "Andere Stadt". Wert ist der Slug. */
+/**
+ * Auswahl der Warteliste: alle geplanten Städte plus "Andere Stadt". Wert ist der Slug.
+ * In der Aufbauphase ist es die Warteliste für die Mitgliedschaft, dann stehen auch die aktiven Städte zur Wahl.
+ */
 export const waitlistCityOptions = [
+  ...(site.aufbauphase ? activeCities : []).map((city) => ({ value: city.slug, label: city.name })),
   ...plannedCities.map((city) => ({ value: city.slug, label: city.name })),
   { value: OTHER_CITY, label: otherCityLabel },
 ];

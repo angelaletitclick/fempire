@@ -2,15 +2,16 @@
 export const schnuppern = {
   meta: {
     title: "Schnuppertermin",
-    description: "Ein Treffen des FEMPIRE CLUB einmalig kennenlernen, bevor du dich bewirbst.",
+    description: "Ein Treffen des FEMPIRE CLUB als Gast besuchen, ohne Mitgliedschaft.",
   },
   label: "Schnuppertermin",
   headline: "Komm ++vorbei.++",
   intro:
-    "Ausgewählte Treffen kannst du einmalig als Gast besuchen, inklusive Heißgetränk. Die Plätze sind begrenzt, deshalb bestätigen wir jede Anfrage persönlich.",
-  priceNote: "Den Beitrag für einen Schnuppertermin findest du unter",
+    "In der Aufbauphase sind ausgewählte Treffen offen für Gäste, inklusive Heißgetränk. Die Plätze sind begrenzt, deshalb bestätigen wir jede Anfrage persönlich.",
+  /** Aufbauphase: Hinweis ohne Betrag. Danach wieder mit Link auf /mitgliedsbeitrag. */
+  priceNote: "Keine Mitgliedschaft nötig. Pro Treffen nehmen wir nur eine Aufwandsentschädigung, die Details stehen in deiner Bestätigung.",
   priceLink: "Mitgliedsbeitrag",
-  empty: "Gerade ist kein Termin für Schnuppergäste offen. Schau bald wieder vorbei oder bewirb dich direkt.",
+  empty: "Die Termine stehen in Kürze fest. Schau bald wieder vorbei oder trag dich auf die Warteliste ein.",
   fields: {
     event: "Termin",
     name: "Name",

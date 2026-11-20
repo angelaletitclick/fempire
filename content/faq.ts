@@ -8,36 +8,36 @@ export const faq = {
   label: "FAQ",
   headline: "Fragen.",
   items: [
+    /*
+     * Aufbauphase (content/site.ts): Fragen zu Kosten, Kreiswahl, Community-Mitgliedschaft und Absagen
+     * sind angepasst oder entfernt. Alte Fassung in der Git-Historie.
+     */
     {
-      question: "Was kostet die Mitgliedschaft?",
-      answer: ["Die Investition besprechen wir im persönlichen Gespräch."],
+      question: "Was kostet die Teilnahme?",
+      answer: [
+        "In den ersten Monaten bauen wir den Club gemeinsam auf. In dieser Zeit gibt es keine Mitgliedschaft und keinen Beitrag. Pro Treffen nehmen wir nur eine Aufwandsentschädigung.",
+      ],
     },
     {
-      question: "Welcher Kreis ist der richtige für mich?",
+      question: "Kann ich schon Mitglied werden?",
       answer: [
-        "Du wählst ihn zu Beginn der Bewerbung. Unter Mitgliedschaften steht, für wen welcher Kreis gedacht ist. Passt ein anderer Kreis besser, sprechen wir im Kennenlerngespräch darüber. Wer unsicher ist, kommt vorher zu einem Schnuppertermin.",
+        "Noch nicht. Trag dich auf die Warteliste ein. Sobald die Mitgliedschaften starten, melden wir uns zuerst bei dir.",
       ],
     },
     {
       question: "Wie hängen Leader Circle und Founder Circle zusammen?",
       answer: [
-        "Beide Kreise treffen sich jeweils im eigenen Kreis, Workshops und Community teilen sie. Der Leader Circle ist für Frauen mit bestehendem Business. Der Founder Circle ist ein eigenes Programm über zwölf Monate für Frauen, die gründen werden. Danach ist eine Bewerbung für den Leader Circle möglich.",
+        "Beide Kreise treffen sich jeweils im eigenen Kreis, Workshops und Community teilen sie. Der Leader Circle ist für Frauen mit bestehendem Business. Der Founder Circle ist ein eigenes Programm über zwölf Monate für Frauen, die gründen werden. Danach ist der Wechsel in den Leader Circle möglich.",
       ],
     },
     {
-      question: "Gibt es eine Mitgliedschaft ohne festen Kreis?",
+      question: "Wie komme ich zu einem Treffen?",
       answer: [
-        "Ja, die Community-Mitgliedschaft. Du bist Teil der digitalen Community, siehst alle Mitglieder und Termine, stellst deine Fragen im geschlossenen Forum und liest alle Artikel für Mitglieder. Die festen Treffen gehören zu den Kreisen.",
+        "Unter Termine siehst du, welche Treffen offen für Gäste sind. Dort fragst du deinen Platz an, inklusive Heißgetränk. Die Plätze sind begrenzt, wir bestätigen jede Anfrage persönlich.",
       ],
     },
     {
-      question: "Kann ich vorher reinschnuppern?",
-      answer: [
-        "Ja. Ausgewählte Treffen kannst du einmalig als Schnuppertermin besuchen, inklusive Heißgetränk. Unter Termine siehst du, welche Treffen dafür offen sind. Die Plätze sind begrenzt, wir bestätigen jede Anfrage persönlich.",
-      ],
-    },
-    {
-      question: "Wer kann sich für den Leader Circle bewerben?",
+      question: "Für wen ist der Leader Circle gedacht?",
       answer: [
         "Gründerinnen, Holding-Inhaberinnen, Investorinnen und Frauen mit hoher Management-Verantwortung. Entscheidend ist nicht die Rechtsform allein, sondern ob du auf Augenhöhe beitragen kannst.",
       ],
@@ -45,7 +45,7 @@ export const faq = {
     {
       question: "Muss ich meine Zahlen offenlegen?",
       answer: [
-        "In der Bewerbung fragen wir nur Spannen ab. Im Kreis legst du so viel offen, wie du für echtes Feedback brauchst. Wer nichts zeigt, bekommt auch nichts Brauchbares zurück.",
+        "Im Kreis legst du so viel offen, wie du für echtes Feedback brauchst. Wer nichts zeigt, bekommt auch nichts Brauchbares zurück.",
         // ANNAHME: Vertraulichkeit wird schriftlich geregelt
         "Was im Kreis besprochen wird, bleibt dort. Das halten wir mit allen Mitgliedern schriftlich fest.",
       ],
@@ -53,7 +53,7 @@ export const faq = {
     {
       question: "Wo und wann finden die Treffen statt?",
       answer: [
-        "Der Leader Circle trifft sich ab Januar 2027 in Osnabrück, 12 Mal im Jahr am ersten Dienstag im Monat, dazu kommen Business Talk & Walk, Events und im Juni 2027 ein Retreat-Wochenende. Der Founder Circle hat eigene Termine. Den genauen Ort erhalten aufgenommene Mitglieder.",
+        "Der Leader Circle trifft sich ab XX in Osnabrück, 12 Mal im Jahr jeweils am XX, dazu kommen Business Talk & Walk, Events und im XX ein Retreat-Wochenende. Der Founder Circle hat eigene Termine. Den genauen Ort erhalten aufgenommene Mitglieder.",
       ],
     },
     {
@@ -72,13 +72,7 @@ export const faq = {
     {
       question: "Ich komme nicht aus Osnabrück.",
       answer: [
-        "Wenn du regelmäßig nach Osnabrück kommen kannst, bewirb dich direkt. Sonst trag dich in die Warteliste für deine Stadt ein. Der Club wächst über weitere Städte.",
-      ],
-    },
-    {
-      question: "Warum werden Bewerbungen abgelehnt?",
-      answer: [
-        "Meist passt die Phase nicht. Wer vor allem Kundinnen sucht oder Austausch ohne Verbindlichkeit, findet in keinem der beiden Kreise, was sie braucht. Eine Absage ist keine Bewertung deiner Person.",
+        "Wenn du regelmäßig nach Osnabrück kommen kannst, komm zu den Treffen. Sonst trag dich in die Warteliste für deine Stadt ein. Der Club wächst über weitere Städte.",
       ],
     },
   ],

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { site } from "@/content/site";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
@@ -35,6 +37,8 @@ const countText = (count: number) =>
  * darunter der Vergleich. Animationen starten erst, wenn der Bereich sichtbar wird.
  */
 export default function MitgliedsbeitragPage() {
+  // In der Aufbauphase ausgeblendet (content/site.ts)
+  if (site.aufbauphase) notFound();
   const t = membership;
   const c = t.comparison;
 

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { site } from "@/content/site";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
@@ -27,6 +29,8 @@ const tierStyle = (tier: string) =>
 
 /** Alle Mitgliedschaften im Detail, ohne Beträge. Jede mit eigenem Weg in die Bewerbung. */
 export default function MitgliedschaftenPage() {
+  // In der Aufbauphase ausgeblendet (content/site.ts)
+  if (site.aufbauphase) notFound();
   const t = mitgliedschaften;
   return (
     <>

@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { closing } from "@/content/landing";
-import { site } from "@/content/site";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
 import { Crown } from "@/components/ui/Emblem";
 import { Marked } from "@/components/ui/Marked";
@@ -25,8 +24,8 @@ export function ClosingCta({ waitlist }: { waitlist?: ReactNode }) {
         <div className="mt-8 grid gap-8 md:mt-10 md:grid-cols-12 md:items-end">
           <p className="prose-width text-lg leading-relaxed text-slate-light md:col-span-7 md:text-xl">{closing.body}</p>
           <div className="md:col-span-5 md:justify-self-end">
-            <ButtonLink href={site.cta.href} variant="accent" className="w-full sm:w-auto">
-              {site.cta.label}
+            <ButtonLink href={closing.cta.href} variant="accent" className="w-full sm:w-auto">
+              {closing.cta.label}
               <Arrow />
             </ButtonLink>
           </div>

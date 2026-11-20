@@ -5,6 +5,7 @@ import { CheckField, SelectField, TextAreaField, TextField } from "@/components/
 import { Marked } from "@/components/ui/Marked";
 import { SectionLabel } from "@/components/ui/Section";
 import { schnuppern } from "@/content/schnuppern";
+import { site } from "@/content/site";
 import { trialEvents } from "@/lib/events";
 import { formatLong, formatTime } from "@/lib/time";
 import { HONEYPOT } from "@/lib/validation/application";
@@ -31,11 +32,16 @@ export default async function SchnuppernPage({ searchParams }: PageProps<"/schnu
       </h1>
       <p className="prose-width mt-6 text-lg leading-relaxed text-slate-light">{t.intro}</p>
       <p className="mt-3 text-sm text-slate-light">
-        {t.priceNote}{" "}
-        <Link href="/mitgliedsbeitrag" className="text-white underline underline-offset-4">
-          {t.priceLink}
-        </Link>
-        .
+        {t.priceNote}
+        {site.aufbauphase ? null : (
+          <>
+            {" "}
+            <Link href="/mitgliedsbeitrag" className="text-white underline underline-offset-4">
+              {t.priceLink}
+            </Link>
+            .
+          </>
+        )}
       </p>
 
       {events.length === 0 ? (

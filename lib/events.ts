@@ -1,5 +1,6 @@
 import "server-only";
 import type { EventFormat, Tier } from "@/content/club";
+import { site } from "@/content/site";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export type EventStatus = "draft" | "published" | "cancelled";
@@ -39,6 +40,7 @@ function toPublic(row: PublicRow): PublicEvent {
 
 /** Kommende veröffentlichte oder abgesagte Termine für die öffentliche Seite */
 export async function upcomingPublicEvents(limit: number): Promise<PublicEvent[]> {
+  if (!site.termineAnzeigen) return [];
   try {
     const { data, error } = await supabaseAdmin()
       .from("events")
@@ -57,6 +59,7 @@ export async function upcomingPublicEvents(limit: number): Promise<PublicEvent[]
 
 /** Nächster stattfindender Termin (für Hero und Aktionsleiste) */
 export async function nextPublicEvent(): Promise<PublicEvent | null> {
+  if (!site.termineAnzeigen) return null;
   try {
     const { data, error } = await supabaseAdmin()
       .from("events")
@@ -76,6 +79,7 @@ export async function nextPublicEvent(): Promise<PublicEvent | null> {
 
 /** Kommende Termine, an denen Schnuppern möglich ist */
 export async function trialEvents(): Promise<PublicEvent[]> {
+  if (!site.termineAnzeigen) return [];
   try {
     const { data, error } = await supabaseAdmin()
       .from("events")

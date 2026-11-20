@@ -119,7 +119,7 @@ export const leaderCircle = {
     "Der Kreis für Unternehmerinnen mit eigener GmbH oder Holding und für Frauen mit hoher Führungsverantwortung. Bestehendes Business, echte Zahlen, ein fester Rhythmus. Eine Gemeinschaft, die Wachstum ernst nimmt und sich gegenseitig Support gibt.",
   statusLabels: {
     aktiv: "Läuft bereits",
-    start: "Ab Januar 2027",
+    start: "Ab XX",
     vorbereitung: "In Vorbereitung",
   } satisfies Record<FormatStatus, string>,
   /* Pro Eintrag kann statusLabel den Standardtext ersetzen, z. B. "Juni 2027" */
@@ -127,7 +127,7 @@ export const leaderCircle = {
     {
       title: "12 Workshop-Treffen im Jahr",
       status: "start" as FormatStatus,
-      body: "Jeden ersten Dienstag im Monat, persönlich. Jedes Treffen ist ein Workshop: inhaltlicher Input als kompakte Input Snacks, echte Zahlen, konkrete Entscheidungen. Danach ungezwungen Zeit füreinander, auch für Privates. Die nächsten Themen: Website, KI, Mitarbeiter, Social Media.",
+      body: "Jeweils am XX, persönlich. Jedes Treffen ist ein Workshop: inhaltlicher Input als kompakte Input Snacks, echte Zahlen, konkrete Entscheidungen. Danach ungezwungen Zeit füreinander, auch für Privates. Die nächsten Themen: Website, KI, Mitarbeiter, Social Media.",
     },
     {
       title: "Business Talk & Walk",
@@ -157,11 +157,12 @@ export const leaderCircle = {
     {
       title: "Retreat",
       status: "start" as FormatStatus,
-      statusLabel: "Juni 2027",
+      statusLabel: "XX",
       body: "Ein Wochenende raus aus dem Tagesgeschäft. Strategie, Ruhe und Zeit füreinander, mit Frauen, die vor denselben Entscheidungen stehen.",
     },
   ],
-  cta: { label: "Mitglied im Leader Circle werden", href: "/bewerbung?kreis=leader" },
+  /* Aufbauphase: Warteliste statt Bewerbung. Danach: { label: "Mitglied im Leader Circle werden", href: "/bewerbung?kreis=leader" } */
+  cta: { label: "Auf die Warteliste", href: "/warteliste" },
 };
 
 /** Eigenständiges 12-Monats-Programm. Kein Vergleich mit dem Leader Circle, keine Stufen-Optik. */
@@ -194,19 +195,20 @@ export const founderCircle = {
   ],
   forWhom:
     "Für dich, wenn du gründen wirst und dafür Verbindlichkeit, Struktur und ehrliches Feedback suchst.",
-  cta: { label: "Mitglied im Founder Circle werden", href: "/bewerbung?kreis=founder" },
+  /* Aufbauphase: Warteliste statt Bewerbung. Danach: { label: "Mitglied im Founder Circle werden", href: "/bewerbung?kreis=founder" } */
+  cta: { label: "Auf die Warteliste", href: "/warteliste" },
 };
 
 /** Hinweis zum Verhältnis beider Kreise, steht unter dem Founder Circle */
 export const circlesNote =
-  "Leader Circle und Founder Circle treffen sich jeweils im eigenen Kreis. Workshops und Community teilen sie. Du bewirbst dich für den Kreis, der zu deiner Phase passt.";
+  "Leader Circle und Founder Circle treffen sich jeweils im eigenen Kreis. Workshops und Community teilen sie. Auf der Warteliste ist Platz für beide.";
 
 export const termine = {
   id: "termine",
   label: "Termine",
   headline: "Termine.",
   intro:
-    "Der Leader Circle trifft sich 12 Mal im Jahr, jeden ersten Dienstag im Monat. Jedes Treffen ist ein Workshop mit einem Thema. Den genauen Ort erhalten Mitglieder vorab. Der Founder Circle hat eigene Termine.",
+    "Der Leader Circle trifft sich ab XX 12 Mal im Jahr, jeweils am XX. Jedes Treffen ist ein Workshop mit einem Thema. Den genauen Ort erhalten Mitglieder vorab. Der Founder Circle hat eigene Termine.",
   /** So viele kommende Termine werden angezeigt. Die Termine selbst pflegt ihr im Backend. */
   show: 4,
   /** Eigene Seite /termine: so viele kommende Termine */
@@ -217,7 +219,7 @@ export const termine = {
     description: "Kommende Treffen, Workshops und Events des FEMPIRE CLUB in Osnabrück.",
   },
   note: "Ort für Mitglieder",
-  empty: "Die nächsten Termine stehen in Kürze fest.",
+  empty: "Die Termine stehen in Kürze fest. Trag dich auf die Warteliste ein, dann erfährst du sie als Erste.",
   cancelled: "Abgesagt",
   /** Vor dem Thema eines Treffens, z. B. „Thema: Website“ */
   topicLabel: "Thema",
@@ -228,8 +230,8 @@ export const termine = {
     body: "Zwischen den festen Treffen gibt es Business Talk & Walk und Events über das Jahr. Die Termine gehen rechtzeitig an alle Mitglieder.",
   },
   retreat: {
-    title: "Retreat im Juni",
-    body: "Im Juni 2027 geht es für ein Wochenende raus aus dem Tagesgeschäft. Details erhalten Mitglieder im Mitgliederbereich.",
+    title: "Retreat im XX",
+    body: "Im XX geht es für ein Wochenende raus aus dem Tagesgeschäft. Details erhalten Mitglieder im Mitgliederbereich.",
   },
 };
 
@@ -286,36 +288,49 @@ export const gruenderinnen = {
 export const ablauf = {
   id: "ablauf",
   label: "Ablauf",
-  headline: "Vier Schritte.",
+  /*
+   * Aufbauphase (content/site.ts). Danach wieder: Kreis wählen → Prüfung → Kennenlerngespräch → Aufnahme
+   * (alte Texte in der Git-Historie).
+   */
+  headline: "Wir bauen ++gemeinsam auf.++",
   steps: [
     {
-      title: "Kreis wählen",
-      body: "Du wählst den Kreis, der zu deiner Phase passt, und beantwortest seine Fragen. Rund acht Minuten, verbindlich.",
+      title: "Treffen anfragen",
+      body: "Du suchst dir ein offenes Treffen aus und fragst deinen Platz an. Wir bestätigen jede Anfrage persönlich.",
     },
     {
-      title: "Prüfung",
-      body: "Wir lesen jede Bewerbung selbst. Innerhalb von 10 Werktagen hörst du von uns.",
+      title: "Dabei sein",
+      body: "Du arbeitest im Workshop mit. Pro Treffen nehmen wir nur eine Aufwandsentschädigung. Keine Mitgliedschaft, keine Laufzeit.",
     },
     {
-      title: "Kennenlerngespräch",
-      // ANNAHME: Gespräch ca. 30 Minuten, persönlich oder per Video
-      body: "Rund 30 Minuten, persönlich oder per Video. Wir prüfen gegenseitig, ob es passt, und besprechen die Investition.",
+      title: "Warteliste",
+      body: "Du willst fest dazugehören? Trag dich auf die Warteliste für die Mitgliedschaft ein.",
     },
     {
       title: "Aufnahme",
-      body: "Mit dem ersten Beitrag schalten wir dich frei. Du bekommst deinen Platz im Kreis und die Termine der nächsten Treffen.",
+      body: "Sobald die Mitgliedschaften starten, melden wir uns zuerst bei der Warteliste.",
     },
   ],
 };
 
 export const closing = {
   id: "bewerbung",
-  label: "Mitglied werden",
+  label: "Dabei sein",
   headline: "Dein Platz ++am Tisch.++",
-  body: "Wenn du bis hierhin gelesen hast, weißt du, ob du hierher gehörst. Verbindung, Wachstum, ehrlicher Support. Du wählst deinen Kreis, die Bewerbung dauert rund acht Minuten. Noch unsicher? Komm vorher zu einem Schnuppertermin.",
+  body: "Wenn du bis hierhin gelesen hast, weißt du, ob du hierher gehörst. Verbindung, Wachstum, ehrlicher Support. Gerade bauen wir den Club gemeinsam auf: Du kommst zu den Treffen, ohne Mitgliedschaft. Fest dazugehören willst du? Trag dich auf die Warteliste ein.",
+  /** Button im Abschluss. Die Warteliste steht direkt darunter. */
+  cta: { label: "Treffen anfragen", href: "/schnuppern" },
   waitlist: {
-    title: "Nicht aus Osnabrück?",
-    body: `${plannedCities.map((city) => city.name).join(", ").replace(/, ([^,]*)$/, " und $1")} sind als nächste Städte geplant. Trag dich ein, wir melden uns, sobald dort ein Kreis startet.`,
+    /** Seite /warteliste */
+    meta: {
+      title: "Warteliste",
+      description: "Warteliste für die Mitgliedschaft im FEMPIRE CLUB. Osnabrück und weitere Städte.",
+    },
+    pageHeadline: "Die ++Warteliste.++",
+    pageIntro:
+      "In den nächsten Monaten bauen wir den Club gemeinsam auf. In dieser Zeit gibt es keine Mitgliedschaften, du kommst einfach zu den Treffen. Wer danach fest dazugehören will, steht auf der Warteliste und hört als Erste von uns.",
+    title: "Warteliste für die Mitgliedschaft",
+    body: `Trag dich ein, wir melden uns zuerst bei dir, sobald die Mitgliedschaften starten. Neben Osnabrück sind ${plannedCities.map((city) => city.name).join(", ").replace(/, ([^,]*)$/, " und $1")} geplant.`,
     emailLabel: "E-Mail",
     cityLabel: "Stadt",
     submit: "Eintragen",
@@ -333,10 +348,10 @@ export const trialBand = {
   label: "Schnuppern",
   headline: "Erst ++kennenlernen.++",
   intro:
-    "Du willst sehen, wie es im Kreis wirklich zugeht, bevor du dich bewirbst? Ausgewählte Treffen kannst du einmalig als Gast besuchen, inklusive Heißgetränk. Die Plätze sind begrenzt, wir bestätigen jede Anfrage persönlich.",
-  nextLabel: "Offen für Schnuppergäste",
-  empty: "Die nächsten Schnuppertermine stehen in Kürze fest. Frag trotzdem an, wir melden uns.",
-  points: ["Ein echtes Treffen, kein Infoabend", "Einmalig, ohne Verpflichtung", "Danach entscheidest du in Ruhe"],
+    "Du willst sehen, wie es im Kreis wirklich zugeht? In der Aufbauphase sind ausgewählte Treffen offen für Gäste, inklusive Heißgetränk. Die Plätze sind begrenzt, wir bestätigen jede Anfrage persönlich.",
+  nextLabel: "Offen für Gäste",
+  empty: "Die Termine stehen in Kürze fest. Trag dich auf die Warteliste ein, wir melden uns.",
+  points: ["Ein echtes Treffen, kein Infoabend", "Ohne Mitgliedschaft, ohne Laufzeit", "Pro Treffen nur eine Aufwandsentschädigung"],
   cta: { label: "Schnuppertermin anfragen", href: "/schnuppern" },
   /** So viele offene Schnuppertermine werden angezeigt */
   show: 3,

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { site } from "@/content/site";
 import { ApplicationForm } from "@/components/funnel/ApplicationForm";
 import { funnel } from "@/content/funnel";
 
@@ -15,6 +17,8 @@ const first = (value: string | string[] | undefined) => (Array.isArray(value) ? 
  */
 export default async function BewerbungPage({ searchParams }: PageProps<"/bewerbung">) {
   const params = await searchParams;
+  // Aufbauphase: keine Bewerbung auf eine Mitgliedschaft, nur Warteliste. Einladungscodes aus dem Backend gehen weiter.
+  if (site.aufbauphase && !first(params.code)) redirect("/warteliste");
   return (
     <main>
       <ApplicationForm initialCircle={first(params.kreis).slice(0, 20)} initialCode={first(params.code).slice(0, 40)} />
